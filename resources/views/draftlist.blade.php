@@ -7,7 +7,7 @@
 <html>
 
 <head>
-    <title>Draft list</title>
+    <title>Draft list fix</title>
 </head>
 
 <body>
