@@ -23,6 +23,7 @@ use function App\Http\Controllers\index;
 Route::get('/', 'MainController@index')->name('login');
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard')->middleware('auth');
+Route::get('/admindash', 'AdmindashController@index')->name('admindash')->middleware('auth');
 
 Route::get('/qdash', 'QdashController@index')->name('qdash')->middleware('auth');
 
