@@ -50,6 +50,9 @@ Route::get('/quoting', 'QuoteController@edit')->name('quoting')->middleware('aut
 Route::get('/perpointquote', 'PerpointController@index')->name('perpointquote')->middleware('auth');
 Route::resource('quoting', 'QuoteController')->middleware('auth');
 
+Route::get('/history', 'HistoryController@index')->name('history')->middleware('auth');
+Route::get('/draftlist', 'DraftlistController@index')->name('draftlist')->middleware('auth');
+
 Route::get('/quoteterms', 'QuoteTermController@index')->name('quoteterms')->middleware('auth');
 Route::get('/quoteterms', 'QuoteTermController@edit')->name('quoteterms')->middleware('auth');
 Route::resource('quoteterms', 'QuoteTermController')->middleware('auth');
