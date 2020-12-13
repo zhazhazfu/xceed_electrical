@@ -11,14 +11,14 @@ use App\GrossMargin;
 use App\CompanyCost;
 use App\EmployeeCost;
 
-class AdminqsettingController extends Controller
+class PerpointController extends Controller
 {
     public function index()
     {   
-        $pageHeading = 'Admin Quote Settings';
+        $pageHeading = 'Perpoint Quote';
         
   
-        return view('adminqsetting',[
+        return view('perpointquote',[
             'pageHeading' => $pageHeading]); 
     }
 

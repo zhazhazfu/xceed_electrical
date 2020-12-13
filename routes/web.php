@@ -47,6 +47,7 @@ Route::resource('materials', 'MaterialController')->middleware('auth');
 
 Route::get('/quoting', 'QuoteController@index')->name('quoting')->middleware('auth');
 Route::get('/quoting', 'QuoteController@edit')->name('quoting')->middleware('auth');
+Route::get('/perpointquote', 'PerpointController@index')->name('perpointquote')->middleware('auth');
 Route::resource('quoting', 'QuoteController')->middleware('auth');
 
 Route::get('/quoteterms', 'QuoteTermController@index')->name('quoteterms')->middleware('auth');
