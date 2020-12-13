@@ -72,6 +72,7 @@ Route::get('/subcategories', 'SubCategoryController@index')->name('subcategories
 Route::get('/subcategories', 'SubCategoryController@edit')->name('subcategories')->middleware('auth');
 Route::resource('subcategories', 'SubCategoryController')->middleware('auth');
 
+Route::get('/pricelist', 'Pricelist2Controller@index')->name('pricelist')->middleware('auth');
 Route::get('/pricelists', 'PriceListController@index')->name('pricelists')->middleware('auth');
 Route::get('/pricelists/{page_id}/{id}/edit', 'PriceListController@edit')->middleware('auth');
 Route::patch('/pricelists/{page_id}/{id}/update', 'PriceListController@update')->middleware('auth');
