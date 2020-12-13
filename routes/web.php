@@ -24,9 +24,11 @@ Route::get('/', 'MainController@index')->name('login');
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard')->middleware('auth');
 Route::get('/admindash', 'AdmindashController@index')->name('admindash')->middleware('auth');
-Route::get('/adminqdash', 'AdminqdashController@index')->name('adminqdash')->middleware('auth');
+
 
 Route::get('/qdash', 'QdashController@index')->name('qdash')->middleware('auth');
+Route::get('/adminqdash', 'AdminqdashController@index')->name('adminqdash')->middleware('auth'); 
+Route::get('/adminqsetting', 'AdminqsettingController@index')->name('adminqsetting')->middleware('auth');
 
 Route::get('/customers', 'CustomerController@index')->name('customers')->middleware('auth');
 Route::get('/customers', 'CustomerController@edit')->name('customers')->middleware('auth');
@@ -46,10 +48,6 @@ Route::resource('materials', 'MaterialController')->middleware('auth');
 Route::get('/quoting', 'QuoteController@index')->name('quoting')->middleware('auth');
 Route::get('/quoting', 'QuoteController@edit')->name('quoting')->middleware('auth');
 Route::resource('quoting', 'QuoteController')->middleware('auth');
-
-Route::get('/draftlist', 'DraftlistController@index')->name('draftlist')->middleware('auth');
-Route::get('/history', 'HistoryController@index')->name('history')->middleware('auth');
-
 
 Route::get('/quoteterms', 'QuoteTermController@index')->name('quoteterms')->middleware('auth');
 Route::get('/quoteterms', 'QuoteTermController@edit')->name('quoteterms')->middleware('auth');
