@@ -11,7 +11,7 @@
 
 <div class="cotainer mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-3 mt-5">
+        <div class="col-md-5 mt-5">
             <img src="images/Xceed_logo_small_01-copy1.png" class="img-fluid mx-auto mb-5" style="display:block"
                 width="350px" alt="Responsive image">
             @if(isset(Auth::user()->user_name))
@@ -61,6 +61,7 @@
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" name="remember"> Remember Me
+                                        <button type="button" id="resetpass" class="form-control" name="resetpass" style="background-color:darkblue; color:white; display-inline:block; margin-right:50px;" onclick="location.href='resources/views/resetpassword.blade.php'">Reset Password</button>
                                     </label>
                                 </div>
                             </div>
