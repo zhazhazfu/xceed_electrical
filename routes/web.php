@@ -23,6 +23,7 @@ use function App\Http\Controllers\index;
 Route::get('/', 'MainController@index')->name('login');
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard')->middleware('auth');
+Route::get('/admindash', 'AdmindashController@index')->name('admindash')->middleware('auth');
 
 Route::get('/customers', 'CustomerController@index')->name('customers')->middleware('auth');
 Route::get('/customers', 'CustomerController@edit')->name('customers')->middleware('auth');
