@@ -43,7 +43,7 @@
                 <div class="btn btn-block btn-warning rounded border">
                     <h3> #example </h3>
                     <p> Customer Name </p>
-                    <p> Job name </p>
+                    <p> Job names </p>
                 </div>
 
                 
