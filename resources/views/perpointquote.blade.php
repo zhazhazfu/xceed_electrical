@@ -1,19 +1,19 @@
 @extends('layouts.app')
 
-@section('title', 'Admin Quote Setting')
+@section('title', 'Perpoint Quotes')
 
 @section('content')
 <!-- --------------- -->
 <html>
 
 <head>
-    <title>Admin Quote Setting</title>
+    <title>Perpoint Quotes</title>
 </head>
 
 <body>
 
 <!-- Button trigger modal -->
-<h3> Admin Quote Setting </h3>
+<h3> Perpoint Quotes </h3>
 
         <!-- 、、、、、、、、、、、、、、、、 -->
 </body>
