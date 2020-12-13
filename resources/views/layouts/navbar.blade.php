@@ -11,6 +11,12 @@
             <a href="/{{ 'dashboard' }}" class="list-group-item list-group-item-action bg-light  border-0">Dashboard</a>
         </li>
         <li class="nav-item">
+            <a href="/{{ 'qdash' }}" class="list-group-item list-group-item-action bg-light border-0">Quote Dashboard</a>
+        </li>
+        <li class="nav-item">
+            <a href="/{{ 'pricelist' }}" class="list-group-item list-group-item-action bg-light border-0">Price list</a>
+        </li>
+        <li class="nav-item">
             <a href="/{{ 'customers' }}" class="list-group-item list-group-item-action bg-light border-0">Customers</a>
         </li>
         <li class="nav-item">
@@ -22,8 +28,8 @@
         </li>
 
         @if (Auth::user() && Auth::user()->role == 'admin')
-        <a  class="list-group-item list-group-item-action bg-light border-0">Admin Options</a>
-        <li class="nav-item dropdown">
+        <a href="/{{ 'admindash' }}" class="list-group-item list-group-item-action bg-light border-0">Admin Options</a>
+        {{-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               costs & Expenses
             </a>
@@ -47,10 +53,7 @@
                   <a href="/{{ 'discounts' }}"
                       class="dropdown-item list-group-item list-group-item-action bg-light border-0 pl-4">Discounts</a>
             </div>
-        </li>
-            
-        <a href="/{{ 'users' }}" class="list-group-item list-group-item-action bg-light border-0">User</a>
-        <a href="/{{ 'businessdetails' }}" class="list-group-item list-group-item-action bg-light border-0">Business</a>
+        </li> --}}
         @endif
       </ul>
     </div>
