@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Admin Quote Setting')
+@section('title', 'Perpoint Quotes')
 
 @section('content')
 <!-- --------------- -->
