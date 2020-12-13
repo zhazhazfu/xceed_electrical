@@ -1,34 +1,38 @@
 @if (Auth::user())
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a href="/{{ 'dashboard' }}">
     <img src="/images/Xceed_logo_small_01-copy1.png" class="img-fluid" width="200px" alt="Responsive image">
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
   
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
+      <ul class="navbar-nav mr-auto d-flex flex-row">
+        <li class="nav-item active p-2 ">
             <a href="/{{ 'dashboard' }}" class="list-group-item list-group-item-action bg-light  border-0">Dashboard</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item p-2">
             <a href="/{{ 'qdash' }}" class="list-group-item list-group-item-action bg-light border-0">Quote Dashboard</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item p-2">
             <a href="/{{ 'pricelist' }}" class="list-group-item list-group-item-action bg-light border-0">Price list</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item p-2">
             <a href="/{{ 'customers' }}" class="list-group-item list-group-item-action bg-light border-0">Customers</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item p-2">
             <a href="/{{ 'materials' }}"
                 class="list-group-item list-group-item-action bg-light border-0 border-top">Materials</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item p-2">
             <a href="/{{ 'suppliers' }}" class="list-group-item list-group-item-action bg-light border-0">Suppliers</a>
         </li>
 
         @if (Auth::user() && Auth::user()->role == 'admin')
-        <a href="/{{ 'admindash' }}" class="list-group-item list-group-item-action bg-light border-0">Admin Options</a>
+        <li class="nav-item p-2">
+            <a href="/{{ 'admindash' }}" class="list-group-item list-group-item-action bg-light border-0">Admin Options</a>
+        </li>
         {{-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               costs & Expenses
