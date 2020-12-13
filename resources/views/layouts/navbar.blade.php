@@ -1,15 +1,59 @@
 @if (Auth::user())
-<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-    <button class="btn" id="menu-toggle" type="button" data-toggle="collapse" aria-controls="navbarSupportedContent"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <img src="/images/Xceed_logo_small_01-copy1.png" class="img-fluid" width="200px" alt="Responsive image">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
     </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a href="/{{ 'dashboard' }}" class="list-group-item list-group-item-action bg-light  border-0">Dashboard</a>
+        </li>
+        <li class="nav-item">
+            <a href="/{{ 'customers' }}" class="list-group-item list-group-item-action bg-light border-0">Customers</a>
+        </li>
+        <li class="nav-item">
+            <a href="/{{ 'materials' }}"
+                class="list-group-item list-group-item-action bg-light border-0 border-top">Materials</a>
+        </li>
+        <li class="nav-item">
+            <a href="/{{ 'suppliers' }}" class="list-group-item list-group-item-action bg-light border-0">Suppliers</a>
+        </li>
 
-    <button class="navbar-toggler" id="menu-toggle" type="button" data-toggle="collapse"
-        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-        aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+        @if (Auth::user() && Auth::user()->role == 'admin')
+        <a  class="list-group-item list-group-item-action bg-light border-0">Admin Options</a>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              costs & Expenses
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a href="/{{ 'grossmargin' }}" 
+                  class="dropdown-item list-group-item list-group-item-action bg-light border-0 pl-4">Gross
+                      Margin</a>
+              
+                  <a href="/{{ 'totalcosts' }}"
+                      class="dropdown-item list-group-item list-group-item-action bg-light border-0 pl-4">Total
+                      Business & Employee Costs</a>
+              
+                  <a href="/{{ 'employeecosts' }}"
+                      class="dropdown-item list-group-item list-group-item-action bg-light border-0 pl-4">Employee
+                      Costs</a>
+              
+                  <a href="/{{ 'companycosts' }}"
+                      class="dropdown-item list-group-item list-group-item-action bg-light border-0 pl-4">Company
+                      Costs</a>
+              
+                  <a href="/{{ 'discounts' }}"
+                      class="dropdown-item list-group-item list-group-item-action bg-light border-0 pl-4">Discounts</a>
+            </div>
+        </li>
+            
+        <a href="/{{ 'users' }}" class="list-group-item list-group-item-action bg-light border-0">User</a>
+        <a href="/{{ 'businessdetails' }}" class="list-group-item list-group-item-action bg-light border-0">Business</a>
+        @endif
+      </ul>
+    </div>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0 float-right">
@@ -33,5 +77,6 @@
             </li>
         </ul>
     </div>
-</nav>
+  </nav>
+
 @endif
