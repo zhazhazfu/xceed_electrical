@@ -62,8 +62,7 @@
                                     <label>
                                         <input type="checkbox" name="remember"> Remember Me
                                         <button type="button" id="resetpass" class="form-control" name="resetpass" style="background-color:darkblue; color:white; display-inline:block; margin-right:50px;" onclick="location.href='resources/views/resetpassword.blade.php'">Reset Password</button>
-                                    </label>
-                                </div>
+                                    </label>                               </div>
                             </div>
                         </div>
 
