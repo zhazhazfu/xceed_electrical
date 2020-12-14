@@ -27,7 +27,7 @@ Route::get('/admindash', 'AdmindashController@index')->name('admindash')->middle
 
 
 Route::get('/qdash', 'QdashController@index')->name('qdash')->middleware('auth');
-Route::get('/adminqdash', 'AdminqdashController@index')->name('adminqdash')->middleware('auth'); 
+Route::get('/adminqdash', 'AdminqdashController@index')->name('adminqdash')->middleware('auth');
 Route::get('/adminqsetting', 'AdminqsettingController@index')->name('adminqsetting')->middleware('auth');
 
 Route::get('/customers', 'CustomerController@index')->name('customers')->middleware('auth');
@@ -49,6 +49,7 @@ Route::get('/quoting', 'QuoteController@index')->name('quoting')->middleware('au
 Route::get('/quoting', 'QuoteController@edit')->name('quoting')->middleware('auth');
 Route::get('/perpointquote', 'PerpointController@index')->name('perpointquote')->middleware('auth');
 Route::resource('quoting', 'QuoteController')->middleware('auth');
+
 
 Route::get('/history', 'HistoryController@index')->name('history')->middleware('auth');
 Route::get('/draftlist', 'DraftlistController@index')->name('draftlist')->middleware('auth');
@@ -95,4 +96,6 @@ Route::resource('businessdetails', 'BusinessDetailController')->middleware('auth
 Route::get('/login', 'MainController@index')->name('login');
 Route::post('/main/checklogin', 'MainController@checklogin');
 Route::get('/main/successlogin', 'MainController@successlogin')->middleware('auth');
+Route::get('/emailfornewpassword', 'EmailfornewpasswordController@index')->name('emailfornewpassword');
+Route::get('/resetpassword', 'ResetpasswordController@index')->name('resetpassword');
 Route::get('/main/logout', 'MainController@logout');
