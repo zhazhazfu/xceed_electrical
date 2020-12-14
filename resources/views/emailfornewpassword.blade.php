@@ -7,7 +7,7 @@
 <!-- resources/views/auth/password.blade.php -->
 <html>
 <head>
-    <title>Reset Password Blade Page</title>
+    <title>Email for new Password Blade Page</title>
 </head>
 <body>
     <h1>Reset Password</h1>
