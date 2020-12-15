@@ -15,7 +15,7 @@
 <!-- Button trigger modal -->
 <div class=" p-3 mb-5 bg-white rounded border">
 <h3> Dashboard </h3>
-    <div class='row'>
+    <div class='row w-75 mx-auto'>
         <div class="col-md-4">
             <div class=" p-3 mb-5 bg-white rounded border">
                 <h3 class="text-center"> Pending <h3>

@@ -10,7 +10,7 @@
 <nav class="navbar narbar-dark bg-dark navbar-expand-lg">
     
     <a href="/{{ 'dashboard' }}">
-        <img src="/images/Xceed_logo_small_01-copy1.png" class="img-fluid" width="200px" alt="Responsive image">
+        <img src="/images/Xceed_logo_small_01-dark.png" class="img-fluid" width="200px" alt="Responsive image">
     </a>
   
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
