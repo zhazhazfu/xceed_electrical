@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<h3> Draft list </h3>
+<h3> Draft list</h3>
 <table class="table table-hover">
 <thead>
     <tr>
