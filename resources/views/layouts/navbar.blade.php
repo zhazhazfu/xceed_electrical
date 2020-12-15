@@ -1,63 +1,44 @@
 @if (Auth::user())
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+<style>
+    .nav-item {
+        background: transparent;
+    }
+
+</style>
+
+<nav class="navbar narbar-dark bg-dark navbar-expand-lg">
+    
     <a href="/{{ 'dashboard' }}">
-    <img src="/images/Xceed_logo_small_01-copy1.png" class="img-fluid" width="200px" alt="Responsive image">
+        <img src="/images/Xceed_logo_small_01-copy1.png" class="img-fluid" width="200px" alt="Responsive image">
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
   
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto d-flex flex-row">
-        <li class="nav-item active p-2 ">
-            <a href="/{{ 'dashboard' }}" class="list-group-item list-group-item-action bg-light  border-0">Dashboard</a>
+      <ul class="navbar-nav  mr-auto d-flex flex-row">
+        <li class="nav-item active p-2">
+            <a href="/{{ 'dashboard' }}" class="list-group-item list-group-item-action bg-dark border-0 text-white">Dashboard</a>
         </li>
         <li class="nav-item p-2">
-            <a href="/{{ 'qdash' }}" class="list-group-item list-group-item-action bg-light border-0">Quote Dashboard</a>
+            <a href="/{{ 'qdash' }}" class="list-group-item list-group-item-action bg-dark border-0 text-white">Quote Dashboard</a>
         </li>
         <li class="nav-item p-2">
-            <a href="/{{ 'pricelist' }}" class="list-group-item list-group-item-action bg-light border-0">Price list</a>
+            <a href="/{{ 'pricelist' }}" class="list-group-item list-group-item-action bg-dark border-0 text-white">Price list</a>
         </li>
         <li class="nav-item p-2">
-            <a href="/{{ 'customers' }}" class="list-group-item list-group-item-action bg-light border-0">Customers</a>
+            <a href="/{{ 'customers' }}" class="list-group-item list-group-item-action bg-dark border-0 text-white">Customers</a>
         </li>
         <li class="nav-item p-2">
             <a href="/{{ 'materials' }}"
-                class="list-group-item list-group-item-action bg-light border-0 border-top">Materials</a>
+                class="list-group-item list-group-item-action border-0 text-white bg-dark border-top">Materials</a>
         </li>
         <li class="nav-item p-2">
-            <a href="/{{ 'suppliers' }}" class="list-group-item list-group-item-action bg-light border-0">Suppliers</a>
+            <a href="/{{ 'suppliers' }}" class="list-group-item list-group-item-action bg-dark border-0 text-white">Suppliers</a>
         </li>
 
         @if (Auth::user() && Auth::user()->role == 'admin')
         <li class="nav-item p-2">
-            <a href="/{{ 'admindash' }}" class="list-group-item list-group-item-action bg-light border-0">Admin Options</a>
+            <a href="/{{ 'admindash' }}" class="list-group-item list-group-item-action bg-dark  border-0 text-white">Admin Options</a>
         </li>
-        {{-- <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              costs & Expenses
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a href="/{{ 'grossmargin' }}" 
-                  class="dropdown-item list-group-item list-group-item-action bg-light border-0 pl-4">Gross
-                      Margin</a>
-              
-                  <a href="/{{ 'totalcosts' }}"
-                      class="dropdown-item list-group-item list-group-item-action bg-light border-0 pl-4">Total
-                      Business & Employee Costs</a>
-              
-                  <a href="/{{ 'employeecosts' }}"
-                      class="dropdown-item list-group-item list-group-item-action bg-light border-0 pl-4">Employee
-                      Costs</a>
-              
-                  <a href="/{{ 'companycosts' }}"
-                      class="dropdown-item list-group-item list-group-item-action bg-light border-0 pl-4">Company
-                      Costs</a>
-              
-                  <a href="/{{ 'discounts' }}"
-                      class="dropdown-item list-group-item list-group-item-action bg-light border-0 pl-4">Discounts</a>
-            </div>
-        </li> --}}
         @endif
       </ul>
     </div>
@@ -65,7 +46,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0 float-right">
             <li class="nav-item active">
-                <a class="nav-link">{{ Auth::user()->user_name }}<span class="sr-only">(current)</span></a>
+                <a class="nav-link text-white">{{ Auth::user()->user_name }}<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
