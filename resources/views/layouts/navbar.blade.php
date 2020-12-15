@@ -22,7 +22,7 @@
             <a href="/{{ 'qdash' }}" class="list-group-item list-group-item-action bg-dark border-0 text-white">Quote Dashboard</a>
         </li>
         <li class="nav-item p-2">
-            <a href="/{{ 'pricelist' }}" class="list-group-item list-group-item-action bg-dark border-0 text-white">Price list</a>
+            <a href="/{{ 'pricelist' }}" class="list-group-item list-group-item-action bg-dark border-0 text-white">Price List</a>
         </li>
         <li class="nav-item p-2">
             <a href="/{{ 'customers' }}" class="list-group-item list-group-item-action bg-dark border-0 text-white">Customers</a>
