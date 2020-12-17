@@ -4,6 +4,8 @@
 
 @section('content')
 
+
+
 @if (Auth::user() && Auth::user()->role != 'admin')
 <div class="mx-auto mt-5" style="width: 200px;">
     <h2>
