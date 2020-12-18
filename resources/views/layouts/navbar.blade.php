@@ -47,8 +47,20 @@
         </li>
 
         @if (Auth::user() && Auth::user()->role == 'admin')
-        <li class="nav-item p-2">
-            <a href="/{{ 'admindash' }}" class="list-group-item list-group-item-action bg-dark  border-0 text-white">Admin Options</a>
+        <li class="nav-item dropdown p-2">
+        <a class="nav-link dropdown-toggle bg-dark border-0 text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Admin Options
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/{{ 'totalcosts' }}">Total Costs</a>
+              <a class="dropdown-item" href="/{{ 'employeecosts' }}">Employee Costs</a>
+              <a class="dropdown-item" href="/{{ 'companycosts' }}">Company Cost</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/{{ 'discounts' }}">Discounts</a>
+              <a class="dropdown-item" href="/{{ 'users' }}">User Management</a>
+              <a class="dropdown-item" href="/{{ 'adminqdash' }}">Quote Management</a>
+              <a class="dropdown-item" href="/{{ 'businessdetails' }}">Business Details</a>
+              </div>
         </li>
         @endif
       </ul>
