@@ -18,9 +18,20 @@
         <li class="nav-item active p-2">
             <a href="/{{ 'dashboard' }}" class="list-group-item list-group-item-action bg-dark border-0 text-white">Dashboard</a>
         </li>
-        <li class="nav-item p-2">
-            <a href="/{{ 'qdash' }}" class="list-group-item list-group-item-action bg-dark border-0 text-white">Quote Dashboard</a>
-        </li>
+        <li class="nav-item dropdown p-2">
+            <a class="nav-link dropdown-toggle bg-dark border-0 text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Quote Dashboard
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/{{ 'quoting' }}">Quote</a>
+              @if (Auth::user() && Auth::user()->role == 'admin')
+              <a class="dropdown-item" href="/{{ 'perpointquote' }}">Per Point Quote</a>
+              @endif
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/{{ 'history' }}">History</a>
+              <a class="dropdown-item" href="/{{ 'draftlist' }}">Draft</a>
+            </div>
+          </li>
         <li class="nav-item p-2">
             <a href="/{{ 'pricelist' }}" class="list-group-item list-group-item-action bg-dark border-0 text-white">Price List</a>
         </li>
