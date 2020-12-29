@@ -139,12 +139,19 @@
                 <div class="form-group">
                 </div>
                 <div class="form-group col-md-8">
-                    <label for="quote_inclusions">Inclusions</label>
-                    <textarea class="form-control" id="quote_inclusions" name="quote_inclusions" rows="2"></textarea>
+                    <select class="form-control" id="term_name" name="term_name">
+                        @foreach($quoteterms as $quoteterm)
+                        <option value="{{ $quoteterm->pk_term_id }}">{{ $quoteterm->term_name }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group col-md-8">
                     <label for="quote_exclusions">Exclusions</label>
-                    <textarea class="form-control" id="quote_inclusions" name="quote_exclusions" rows="2"></textarea>
+                    <select class="form-control" id="term_name" name="term_name">
+                        @foreach($quoteterms as $quoteterm)
+                        <option value="{{ $quoteterm->pk_term_id }}">{{ $quoteterm->term_name }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
         </div>
