@@ -30,6 +30,7 @@ class UserController extends Controller
             'user_firstlast' => $request->get('user_firstlast'),
             'password' => Hash::make($request->get('password')),
             'role' => $request->get('role'),
+            'email' => $request->get('email'),
             'user_archived' => $request->get('user_archived')
         ]);
         $newUser->save();
@@ -60,6 +61,7 @@ class UserController extends Controller
             $users->password = Hash::make($request->get('password'));
         }
         $users->role = $request->get('role');
+        $users->email = $request->get('email');
         $users->user_archived = $request->get('user_archived');
         $users->save();
 
