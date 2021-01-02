@@ -11,14 +11,14 @@ class Quote extends Model
     protected $fillable = [
             'fk_businessdetail_id',
             'fk_customer_id',
-            'fk_quoteitem_id',
-            'fk_user_id',
-            'fk_status_id', 
+            'fk_user_id', //new
+            'fk_term_id',
+            'fk_in_id', //new
+            'fk_ex_id', //new
             'quote_number',
+            'quote_status', //new
             'quote_revisionnumber',
-            'quote_comment',
-            'quote_discountrate',
-            'quote_termbody',
+            'quote_comment', 
         ];
 
     public function businessDetails()

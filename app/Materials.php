@@ -4,15 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Material extends Model
+class Materials extends Model
 {
     protected $table = 'materials';
     protected $primaryKey = 'pk_material_id';
     protected $fillable = [
+        'fk_supplier_id',
         'material_itemcode',
         'material_description',
         'material_cost',
-        'fk_supplier_id',
         'material_archived'
     ];
 
