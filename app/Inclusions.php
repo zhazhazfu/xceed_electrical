@@ -4,13 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class QuoteItem extends Model
+class Inclusions extends Model
 {
-    protected $table = 'quoteitem';
-    protected $primaryKey = 'pk_quotes_item_id';
+    protected $table = 'inclusions';
+    protected $primaryKey = 'pk_in_id';
     protected $fillable = [
-            'fk_quote_id', 
-            'fk_item_has_materails_id'
+            'inclusion_Content'
         ];
 }
 

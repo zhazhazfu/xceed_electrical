@@ -10,6 +10,7 @@ class GrossMargin extends Model
     protected $primaryKey = 'pk_gm_id';
     protected $fillable = [
             'gm_rate', 
+            'gm_percentage', // new
         ];
 
 }   
