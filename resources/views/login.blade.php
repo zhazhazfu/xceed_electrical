@@ -65,7 +65,7 @@
                                 </div>
                                 <div class="row">
                                 <div class="col-sm">
-                                <a href="/{{ 'emailfornewpassword' }}" style="background-color:darkblue; color:white; display-inline:block;">Reset Password</a>
+                                <a href="/{{ 'emailfornewpassword' }}" style="background-color:darkblue; color:white; display: inline-block;">Reset Password</a>
                                 </div>
                                 </div>    
                             </div>
