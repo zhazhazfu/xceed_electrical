@@ -194,6 +194,8 @@ class AddGM extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('grossmargins', function(Blueprint $table) {
+            $table->integer('gm_persentage');
+        });
     }
 }
