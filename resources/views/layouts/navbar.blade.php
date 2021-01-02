@@ -58,7 +58,7 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/{{ 'discounts' }}">Discounts</a>
               <a class="dropdown-item" href="/{{ 'users' }}">User Management</a>
-              <a class="dropdown-item" href="/{{ 'adminqdash' }}">Quote Management</a>
+              <a class="dropdown-item" href="/{{ 'grossmargin' }}">Quote Management</a>
               <a class="dropdown-item" href="/{{ 'businessdetails' }}">Business Details</a>
               </div>
         </li>

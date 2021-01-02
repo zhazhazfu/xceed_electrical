@@ -35,8 +35,8 @@
                 {{csrf_field()}}
                 <input type="hidden" name="_method" value="PATCH">
                 <div class="form-group">
-                    <input type="text" name="gm_rate" class="form-control" value="{{$grossmargin->gm_rate}}"
-                        placeholder="0.00">
+                    <input type="text" name="gm_percentage" class="form-control" value="{{$grossmargin->gm_pencentage}}"
+                        placeholder="10">
                 </div>
                 <div class="form-group">
                     <a class="btn btn-secondary" href="{{url('/grossmargin')}}">Cancel</a>
