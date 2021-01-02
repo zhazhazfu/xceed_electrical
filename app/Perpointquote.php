@@ -6,19 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Perpointquote extends Model
 {
-    protected $table = 'perpointquote';
-    protected $primaryKey = 'pk_perpoint_id';
+    protected $table = 'quotes';
+    protected $primaryKey = 'pk_quote_id';
     protected $fillable = [
-            'fk_user_id',
-            'fk_term_id',
-            'fk_in_id',
-            'fk_ex_id', 
-            'fk_customer_id',
             'fk_businessdetail_id',
-            'fk_material_id',
-            'perpoint_comments',
-            'perpoint_number',
-            'perpoint_status'
+            'fk_customer_id',
+            'fk_quoteitem_id',
+            'fk_user_id',
+            'fk_status_id', 
+            'quote_number',
+            'quote_revisionnumber',
+            'quote_comment',
+            'quote_discountrate',
+            'quote_termbody',
         ];
 
     public function businessDetails()

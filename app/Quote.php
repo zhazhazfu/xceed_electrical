@@ -11,14 +11,17 @@ class Quote extends Model
     protected $fillable = [
             'fk_businessdetail_id',
             'fk_customer_id',
-            'fk_user_id', //new
+            'fk_user_id',
+            'fk_status_id',
             'fk_term_id',
-            'fk_in_id', //new
-            'fk_ex_id', //new
+            'fk_in_id',
+            'fk_ex_id', 
             'quote_number',
-            'quote_status', //new
+            'quote_status',
             'quote_revisionnumber',
-            'quote_comment', 
+            'quote_comment',
+           // 'quote_discountrate',
+          //  'quote_termbody',
         ];
 
     public function businessDetails()
@@ -29,6 +32,16 @@ class Quote extends Model
     public function customers()
     {
         return $this->belongsTo('App\Customer', 'fk_customer_id', 'pk_customer_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'fk_cust_id', 'pk_customer_id');
+    }
+
+    public function status()
+    {
+        return $this->belongsTo('App\User', 'fk_customer_id', 'pk_customer_id');
     }
 
     // Relationships to be added:
