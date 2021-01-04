@@ -98,6 +98,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
         Add Product
     </button>
 
+
     <!-- Active/Archived buttons -->
     <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
         <label class="btn btn-secondary active">
@@ -207,10 +208,24 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                 </div>
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm">
+                                <label for="input">Labour Cost</label>
+                                <label class="sr-only" for="inlineFormInputGroup">Labour Cost</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">$</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="item_labourcost"
+                                        name="item_labourcost" placeholder="10">
+                                </div>
+                            </div>
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary">Save Product</button>
+                    <a type="hidden" id="pk_item_id"  name="pk_item_id" value="{{$items->pk_item_id}}"></a>
                 </div>
                 </form>
             </div>
@@ -245,20 +260,21 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                 </thead>
                 <tbody>
                     @foreach($subCategories as $subCategory)
-                    @foreach($subCategory->priceLists as $priceList)
-                    @if($priceList->item_archived == '0')
+                    @foreach($subCategory->items as $item)
+                    @foreach ($item->itemHasMaterials as $itemHasMaterials)
+                    @if($itemHasMaterials->item_archived == '0')
                     <tr>
-                        <td>{{ $priceList->item_number }}</td>
-                        <td>{{ $priceList->item_jobtype }}</td>
-                        <td>{{ $priceList->subCategory->subcategory_name }}</td>
-                        <td>{{ $priceList->item_description }}</td>
-                        <td>{{ $priceList->material->material_description }}</td>
+                        <td>{{ $itemHasMaterials->item_number }}</td>
+                        <td>{{ $itemHasMaterials->item_jobtype }}</td>
+                        <td>{{ $itemHasMaterials->subCategory->subcategory_name }}</td>
+                        <td>{{ $itemHasMaterials->item_description }}</td>
+                        <td>{{ $itemHasMaterials->materials->material_description }}</td>
                         @foreach ($grossMargins as $grossMargin)
-                        <td>${{ number_format((($priceList->material->material_cost*$grossMargin->gm_rate) + $priceList->item_servicecall + $priceList->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2) }}
+                        <td>{{ number_format((($itemHasMaterials->materials->material_cost*$grossMargin->gm_rate) + $itemHasMaterials->item_servicecall + $itemHasMaterials->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2) }}
                         </td>
                         @endforeach
                         <td>
-                            <a href data-toggle="modal" data-target="#exampleModal{{ $priceList->pk_item_id }}">
+                            <a href data-toggle="modal" data-target="#exampleModal{{ $itemHasMaterials->pk_item_id }}">
                                 Pricing
                             </a>
                         </td>
@@ -432,6 +448,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                         </div>
                     </div>
                     @endif
+                    @endforeach
                     @endforeach
                     @endforeach
                     

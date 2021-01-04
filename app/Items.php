@@ -15,11 +15,17 @@ class Items extends Model
             'item_description',
             'item_estimatedtime',
             'item_servicecall',
-            'item_labourcost'
+            'item_labourcost',
+            'item_archived'
         ];
 
     public function subcategories()
     {
-        return $this->belongsTo('App\subCategory', 'fk_subcategory_id', 'pk_subcategory_id');
+        return $this->belongsTo(SubCategory::class, 'fk_subcategory_id');
+    }
+
+    public function itemHasMaterials()
+    {
+        return $this->hasMany(ItemHasMaterials::class, 'fk_item_id', 'pk_item_id');
     }
 }

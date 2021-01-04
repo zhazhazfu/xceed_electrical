@@ -35,6 +35,7 @@ Route::get('/customers', 'CustomerController@edit')->name('customers')->middlewa
 Route::resource('customers', 'CustomerController')->middleware('auth');
 
 Route::get('/users', 'UserController@index')->name('users')->middleware('auth');
+Route::get('/users', 'UserController@edit')->name('users')->middleware('auth');
 Route::resource('users', 'UserController')->middleware('auth');
 
 Route::get('/suppliers', 'SupplierController@index')->name('suppliers')->middleware('auth');
@@ -85,10 +86,11 @@ Route::get('/subcategories', 'SubCategoryController@edit')->name('subcategories'
 Route::resource('subcategories', 'SubCategoryController')->middleware('auth');
 
 Route::get('/pricelist', 'PricelistDashController@index')->name('pricelist')->middleware('auth');
-Route::get('/pricelists', 'PriceListController@index')->name('pricelists')->middleware('auth');
-Route::get('/pricelists/{page_id}/{id}/edit', 'PriceListController@edit')->middleware('auth');
-Route::patch('/pricelists/{page_id}/{id}/update', 'PriceListController@update')->middleware('auth');
-Route::resource('pricelists', 'PriceListController')->middleware('auth');
+Route::get('/pricelists', 'ItemHasMaterialController@index')->name('pricelists')->middleware('auth');
+Route::get('/addItem', 'AddItemController@index')->name('addItem')->middleware('auth');
+Route::get('/pricelists/{page_id}/{id}/edit', 'ItemHasMaterialController@edit')->middleware('auth');
+Route::patch('/pricelists/{page_id}/{id}/update', 'ItemHasMaterialController@update')->middleware('auth');
+Route::resource('pricelists', 'ItemHasMaterialController')->middleware('auth');
 
 Route::get('/businessdetails', 'BusinessDetailController@index')->name('businessdetails')->middleware('auth');
 Route::get('/businessdetails', 'BusinessDetailController@edit')->name('businessdetails')->middleware('auth');

@@ -22,7 +22,8 @@ class UserController extends Controller
         $this->validate($request, [
             'user_name' => 'required',
             'user_firstlast' => 'required',
-            'password' => 'required'
+            'password' => 'required',
+            'email' => 'required'
         ]);
 
         $newUser = new User([
@@ -50,7 +51,8 @@ class UserController extends Controller
         $this->validate($request,[
             'user_name' => 'required',
             'user_firstlast' => 'required',
-        ]);
+            'email' => 'required'
+        ]);  
 
         $password = $request->get('password');
         
