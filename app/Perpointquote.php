@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Perpointquote extends Model
 {
-    protected $table = 'perpointquote';
+    protected $table = 'perpointquotes';
     protected $primaryKey = 'pk_perpoint_id';
     protected $fillable = [
             'fk_user_id',
