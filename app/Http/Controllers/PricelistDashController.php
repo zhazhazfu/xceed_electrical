@@ -9,7 +9,7 @@ use App\GrossMargin;
 use App\CompanyCost;
 use App\EmployeeCost;
 use App\Customer;
-class Pricelist2Controller extends Controller
+class PricelistDashController extends Controller
 {
     public function index()
     {
