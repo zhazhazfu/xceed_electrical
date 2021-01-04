@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSubCategories extends Migration
+class AddItemSubcategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,6 +13,14 @@ class AddSubCategories extends Migration
      */
     public function up()
     {
+        Schema::create('itemsubcategories', function (Blueprint $table) {
+            $table->id('pk_subcategory_id');
+            $table->foreignId('fk_category_id')->references('pk_category_id')->on('itemcategories');
+            $table->string('subcategory_name');
+            $table->tinyInteger('subcategory_archived')->default(0);
+            $table->timestamps();
+        });
+
         $subcategory = new App\SubCategory();
         $subcategory->fk_category_id = 1;
         $subcategory->subcategory_name = 'BATTEN HOLDERS & OYSTER LIGHTS';
@@ -72,7 +80,6 @@ class AddSubCategories extends Migration
         $subcategory->fk_category_id = 4;
         $subcategory->subcategory_name = 'PATCH PANELS REPLACEMENTS / INSTALLATIONS';
         $subcategory->save();
-
     }
 
     /**
