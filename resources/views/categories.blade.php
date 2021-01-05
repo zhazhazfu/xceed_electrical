@@ -98,7 +98,7 @@
                     @foreach($categories as $category)
                     @if($category->category_archived == '0')
                     <tr>
-                        <td><a href="{{action('PriceListController@show', $category['pk_category_id'])}}">{{ $category->category_name }}</a></td>
+                        <td><a href="{{action('ItemHasMaterialController@show', $category['pk_category_id'])}}">{{ $category->category_name }}</a></td>
                         <td><a href="{{action('CategoryController@edit', $category['pk_category_id'])}}">Edit</a></td>
                     </tr>
                     @endif
