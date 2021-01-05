@@ -225,7 +225,6 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary">Save Product</button>
-                    <a type="hidden" id="pk_item_id"  name="pk_item_id" value="{{$items->pk_item_id}}"></a>
                 </div>
                 </form>
             </div>
