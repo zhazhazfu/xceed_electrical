@@ -261,36 +261,36 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                     @foreach($subCategories as $subCategory)
                     @foreach($subCategory->items as $item)
                     @foreach ($item->itemHasMaterials as $itemHasMaterials)
-                    @if($itemHasMaterials->item_archived == '0')
+                    @if($item->item_archived == '0')
                     <tr>
-                        <td>{{ $itemHasMaterials->item_number }}</td>
-                        <td>{{ $itemHasMaterials->item_jobtype }}</td>
-                        <td>{{ $itemHasMaterials->subCategory->subcategory_name }}</td>
-                        <td>{{ $itemHasMaterials->item_description }}</td>
-                        <td>{{ $itemHasMaterials->materials->material_description }}</td>
+                        <td>{{ $item->item_number }}</td>
+                        <td>{{ $item->item_jobtype }}</td>
+                        <td>{{ $subCategory->subcategory_name }}</td>
+                        <td>{{ $item->item_description }}</td>
+                        <td>{{ $itemHasMaterials->material->material_description }}</td>
                         @foreach ($grossMargins as $grossMargin)
-                        <td>{{ number_format((($itemHasMaterials->materials->material_cost*$grossMargin->gm_rate) + $itemHasMaterials->item_servicecall + $itemHasMaterials->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2) }}
+                        <td>{{ number_format((($itemHasMaterials->material->material_cost*$grossMargin->gm_rate) + $itemHasMaterials->item_servicecall + $itemHasMaterials->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2) }}
                         </td>
                         @endforeach
                         <td>
-                            <a href data-toggle="modal" data-target="#exampleModal{{ $itemHasMaterials->pk_item_id }}">
+                            <a href data-toggle="modal" data-target="#exampleModal{{ $item->pk_item_id }}">
                                 Pricing
                             </a>
                         </td>
                         <td>
-                            <a href="{{url('/pricelists/'.$page_id.'/'.$priceList['pk_item_id'].'/edit')}}">Edit</a>
+                            <a href="{{url('/pricelists/'.$page_id.'/'.$item['pk_item_id'].'/edit')}}">Edit</a>
                         </td>
                     </tr>
 
                     <!-- active pricing modal -->
 
-                    <div class="modal fade" id="exampleModal{{ $priceList->pk_item_id }}" tabindex="-1"
+                    <div class="modal fade" id="exampleModal{{ $item->pk_item_id }}" tabindex="-1"
                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">{{ $priceList->item_number }} |
-                                        {{ $priceList->item_description }}</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">{{ $item->item_number }} |
+                                        {{ $item->item_description }}</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -306,7 +306,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                                 </div>
                                                 <input type="text" class="form-control" id="inlineFormInputGroup"
                                                     name="materialCost"
-                                                    value="{{ number_format($priceList->material->material_cost,2) }}"
+                                                    value="{{ number_format($itemHasMaterials->material->material_cost,2) }}"
                                                     disabled>
                                             </div>
                                         </div>
@@ -332,7 +332,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                                 </div>
                                                 <input type="text" class="form-control" id="inlineFormInputGroup"
                                                     name="materialCharge"
-                                                    value="{{ number_format($priceList->material->material_cost*$grossMargin->gm_rate,2) }}"
+                                                    value="{{ number_format($itemHasMaterials->material->material_cost*$grossMargin->gm_rate,2) }}"
                                                     disabled>
                                             </div>
                                         </div>
@@ -362,7 +362,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                                 </div>
                                                 <input type="text" class="form-control" id="inlineFormInputGroup"
                                                     name="estimatedTime"
-                                                    value="{{ $priceList->item_estimatedtime }} hours" disabled>
+                                                    value="{{ $item->item_estimatedtime }} hours" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group col-md-4">
@@ -374,7 +374,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                                 </div>
                                                 <input type="text" class="form-control" id="inlineFormInputGroup"
                                                     name="labourCharge"
-                                                    value="{{ number_format($priceList->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8),2) }}"
+                                                    value="{{ number_format($item->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8),2) }}"
                                                     disabled>
                                             </div>
                                         </div>
@@ -392,7 +392,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                                 </div>
                                                 <input type="text" class="form-control" id="inlineFormInputGroup"
                                                     name="serviceCallCharge"
-                                                    value="${{number_format($priceList->item_servicecall,2) }}"
+                                                    value="${{number_format($item->item_servicecall,2) }}"
                                                     disabled>
                                             </div>
                                         </div>
@@ -407,7 +407,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                                 </div>
                                                 <input type="text" class="form-control" id="inlineFormInputGroup"
                                                     name="price"
-                                                    value="{{ number_format(($priceList->material->material_cost*$grossMargin->gm_rate) + $priceList->item_servicecall + $priceList->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8),2) }}"
+                                                    value="{{ number_format(($itemHasMaterials->material->material_cost*$grossMargin->gm_rate) + $item->item_servicecall + $item->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8),2) }}"
                                                     disabled>
                                             </div>
                                         </div>
@@ -420,7 +420,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                                 </div>
                                                 <input type="text" class="form-control" id="inlineFormInputGroup"
                                                     name="gst"
-                                                    value="{{ number_format((($priceList->material->material_cost*$grossMargin->gm_rate) + $priceList->item_servicecall + $priceList->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*0.1,2) }}"
+                                                    value="{{ number_format((($itemHasMaterials->material->material_cost*$grossMargin->gm_rate) + $item->item_servicecall + $item->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*0.1,2) }}"
                                                     disabled>
                                             </div>
                                         </div>
@@ -433,7 +433,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                                 </div>
                                                 <input type="text" class="form-control" id="inlineFormInputGroup"
                                                     name="priceIncGst"
-                                                    value="{{ number_format((($priceList->material->material_cost*$grossMargin->gm_rate) + $priceList->item_servicecall + $priceList->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2) }}"
+                                                    value="{{ number_format((($itemHasMaterials->material->material_cost*$grossMargin->gm_rate) + $item->item_servicecall + $item->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2) }}"
                                                     disabled>
                                             </div>
                                         </div>

@@ -70,7 +70,7 @@ class ItemHasMaterialController extends Controller
         ]);
         $item->save(); // save the item to get a new id
         $itemHasMaterial = new itemHasMaterials([
-            'fk_item_id' => $item-id, // the new id is now available to store
+            'fk_item_id' => $item-> pk_item_id, // the new id is now available to store
             'fk_material_id' => $request->get('fk_material_id')
         ]);
         $itemHasMaterial->save();
