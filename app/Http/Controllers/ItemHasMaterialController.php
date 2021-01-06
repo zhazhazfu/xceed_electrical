@@ -68,13 +68,11 @@ class ItemHasMaterialController extends Controller
             'item_labourcost' => $request->get('item_labourcost'),
             'item_archived' => $request->get('item_archived')
         ]);
-
+        $item->save(); // save the item to get a new id
         $itemHasMaterial = new itemHasMaterials([
-            'fk_item_id' => $request->get('pk_item_id'),
+            'fk_item_id' => $item-id, // the new id is now available to store
             'fk_material_id' => $request->get('fk_material_id')
         ]);
-
-        $item->save();
         $itemHasMaterial->save();
         return back()->with('success', 'Job added');    
     }
