@@ -31,6 +31,11 @@ class Perpointquote extends Model
         return $this->belongsTo('App\Customer', 'fk_customer_id', 'pk_customer_id');
     }
 
+    public function preview()
+    {
+        return $this->belongsTo('App\Preview');
+    }
+
     // Relationships to be added:
 
     // One-to-Many:
