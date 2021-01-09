@@ -29,6 +29,7 @@
               @endif
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/{{ 'quotesetting' }}">Quote Settings</a>
+              <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/{{ 'history' }}">History</a>
               <a class="dropdown-item" href="/{{ 'draftlist' }}">Draft</a>
             </div>
