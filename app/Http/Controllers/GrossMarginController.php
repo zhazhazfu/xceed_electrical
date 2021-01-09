@@ -23,11 +23,20 @@ class GrossMarginController extends Controller
         return view('grossmargin', compact('grossmargin','employeeCosts','companyCosts'));
     }
 
+    // public function show($pk_gm_id)
+    // {
+    //     $grossmargin = GrossMargin::find($pk_gm_id)
+    //                             ->where('id',$pk_gm_id=30)
+    //                             ->first();
+       
+    //     return view('grossmargin', compact('grossmargin'));
+    // }
+
 
     public function store(Request $request)
     {
         $this->validate($request,[
-            'add_gm_percentage' => 'required',
+            'gm_percentage' => 'required',
         ]);
 
         $newGrossMargin = new GrossMargin([
@@ -50,10 +59,12 @@ class GrossMarginController extends Controller
 
         $this->validate($request,[
                     'gm_percentage' => 'required',
+                    'gm_rate' => 'required',
         ]);
 
         $grossmargin = GrossMargin::find($pk_gm_id);
         $grossmargin->gm_percentage = $request->get('gm_percentage');
+        $grossmargin->gm_rate = $request->get('gm_rate');
         $grossmargin->save();
 
         return redirect()->route('grossmargin.index')->with('success', 'GM rate updated');

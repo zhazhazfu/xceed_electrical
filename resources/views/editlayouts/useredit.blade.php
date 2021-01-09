@@ -54,6 +54,12 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-sm">
+                        <label for="input">Email</label>
+                        <input type="email" class="form-control" id="email" name="email">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm">
                         <label for="input">User type</label>
                         <select id="role" name="role" class="form-control">
                             @if($users->role == 'user')

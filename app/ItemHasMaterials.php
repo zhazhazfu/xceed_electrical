@@ -15,7 +15,7 @@ class ItemHasMaterials extends Model
 
     public function items()
     {
-        return $this->belongsTo(Items::class,'fk_item_id');
+        return $this->belongsTo(Items::class,'fk_item_id','pk_item_id');
     }
 
     public function material()

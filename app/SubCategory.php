@@ -16,7 +16,13 @@ class SubCategory extends Model
 
     public function categories()
     {
-        return $this->belongsTo('App\Category', 'fk_category_id', 'pk_category_id');
+        return $this->belongsTo(Category::class, 'fk_category_id');
+    }
+
+
+    public function items()
+    {
+        return $this->hasMany(Items::class, 'fk_subcategory_id');
     }
 
     public function priceLists()
