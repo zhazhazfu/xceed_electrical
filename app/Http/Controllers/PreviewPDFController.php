@@ -55,7 +55,7 @@ class PreviewPDFController extends Controller
             $quoteterms = QuoteTerm::all();
             $discounts = Discount::all();
             $grossmargins = GrossMargin::all();
-            $pdf = PDF::loadView('previewPDF',compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'priceLists', 'quoteterms', 'discounts', 'grossmargins'));
+            $pdf =  PDF::loadView('previewPDF',compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'priceLists', 'quoteterms', 'discounts', 'grossmargins'));
   
         return $pdf->download('Quote.pdf');
     }
