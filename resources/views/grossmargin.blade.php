@@ -28,7 +28,7 @@
         </div>
         @endif
     </div>
-    <p class="h3 mb-4 float-left">Current GM Rate</p>
+    <p class="h3 mb-4 float-left">Current Gross Margin Rate</p>
 
     <!-- total company expenses -->
     @php
@@ -100,7 +100,69 @@
 
 
 
- 
+    <!-- Edit Modal -->
+    {{-- <div class="modal fade" id="gmModal" tabindex="-1" role="dialog" aria-labelledby="gmModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="gmModalLabel">Edit GM rate</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{{action('GrossMarginController@update', 'gm_rate')}}">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="_method" value="PATCH">
+                        <div class="form-row">
+                            <div class="form-group col-sm">
+                                <label for="input">Gross margin rate</label>
+                                <label class="sr-only" for="inlineFormInputGroup">Gross margin rate</label>
+                                <div class="input-group mb-2">
+                                     <select id="gm_percentage" name="gm_percentage">
+                                        <option>10</option>
+                                        <option>12.5</option>
+                                        <option>15</option>
+                                        <option>20</option>
+                                        <option>22.5</option>
+                                        <option>25</option>
+                                        <option>27.5</option>
+                                        <option>30</option>
+                                        <option>32.5</option>
+                                        <option>35</option>     
+                                        <option>37.5</option>
+                                        <option>40</option>
+                                        <option>42.5</option>
+                                        <option>45</option>
+                                        <option>47.5</option>
+                                        <option>50</option>
+                                        <option>52.5</option>
+                                        <option>55</option>
+                                        <option>57.5</option>
+                                        <option>60</option>
+                                        <option>62.5</option>
+                                        <option>65</option>
+                                        <option>67.5</option>
+                                        <option>70</option>
+                                        <option>75</option>
+                                        <option>80</option>
+                                        <option>85</option>
+                                      
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="Submit" class="btn btn-primary">Update GM rate</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div> --}}
+
+
     <div class='table-responsive'>
         <table class="table table-hover table-sm">
             <thead>
@@ -113,29 +175,30 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach($grossmargin as $gm)
                 <tr>
                     <td>
-                        ${{ number_format($total_business_hourly_cost/365/8,2) }}
-                    </td>
-
-                    <td>
-                        @foreach($grossmargin as $grossmargins)
-                        @if ($grossmargins->pk_gm_id == $grossmargins->pk_gm_id)
-                        {{ $grossmargins->gm_percentage}}
-                        @endif
-                        @endforeach
-                    </td>
-
-                    <td>
-                        @foreach($grossmargin as $grossmargins)
-                        {{ $grossmargins->gm_rate }}
-                        @endforeach
+                        {{ number_format($total_business_hourly_cost/365/8,2) }}
                     </td>
                     <td>
-                        {{ number_format($total_business_hourly_cost/365/8 * $grossmargins->gm_rate,2) }}
+                       
+                        {{ $gm->gm_percentage }}
+                     
+                        
+                          {{-- @foreach($grossmargin as $gm)
+                                    <option value="{{ $gm -> pk_gm_id }}">{{ $gm -> gm_percentage }}</option>
+                                @endforeach --}}
                     </td>
-                    <td><a href="{{action('GrossMarginController@edit', $grossmargins['pk_gm_id'])}}">Edit</a></td>
-
+                    <td>
+                       {{$gm->gm_rate}}
+                    </td>
+                    <td>
+                        {{ number_format($total_business_hourly_cost/365/8 * $gm->gm_rate,2) }}
+                    </td>
+                    <td>
+                        <a href="{{action('GrossMarginController@edit', $gm['pk_gm_id'])}}">Edit</a>
+                    </td>
+                    @endforeach
                 </tr>
             </tbody>
         </table>
