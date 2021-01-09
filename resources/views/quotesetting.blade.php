@@ -55,7 +55,7 @@
 
                             <div class="form-group col-md-6">
                                 <label for="input">T&C ID</label>
-                                <label class="sr-only" for="inlineFormInputGroup">Vehicle</label>
+                                <label class="sr-only" for="inlineFormInputGroup">Terms and Conditions</label>
                                 <div class="input-group mb-2">
                                     <input type="text" class="form-control" id="inlineFormInputGroup"
                                         name="termsandconditions">
