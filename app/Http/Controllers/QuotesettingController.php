@@ -9,15 +9,14 @@ use App\GrossMargin;
 use App\CompanyCost;
 use App\EmployeeCost;
 use App\Customer;
-class Pricelist2Controller extends Controller
+class QuotesettingController extends Controller
 {
     public function index()
     {
         //
-        $pageHeading = 'Price List';
-        //
+        $pageHeading = 'Quote Setting';
 
-        return view('pricelist',[
+        return view('quotesetting',[
             'pageHeading' => $pageHeading]);
     }
 }

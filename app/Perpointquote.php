@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Perpointquote extends Model
 {
-    protected $table = 'perpointquote';
+    protected $table = 'perpointquotes';
     protected $primaryKey = 'pk_perpoint_id';
     protected $fillable = [
             'fk_user_id',
@@ -29,6 +29,11 @@ class Perpointquote extends Model
     public function customers()
     {
         return $this->belongsTo('App\Customer', 'fk_customer_id', 'pk_customer_id');
+    }
+
+    public function preview()
+    {
+        return $this->belongsTo('App\Preview');
     }
 
     // Relationships to be added:

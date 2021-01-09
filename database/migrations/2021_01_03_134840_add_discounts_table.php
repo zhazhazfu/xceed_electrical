@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddDiscount extends Migration
+class AddDiscountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,6 +13,14 @@ class AddDiscount extends Migration
      */
     public function up()
     {
+        Schema::create('discounts', function (Blueprint $table) {
+            $table->id('pk_discount_id');
+            $table->string('discount_name');
+            $table->double('discount_rate');
+            $table->tinyInteger('discount_archived')->default(0);
+            $table->timestamps();
+        });
+
         $discount = new App\Discount();
         $discount->discount_name = 'NORMAL PRICING - NO DISCOUNT';
         $discount->discount_rate = '0';

@@ -14,8 +14,11 @@ class AddGM extends Migration
     public function up()
     {
 
-        Schema::table('grossmargins', function(Blueprint $table) {
-            $table->dropColumn('gm_persentage');
+        Schema::create('grossmargins', function (Blueprint $table) {
+            $table->id('pk_gm_id');
+            $table->double('gm_percentage');
+            $table->double('gm_rate');
+            $table->timestamps();
         });
 
         $grossmargins = new App\GrossMargin();

@@ -9,8 +9,7 @@ class Items extends Model
     protected $table = 'items';
     protected $primaryKey = 'pk_item_id';
     protected $fillable = [
-            'fk_category_id', 
-            'item',
+            'fk_subcategory_id', 
             'item_number',
             'item_jobtype',
             'item_description',
@@ -18,14 +17,9 @@ class Items extends Model
             'item_servicecall',
             'item_labourcost'
         ];
+
+    public function subcategories()
+    {
+        return $this->belongsTo('App\subCategory', 'fk_subcategory_id', 'pk_subcategory_id');
+    }
 }
-
-
-// Relationships to be added:
-
-// One-to-Many:
-// QuoteItemMaterial
-
-// Many-to-One:
-// Quote
-// Product

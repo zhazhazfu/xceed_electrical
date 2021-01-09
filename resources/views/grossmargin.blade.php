@@ -100,84 +100,13 @@
 
 
 
-    <!-- Add Modal -->
-    <div class="modal fade" id="addGmModal" tabindex="-1" role="dialog" aria-labelledby="addGmModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="addGmModalLabel">Edit GM rate</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form method="post" action="{{ url('grossmargin') }}">
-                        {{ csrf_field() }}
-                        <div class="form-row">
-                            <div class="form-group col-sm">
-                                <label for="input">Gross margin rate</label>
-                                <label class="sr-only" for="inlineFormInputGroup">Gross margin rate</label>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">%</div>
-                                    </div>
-                                    <input type="text" class="form-control" id="inlineFormInputGroup" name="add_gm_rate"
-                                        placeholder="Gross margin rate">
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="Submit" class="btn btn-primary">Add GM rate</button>
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Edit Modal -->
-    <div class="modal fade" id="gmModal" tabindex="-1" role="dialog" aria-labelledby="gmModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="gmModalLabel">Edit GM rate</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form method="post" action="{{action('GrossMarginController@update', 'gm_rate')}}">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="_method" value="PATCH">
-                        <div class="form-row">
-                            <div class="form-group col-sm">
-                                <label for="input">Gross margin rate</label>
-                                <label class="sr-only" for="inlineFormInputGroup">Gross margin rate</label>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">%</div>
-                                    </div>
-                                    <input type="text" class="form-control" id="inlineFormInputGroup" name="gm_rate"
-                                        placeholder="Gross margin rate">
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="Submit" class="btn btn-primary">Update GM rate</button>
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
+ 
     <div class='table-responsive'>
         <table class="table table-hover table-sm">
             <thead>
                 <tr>
                     <th scope="col">Hourly running cost</th>
+                    <th scope="col">Gross margin percentage</th>
                     <th scope="col">Gross margin rate</th>
                     <th scope="col">Hourly charge rate</th>
                     <th scope="col">Edit</th>
@@ -190,51 +119,24 @@
                     </td>
 
                     <td>
-                        @foreach($grossmargin as $grossmargin)
-                        {{ $grossmargin->gm_rate }}
+                        @foreach($grossmargin as $grossmargins)
+                        @if ($grossmargins->pk_gm_id == $grossmargins->pk_gm_id)
+                        {{ $grossmargins->gm_percentage}}
+                        @endif
+                        @endforeach
+                    </td>
+
+                    <td>
+                        @foreach($grossmargin as $grossmargins)
+                        {{ $grossmargins->gm_rate }}
                         @endforeach
                     </td>
                     <td>
-                        ${{ number_format($total_business_hourly_cost/365/8 * $grossmargin->gm_rate,2) }}
+                        {{ number_format($total_business_hourly_cost/365/8 * $grossmargins->gm_rate,2) }}
                     </td>
-                    <td><a href="{{action('GrossMarginController@edit', $grossmargin['pk_gm_id'])}}">Edit</a></td>
+                    <td><a href="{{action('GrossMarginController@edit', $grossmargins['pk_gm_id'])}}">Edit</a></td>
 
                 </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<div class=" p-3 mb-5 bg-white rounded border">
-
-    <p class=" h3 mb-4 float-left">Gross margin calculation</p>
-
-
-    <div class='table-responsive'>
-        <table class="table table-hover table-sm">
-            <thead>
-                <tr>
-                    <th scope="col">Hourly running cost</th>
-                    <th scope="col">Gross margin rate</th>
-                    <th scope="col">Hourly charge rate</th>
-                </tr>
-            </thead>
-            <tbody>
-                @php
-                $grossMargins=array(1.111,1.143,1.176,1.25,1.29,1.333,1.379,1.429,1.481,1.4925,1.538,1.6,1.667,1.739,1.818,1.905,2,2.1092,2.223,2.3529,2.5,2.666,2.852,3.075,3.333,4,5,6.667)
-                @endphp
-                @foreach ($grossMargins as $grossMargin)
-                <tr>
-                    <td>
-                    ${{ number_format($total_business_hourly_cost/365/8,2) }}
-                    </td>
-                    <td>{{$grossMargin}}</td>
-                    <td>
-                        ${{number_format($grossMargin * ($total_business_hourly_cost/365/8),2) }}
-                    </td>
-
-                </tr>
-                @endforeach
             </tbody>
         </table>
     </div>

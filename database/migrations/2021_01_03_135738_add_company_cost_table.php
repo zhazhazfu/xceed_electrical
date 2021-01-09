@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropOldItemcategoryTable extends Migration
+class AddCompanyCostTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,13 @@ class DropOldItemcategoryTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('itemcategories');
+        Schema::create('companycosts', function (Blueprint $table) {
+            $table->id('pk_companycost_id');
+            $table->string('companycost_name');
+            $table->double('companycost_yearly');
+            $table->tinyInteger('companycost_archived')->default(0);
+            $table->timestamps();
+        });
     }
 
     /**
