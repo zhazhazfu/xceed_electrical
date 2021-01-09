@@ -12,6 +12,7 @@ use App\PriceList;
 use App\QuoteTerm;
 use App\Discount;
 use App\GrossMargin;
+use PDF;
 
 class PreviewController extends Controller
 {
@@ -27,6 +28,7 @@ class PreviewController extends Controller
             $quoteterms = QuoteTerm::all();
             $discounts = Discount::all();
             $grossmargins = GrossMargin::all();
+            
     
             return view('preview', compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'priceLists', 'quoteterms', 'discounts', 'grossmargins'));
         }
@@ -39,6 +41,22 @@ class PreviewController extends Controller
         $categoryName = $category->category_name;
   
         return view('preview', compact('pageHeading', 'subCategories', 'categoryName'));
-    }
+    } 
 
+    public function generatePDF()
+    {
+        $pageHeading = 'Preview';
+            $quotes = Quote::all();
+            $businessDetails = BusinessDetail::first();
+            $customers = Customer::all();
+            $categories = Category::all();
+            $subCategories = SubCategory::all();
+            $priceLists = PriceList::all();
+            $quoteterms = QuoteTerm::all();
+            $discounts = Discount::all();
+            $grossmargins = GrossMargin::all();
+            $pdf = PDF::loadView('preview',compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'priceLists', 'quoteterms', 'discounts', 'grossmargins'));
+  
+        return $pdf->download('Quote.pdf');
+    }
 }
