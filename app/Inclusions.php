@@ -9,6 +9,7 @@ class Inclusions extends Model
     protected $table = 'inclusions';
     protected $primaryKey = 'pk_in_id';
     protected $fillable = [
+            'inclustion_title',
             'inclusion_Content'
         ];
 }
