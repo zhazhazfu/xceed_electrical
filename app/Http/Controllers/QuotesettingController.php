@@ -40,36 +40,18 @@ class QuotesettingController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'term_name' => 'required',
             'term_body' => 'required',
-            'exclusion_title' => 'required',
-            'exclusion_Content' => 'required',
-            'inclusion_title' => 'required',
-            'inclusion_Content' => 'required'
+       
         ]);
 
         $quoteterms = new QuoteTerm([
-            'term_name' => $request->get('term_name'),
             'term_body' => $request->get('term_body')
         ]);
 
-        $inclusions = new Inclusions([
-            'inclusion_title' => $request->get('inclusion_title'),
-            'inclusion_Content' => $request->get('inclusion_Content')
-        ]);
-        
-        $exclusions = new Exclusions([
-            'exclusion_title' => $request->get('exclusion_title'),
-            'exlusion_Content' => $request->get('exclusion_Content')
-        ]);
 
         $quoteterms->save();
         return back()->with('success', 'Terms and Condition added');
 
-        $inclusions->save();
-        return back()->with('success', 'Inclusion added');
-
-        $exclusions->save();
-        return back()->with('success', 'Exclusion added');
+    
     }
 }
