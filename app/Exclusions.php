@@ -9,7 +9,7 @@ class Exclusions extends Model
     protected $table = 'exclusions';
     protected $primaryKey = 'pk_ex_id';
     protected $fillable = [
-            'exclusion_Content',    
+            'exclusion_Content'  
         ];
 }
 

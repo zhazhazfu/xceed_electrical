@@ -50,25 +50,21 @@ h1 {
     <div class = "row" style = "padding-left: 180px;">
         <div class="col-xs-5 col-md-5">
         <div class="box1 m-1">
-                <a href="/{{ 'history' }}" class="list-group-item list-group-item-action flex-column shadow-lg rounded display-4" style = "height: 200px;">History</a>
+                <a href="/{{ 'termsconditions' }}" class="list-group-item list-group-item-action flex-column shadow-lg rounded display-4" style = "height: 200px;">Terms & Conditions</a>
         </div>
         <div class="box2 m-1">
                 
-                <a href="/{{ 'quoting' }}" class="list-group-item list-group-item-action flex-column shadow-lg rounded display-4" style = "height: 200px">Fix Quote</a>
+                <a href="/{{ 'inclusions' }}" class="list-group-item list-group-item-action flex-column shadow-lg rounded display-4" style = "height: 200px">Inclusions</a>
         </div>
         </div>
         <div class="col-xs-5 col-md-5" style = "margin-left: -30px;">
         <div class="box3 m-1">
-            <a href="/{{ 'draftlist' }}" class="list-group-item list-group-item-action flex-column shadow-lg rounded display-4" style = "height: 200px;">Draft</a>
+            <a href="/{{ 'exclusions' }}" class="list-group-item list-group-item-action flex-column shadow-lg rounded display-4" style = "height: 200px;">Exclusions</a>
         </div>
-        @if (Auth::user() && Auth::user()->role == 'admin')
-        <div class="box4 m-1">
-                <a href="/{{ 'perpointquote' }}" class="list-group-item list-group-item-action flex-column shadow-lg rounded display-4" style = "height: 200px">Per Point Quote</a>
-        </div>
+       
 
         </div> 
     </div>
-    @endif
     </div>
 </body>
 
