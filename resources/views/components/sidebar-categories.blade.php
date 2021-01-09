@@ -1,7 +1,7 @@
 
 @foreach($categories as $category)
     @if($category->category_archived == '0')
-    <a href="{{action('PriceListController@show', $category['pk_category_id'])}}" class="p-4 m-2 btn btn-outline-xceed"
+    <a href="{{action('ItemHasMaterialController@show', $category['pk_category_id'])}}" class="p-4 m-2 btn btn-outline-xceed"
         id="categories" value="{{ $category->pk_category_id }}">
             <svg
             height="100px"
