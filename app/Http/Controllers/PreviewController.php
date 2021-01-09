@@ -17,7 +17,7 @@ class PreviewController extends Controller
 {
     public function index()
         {
-            $pageHeading = 'Quoting';
+            $pageHeading = 'Preview';
             $quotes = Quote::all();
             $businessDetails = BusinessDetail::first();
             $customers = Customer::all();
@@ -28,17 +28,17 @@ class PreviewController extends Controller
             $discounts = Discount::all();
             $grossmargins = GrossMargin::all();
     
-            return view('quoting', compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'priceLists', 'quoteterms', 'discounts', 'grossmargins'));
+            return view('preview', compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'priceLists', 'quoteterms', 'discounts', 'grossmargins'));
         }
 
         public function show($id="")
     {
-        $pageHeading = 'Quoting';
+        $pageHeading = 'Preview';
         $category = Category::find($id);
         $subCategories = $category->subCategories;
         $categoryName = $category->category_name;
   
-        return view('quoting', compact('pageHeading', 'subCategories', 'categoryName'));
+        return view('preview', compact('pageHeading', 'subCategories', 'categoryName'));
     }
 
 }
