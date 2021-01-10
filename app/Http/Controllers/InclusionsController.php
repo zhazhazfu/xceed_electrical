@@ -14,7 +14,6 @@ class InclusionsController extends Controller
 {
     public function index()
     {
-        //
         $pageHeading = 'Inclusions';
         $inclusions = Inclusions::all();
         return view('inclusions', compact('pageHeading','inclusions'));
@@ -23,18 +22,16 @@ class InclusionsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'inclusion_Content' => 'required',
-       
+            'inclusion_name' => 'required',
+            'inclusion_Content' => 'required'
         ]);
 
         $inclusions = new Inclusions([
+            'inclusion_name' => $request->get('inclusion_name'),
             'inclusion_Content' => $request->get('inclusion_Content')
         ]);
 
-
         $inclusions->save();
         return back()->with('success', 'Inclusions added');
-
-    
     }
 }

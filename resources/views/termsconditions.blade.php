@@ -23,17 +23,15 @@
         @endif
     </div>
 
-    <!-- Add material button -->
-<button type="button" class="btn btn-primary float-right ml-3" data-toggle="modal" data-target="#materialModal">
-        Add T&C
-</button>
+    <a href="/{{ 'qdash' }}" type="button" class="btn btn-secondary float-right ml-3">Back</a>
+<button type="button" class="btn btn-primary float-right ml-3" data-toggle="modal" data-target="#quotetermsModal">Add T&C</button>
 
-<div class="modal fade" id="materialModal" tabindex="-1" role="dialog" aria-labelledby="materialModalLabel"
+<div class="modal fade" id="quotetermsModal" tabindex="-1" role="dialog" aria-labelledby="quotetermsModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="materialModalLabel">Enter terms and conditions</h4>
+                <h4 class="modal-title" id="quotetermsModalLabel">Enter terms and conditions</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -44,7 +42,7 @@
                 
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="input">Description</label>
+                            <label for="input">Title</label>
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                 </div>
@@ -67,9 +65,7 @@
                                     </div>
                             </div>
                         </div>
-                        
                     </div>
-                    
             </div>
             
             <div class="modal-footer">
@@ -94,7 +90,7 @@
             <table id="active_table" class="display table table-hover table-sm">
                 <thead>
                     <tr>
-                        <th scope="col">Quote name</th>
+                        <th scope="col">Quote Name</th>
                         <th scope="col">Description</th>
                     </tr>
                 </thead>

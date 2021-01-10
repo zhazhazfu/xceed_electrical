@@ -23,18 +23,18 @@ class ExclusionsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'exclusion_Content' => 'required',
+            'exclusion_name' => 'required',
+            'exclusion_Content' => 'required'
        
         ]);
 
         $exclusions = new Exclusions([
+            'exclusion_name' => $request->get('exclusion_name'),
             'exclusion_Content' => $request->get('exclusion_Content')
         ]);
 
 
         $exclusions->save();
         return back()->with('success', 'Exclusions added');
-
-    
     }
 }

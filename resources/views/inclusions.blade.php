@@ -23,8 +23,8 @@
         @endif
     </div>
 
-<button type="button" class="btn btn-primary float-right ml-3" data-toggle="modal"data-target="#inclusionModal">Add Inclusion
-</button>
+<a href="/{{ 'qdash' }}" type="button" class="btn btn-secondary float-right ml-3">Back</a>
+<button type="button" class="btn btn-primary float-right ml-3" data-toggle="modal"data-target="#inclusionModal">Add Inclusion</button>
 
 <div class="modal fade" id="inclusionModal" tabindex="-1" role="dialog" aria-labelledby="inclusionModalLabel"
     aria-hidden="true">
@@ -39,20 +39,30 @@
             <div class="modal-body">
                 <form method="post" action="{{ url('inclusions') }}">
                     {{ csrf_field() }}
-                
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="input">Title</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                </div>
+                                <input type="text" class="form-control"
+                                    name="inclusion_name">
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="input">Description</label>
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                 </div>
-                                <input type="text" class="form-control"
-                                    name="inclusion_Content">
+                                <textarea type="text" class="form-control"
+                                    name="inclusion_Content"></textarea>
                             </div>
                         </div>
-                        
                     </div>
-                    
             </div>
             
             <div class="modal-footer">
@@ -76,14 +86,14 @@
             <table id="active_table" class="display table table-hover table-sm">
                 <thead>
                     <tr>
-                        <th scope="col">Inclusion</th>
+                        <th scope="col">Inclusion Name</th>
                         <th scope="col">Description</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($inclusions as $Inclusions)
                     <tr>
-                        <td>{{ $Inclusions->pk_in_id }}</td>
+                        <td>{{ $Inclusions->inclusion_name}}</td>
                         <td>{{ $Inclusions->inclusion_Content }}</td>
                     </tr>
                     @endforeach

@@ -48,22 +48,22 @@ h1 {
 <h1 style = "text-align: center;" class = "display-3">Quote Dashboard</h1>
     <div class="container text-center">
     <div class = "row" style = "padding-left: 180px;">
-        <div class="col-xs-5 col-md-5">
+        <div class="col-xs-5 col-md-5" style = "margin-left: -20px;">
         <div class="box1 m-1">
-                <a href="/{{ 'termsconditions' }}" class="list-group-item list-group-item-action flex-column shadow-lg rounded display-4" style = "height: 200px;">Terms & Conditions</a>
-        </div>
-        <div class="box2 m-1">
-                
-                <a href="/{{ 'inclusions' }}" class="list-group-item list-group-item-action flex-column shadow-lg rounded display-4" style = "height: 200px">Inclusions</a>
+            <a href="/{{ 'inclusions' }}" class="list-group-item list-group-item-action flex-column shadow-lg rounded display-4" style = "height: 200px;">Inclusions</a>
         </div>
         </div>
-        <div class="col-xs-5 col-md-5" style = "margin-left: -30px;">
+        <div class="col-xs-5 col-md-5" style = "margin-left: 0px;">
         <div class="box3 m-1">
             <a href="/{{ 'exclusions' }}" class="list-group-item list-group-item-action flex-column shadow-lg rounded display-4" style = "height: 200px;">Exclusions</a>
         </div>
-       
-
-        </div> 
+        </div>
+        <div class="col-xs-5 col-md-5" style = "margin-left: 165px; margin-top: -100px;">
+        <div class="box3 m-1">
+            <a href="/{{ 'termsconditions' }}" class="list-group-item list-group-item-action flex-column shadow-lg rounded display-4" style = "height: 200px;">Terms & Conditions</a>
+        </div>
+        </div>
+    </div>
     </div>
     </div>
 </body>
