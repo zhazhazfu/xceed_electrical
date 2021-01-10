@@ -17,7 +17,7 @@ class AddQuoteTermsTable extends Migration
             $table->id('pk_term_id');
             $table->string('term_name');
             $table->string('term_body');
-            $table->tinyInteger('term_archived');
+            $table->tinyInteger('term_archived')->default(0);
             $table->timestamps();
         });
     }

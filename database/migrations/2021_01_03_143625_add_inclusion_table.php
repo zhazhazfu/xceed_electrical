@@ -15,6 +15,7 @@ class AddInclusionTable extends Migration
     {
         Schema::create('inclusions', function (Blueprint $table) {
             $table->id('pk_in_id');
+            $table->text('inclusion_title');
             $table->text('inclusion_Content');
             $table->timestamps();
         });

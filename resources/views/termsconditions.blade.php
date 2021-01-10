@@ -49,7 +49,22 @@
                                 <div class="input-group-prepend">
                                 </div>
                                 <input type="text" class="form-control"
-                                    name="term_body">
+                                    name="term_name">
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="input">Description</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                </div>
+                               
+                                    <div class="form-group">
+                                      <label for=""></label>
+                                      <textarea class="form-control" name="term_body" type="text" class="form-control" rows="3"></textarea>
+                                    </div>
                             </div>
                         </div>
                         
@@ -79,14 +94,14 @@
             <table id="active_table" class="display table table-hover table-sm">
                 <thead>
                     <tr>
-                        <th scope="col">Terms & Conditions</th>
+                        <th scope="col">Quote name</th>
                         <th scope="col">Description</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($quoteterms as $QuoteTerm)
                     <tr>
-                        <td>{{ $QuoteTerm->pk_term_id}}</td>
+                        <td>{{ $QuoteTerm->term_name }}</td>
                         <td>{{ $QuoteTerm->term_body }}</td>
                     </tr>
                     @endforeach

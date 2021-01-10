@@ -15,6 +15,7 @@ class AddExclusionTable extends Migration
     {
         Schema::create('exclusions', function (Blueprint $table) {
             $table->id('pk_ex_id');
+            $table->text('exclusion_title');
             $table->text('exclusion_Content');
             $table->timestamps();
         });

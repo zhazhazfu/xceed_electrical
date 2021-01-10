@@ -5,10 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\GrossMargin;
-use App\CompanyCost;
-use App\EmployeeCost;
-use App\Customer;
 use App\QuoteTerm;
 class TermsConditionsController extends Controller
 {
@@ -23,11 +19,12 @@ class TermsConditionsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'term_body' => 'required',
-       
+            'term_name' => 'required',
+            'term_body' => 'required'
         ]);
 
         $quoteterms = new QuoteTerm([
+            'term_name' => $request->get('term_name'),
             'term_body' => $request->get('term_body')
         ]);
 

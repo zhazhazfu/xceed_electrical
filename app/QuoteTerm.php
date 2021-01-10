@@ -9,7 +9,8 @@ class QuoteTerm extends Model
     protected $table = 'quoteterms';
     protected $primaryKey = 'pk_term_id';
     protected $fillable = [
-            'term_body',   
+            'term_name',
+            'term_body'   
         ];
 
 }
