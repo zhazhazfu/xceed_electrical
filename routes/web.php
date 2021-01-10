@@ -42,16 +42,31 @@ Route::get('/suppliers', 'SupplierController@index')->name('suppliers')->middlew
 Route::get('/suppliers', 'SupplierController@edit')->name('suppliers')->middleware('auth');
 Route::resource('suppliers', 'SupplierController')->middleware('auth');
 
-Route::get('/materials', 'MaterialController@index')->name('materials')->middleware('auth');
-Route::get('/materials', 'MaterialController@edit')->name('materials')->middleware('auth');
-Route::resource('materials', 'MaterialController')->middleware('auth');
-
 Route::get('/quoting', 'QuoteController@index')->name('quoting')->middleware('auth');
 Route::get('/quoting', 'QuoteController@edit')->name('quoting')->middleware('auth');
 Route::resource('quoting', 'QuoteController')->middleware('auth');
 
 Route::get('/perpointquote', 'PerpointController@index')->name('perpointquote')->middleware('auth');
+
 Route::get('/quotesetting', 'QuotesettingController@index')->name('quotesetting')->middleware('auth');
+Route::get('/quotesetting', 'QuotesettingController@edit')->name('quotesetting')->middleware('auth');
+Route::resource('quotesetting', 'QuotesettingController')->middleware('auth');
+
+Route::get('/termsconditions', 'TermsConditionsController@index')->name('termsconditions')->middleware('auth');
+Route::get('/termsconditions', 'TermsConditionsController@edit')->name('termsconditions')->middleware('auth');
+Route::resource('termsconditions', 'TermsConditionsController')->middleware('auth');
+
+Route::get('/inclusions', 'InclusionsController@index')->name('inclusions')->middleware('auth');
+Route::get('/inclusions', 'InclusionsController@edit')->name('inclusions')->middleware('auth');
+Route::resource('inclusions', 'InclusionsController')->middleware('auth');
+
+Route::get('/exclusions', 'ExclusionsController@index')->name('exclusions')->middleware('auth');
+Route::get('/exclusions', 'ExclusionsController@edit')->name('exclusions')->middleware('auth');
+Route::resource('exclusions', 'ExclusionsController')->middleware('auth');
+
+Route::get('/materials', 'MaterialController@index')->name('materials')->middleware('auth');
+Route::get('/materials', 'MaterialController@edit')->name('materials')->middleware('auth');
+Route::resource('materials', 'MaterialController')->middleware('auth');
 
 Route::get('/history', 'HistoryController@index')->name('history')->middleware('auth');
 Route::get('/draftlist', 'DraftlistController@index')->name('draftlist')->middleware('auth');

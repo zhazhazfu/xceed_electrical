@@ -12,6 +12,7 @@
 
 <body>
 <h3> Draft list</h3>
+<div class="table-responsive-sm">
 <table class="table table-hover">
 <thead>
     <tr>
@@ -59,7 +60,7 @@
     </tr>
   </tbody>
 </table>
-
+</div>
 
 
 </body>
