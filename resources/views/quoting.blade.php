@@ -247,7 +247,6 @@
         });
 
         $("#delete_row").click(function(e){
-            alert('please work ;_;');
             e.preventDefault();
 
             if(row_number > 1){
