@@ -111,7 +111,7 @@
                                     <option value="{{ $priceList->pk_item_id }}">{{ $priceList->item_number }}</option>
                                     @endif
                                     @endforeach
-                                </select>
+                                </select> </td>
                         </tr>
 
                         <tr id="item1"></tr>
