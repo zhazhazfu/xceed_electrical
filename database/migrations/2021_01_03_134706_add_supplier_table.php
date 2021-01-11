@@ -27,6 +27,50 @@ class AddSupplierTable extends Migration
         $supplier->supplier_companyname = 'Estimate Supplier';
         $supplier->supplier_contactname = 'Assign materials for estimations to me';
         $supplier->save();
+
+        $supplier = new App\Supplier();
+        $supplier->supplier_companyname = 'John R Turk';
+        $supplier->save();
+
+        $supplier = new App\Supplier();
+        $supplier->supplier_companyname = 'Awesim Electrical Wholesalers';
+        $supplier->save();
+
+        $supplier = new App\Supplier();
+        $supplier->supplier_companyname = 'TLE Electrical';
+        $supplier->save();
+
+        $supplier = new App\Supplier();
+        $supplier->supplier_companyname = 'Micron Security';
+        $supplier->save();
+
+        $supplier = new App\Supplier();
+        $supplier->supplier_companyname = 'Rhino Security';
+        $supplier->save();
+
+        $supplier = new App\Supplier();
+        $supplier->supplier_companyname = 'Secutech Security Supplies';
+        $supplier->save();
+
+        $supplier = new App\Supplier();
+        $supplier->supplier_companyname = 'LSC Security Supplies';
+        $supplier->save();
+
+        $supplier = new App\Supplier();
+        $supplier->supplier_companyname = 'Alloys';
+        $supplier->save();
+
+        $supplier = new App\Supplier();
+        $supplier->supplier_companyname = 'DHS - Automation Supplies';
+        $supplier->save();
+
+        $supplier = new App\Supplier();
+        $supplier->supplier_companyname = 'Smart Home - Automation Supplies';
+        $supplier->save();
+
+        $supplier = new App\Supplier();
+        $supplier->supplier_companyname = 'Bunnings Warehouse';
+        $supplier->save();
     }
 
     /**

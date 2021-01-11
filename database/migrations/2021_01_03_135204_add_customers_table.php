@@ -24,6 +24,11 @@ class AddCustomersTable extends Migration
             $table->tinyInteger('customer_archived')->default(0);
             $table->timestamps();
         });
+
+        $customers = new App\Customer();
+        $customers->fk_discount_id = '1';
+        $customers->customer_name = 'James';
+        $customers->save();
     }
 
     /**
