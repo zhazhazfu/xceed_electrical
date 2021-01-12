@@ -149,9 +149,11 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                 <label for="input">Select subcategory</label>
                                 <select class="form-control" id="fk_subcategory_id" name="fk_subcategory_id">
                                     @foreach($subCategories as $subCategory)
+                                    @if ($page_id ==  $subCategory->fk_category_id)
                                     <option value="{{ $subCategory -> pk_subcategory_id }}">
                                         {{ $subCategory -> subcategory_name }}
                                     </option>
+                                    @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -261,7 +263,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                     @foreach($subCategories as $subCategory)
                     @foreach($subCategory->items as $item)
                     @foreach ($item->itemHasMaterials as $itemHasMaterials)
-                    @if($item->item_archived == '0')
+                    @if(($item->item_archived == '0') && ($page_id ==  $subCategory->fk_category_id) )
                     <tr>
                         <td>{{ $item->item_number }}</td>
                         <td>{{ $item->item_jobtype }}</td>
