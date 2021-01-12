@@ -130,7 +130,7 @@
                         <th scope="col" onclick="sortActive(0)">Username</th>
                         <th scope="col" onclick="sortActive(1)">Full Name</th>
                         <th scope="col" onclick="sortActive(2)">Type</th>
-                        <th scope="col" onclick="sortActive(2)">Email</th>
+                        <th scope="col" onclick="sortActive(3)">Email</th>
                         <th>Edit</th>
                     </tr>
                 </thead>
@@ -171,6 +171,7 @@
                     <th scope="col" onclick="sortArchived(0)">Username</th>
                     <th scope="col" onclick="sortArchived(1)">Full Name</th>
                     <th scope="col" onclick="sortArchived(2)">Type</th>
+                    <th scope="col" onclick="sortActive(3)">Email</th>
                     <th>Edit</th>
                 </tr>
             </thead>
@@ -181,6 +182,7 @@
                     <td>{{ $user->user_name }}</td>
                     <td>{{ $user->user_firstlast }}</td>
                     <td>{{ $user->role }}</td>
+                    <td>{{ $user->email }}</td>
                     <td><a href="{{action('UserController@edit', $user['pk_user_id'])}}">Edit</a></td>
                 </tr>
                 @endif

@@ -35,15 +35,12 @@ Route::get('/customers', 'CustomerController@edit')->name('customers')->middlewa
 Route::resource('customers', 'CustomerController')->middleware('auth');
 
 Route::get('/users', 'UserController@index')->name('users')->middleware('auth');
+Route::get('/users', 'UserController@edit')->name('users')->middleware('auth');
 Route::resource('users', 'UserController')->middleware('auth');
 
 Route::get('/suppliers', 'SupplierController@index')->name('suppliers')->middleware('auth');
 Route::get('/suppliers', 'SupplierController@edit')->name('suppliers')->middleware('auth');
 Route::resource('suppliers', 'SupplierController')->middleware('auth');
-
-Route::get('/materials', 'MaterialController@index')->name('materials')->middleware('auth');
-Route::get('/materials', 'MaterialController@edit')->name('materials')->middleware('auth');
-Route::resource('materials', 'MaterialController')->middleware('auth');
 
 Route::get('/quoting', 'QuoteController@index')->name('quoting')->middleware('auth');
 Route::get('/quoting', 'QuoteController@edit')->name('quoting')->middleware('auth');
@@ -51,6 +48,25 @@ Route::resource('quoting', 'QuoteController')->middleware('auth');
 
 Route::get('/perpointquote', 'PerpointController@index')->name('perpointquote')->middleware('auth');
 
+Route::get('/quotesetting', 'QuotesettingController@index')->name('quotesetting')->middleware('auth');
+Route::get('/quotesetting', 'QuotesettingController@edit')->name('quotesetting')->middleware('auth');
+Route::resource('quotesetting', 'QuotesettingController')->middleware('auth');
+
+Route::get('/termsconditions', 'TermsConditionsController@index')->name('termsconditions')->middleware('auth');
+Route::get('/termsconditions', 'TermsConditionsController@edit')->name('termsconditions')->middleware('auth');
+Route::resource('termsconditions', 'TermsConditionsController')->middleware('auth');
+
+Route::get('/inclusions', 'InclusionsController@index')->name('inclusions')->middleware('auth');
+Route::get('/inclusions', 'InclusionsController@edit')->name('inclusions')->middleware('auth');
+Route::resource('inclusions', 'InclusionsController')->middleware('auth');
+
+Route::get('/exclusions', 'ExclusionsController@index')->name('exclusions')->middleware('auth');
+Route::get('/exclusions', 'ExclusionsController@edit')->name('exclusions')->middleware('auth');
+Route::resource('exclusions', 'ExclusionsController')->middleware('auth');
+
+Route::get('/materials', 'MaterialController@index')->name('materials')->middleware('auth');
+Route::get('/materials', 'MaterialController@edit')->name('materials')->middleware('auth');
+Route::resource('materials', 'MaterialController')->middleware('auth');
 
 Route::get('/history', 'HistoryController@index')->name('history')->middleware('auth');
 Route::get('/draftlist', 'DraftlistController@index')->name('draftlist')->middleware('auth');
@@ -58,6 +74,8 @@ Route::get('/draftlist', 'DraftlistController@index')->name('draftlist')->middle
 Route::get('/quoteterms', 'QuoteTermController@index')->name('quoteterms')->middleware('auth');
 Route::get('/quoteterms', 'QuoteTermController@edit')->name('quoteterms')->middleware('auth');
 Route::resource('quoteterms', 'QuoteTermController')->middleware('auth');
+
+Route::get('/preview', 'PreviewController@index')->name('preview')->middleware('auth');
 
 Route::get('/grossmargin', 'GrossMarginController@index')->name('grossmargin')->middleware('auth');
 Route::get('/grossmargin', 'GrossMarginController@edit')->name('grossmargin')->middleware('auth');
@@ -85,10 +103,11 @@ Route::get('/subcategories', 'SubCategoryController@edit')->name('subcategories'
 Route::resource('subcategories', 'SubCategoryController')->middleware('auth');
 
 Route::get('/pricelist', 'PricelistDashController@index')->name('pricelist')->middleware('auth');
-Route::get('/pricelists', 'PriceListController@index')->name('pricelists')->middleware('auth');
-Route::get('/pricelists/{page_id}/{id}/edit', 'PriceListController@edit')->middleware('auth');
-Route::patch('/pricelists/{page_id}/{id}/update', 'PriceListController@update')->middleware('auth');
-Route::resource('pricelists', 'PriceListController')->middleware('auth');
+Route::get('/pricelists', 'ItemHasMaterialController@index')->name('pricelists')->middleware('auth');
+Route::get('/addItem', 'AddItemController@index')->name('addItem')->middleware('auth');
+Route::get('/pricelists/{page_id}/{id}/edit', 'ItemHasMaterialController@edit')->middleware('auth');
+Route::patch('/pricelists/{page_id}/{id}/update', 'ItemHasMaterialController@update')->middleware('auth');
+Route::resource('pricelists', 'ItemHasMaterialController')->middleware('auth');
 
 Route::get('/businessdetails', 'BusinessDetailController@index')->name('businessdetails')->middleware('auth');
 Route::get('/businessdetails', 'BusinessDetailController@edit')->name('businessdetails')->middleware('auth');

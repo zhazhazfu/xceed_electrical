@@ -28,6 +28,8 @@
               <a class="dropdown-item" href="/{{ 'perpointquote' }}">Per Point Quote</a>
               @endif
               <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/{{ 'qdash' }}">Quote Settings</a>
+              <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/{{ 'history' }}">History</a>
               <a class="dropdown-item" href="/{{ 'draftlist' }}">Draft</a>
             </div>

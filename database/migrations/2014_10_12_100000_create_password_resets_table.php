@@ -3,9 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Hash;
 
-class AddUser extends Migration
+class CreatePasswordResetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,15 +13,11 @@ class AddUser extends Migration
      */
     public function up()
     {
-
-        $user = new App\User();
-        $user->password = Hash::make('password');
-        $user->user_name = 'jconceicao';
-        $user->email = 'jconceicao@xceed.com';
-        $user->user_firstlast = 'Jayson Conceicao';
-        $user->role = 'admin';
-        $user->save();
-
+        Schema::create('password_resets', function (Blueprint $table) {
+            $table->string('email')->index();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
+        });
     }
 
     /**
@@ -32,5 +27,6 @@ class AddUser extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('password_resets');
     }
 }
