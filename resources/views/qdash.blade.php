@@ -12,61 +12,44 @@
 </head>
 
 <style>
-h1 {
-    font-family: Arial;
-    color: grey;
-    -webkit-text-stroke: 2px black;
-}
-.box1, .box3 {
-    padding-top: 150px;
-}
+.btn-outline-xceed {
+        color: #004271;
+        border-color: #004271;
+    }
+
+    .btn-outline-xceed:hover {
+        color: #fff;
+        background: linear-gradient(to left, #004271, #94c94a);
+        border-color: #004271;
+    }
+
+    .tint {
+        background: #fff;
+    }
+
+    .btn-outline-xceed:hover .tint {
+        opacity: 1;
+    }
+
+    .btn-outline-xceed:focus, .btn-outline-xceed.focus {
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+    }
 </style>
 
 <body>
-    {{-- <div class="row">
-        <div class="col-sm">
-            <a href="/{{ 'history' }}" class="list-group-item list-group-item-action bg-light border-0">History</a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm">
-                <a href="/{{ 'draftlist' }}" class="list-group-item list-group-item-action bg-light border-0">Draft</a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm">
-            <a href="/{{ 'quoting' }}" class="list-group-item list-group-item-action bg-light border-0">Fix Quote</a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm">
-            <a href="/{{ 'perpointquote' }}" class="list-group-item list-group-item-action bg-light border-0">Per point quote</a>
-        </div>
-    </div> --}}
+<div class=" p-3 bg-white rounded border">
 
-
-<h1 style = "text-align: center;" class = "display-3">Quote Dashboard</h1>
-    <div class="container text-center">
-    <div class = "row" style = "padding-left: 180px;">
-        <div class="col-xs-5 col-md-5" style = "margin-left: -20px;">
-        <div class="box1 m-1">
-            <a href="/{{ 'inclusions' }}" class="list-group-item list-group-item-action flex-column shadow-lg rounded display-4" style = "height: 200px;">Inclusions</a>
-        </div>
-        </div>
-        <div class="col-xs-5 col-md-5" style = "margin-left: 0px;">
-        <div class="box3 m-1">
-            <a href="/{{ 'exclusions' }}" class="list-group-item list-group-item-action flex-column shadow-lg rounded display-4" style = "height: 200px;">Exclusions</a>
-        </div>
-        </div>
-        <div class="col-xs-5 col-md-5" style = "margin-left: 165px; margin-top: -100px;">
-        <div class="box3 m-1">
-            <a href="/{{ 'termsconditions' }}" class="list-group-item list-group-item-action flex-column shadow-lg rounded display-4" style = "height: 200px;">Terms & Conditions</a>
-        </div>
-        </div>
+    <h3>Quote Dashboard</h3>
+    <br>
+    <div class = "py-5 form-row d-flex justify-content-center">
+            <a href="/{{ 'inclusions' }}" class="p-5 m-2 btn btn-outline-xceed w-75"> <h2> Inclusions </h2> </a>
+            <a href="/{{ 'exclusions' }}" class="p-5 m-2 btn btn-outline-xceed w-75"> <h2> Exclusions </h2></a>
+            <a href="/{{ 'termsconditions' }}" class="p-5 m-2 btn btn-outline-xceed w-75"> <h2> Terms & Conditions </h2></a>
     </div>
-    </div>
-    </div>
+    
+</div>
 </body>
+
 
 </html>
 @endif
