@@ -15,10 +15,18 @@ class AddInclusionTable extends Migration
     {
         Schema::create('inclusions', function (Blueprint $table) {
             $table->id('pk_in_id');
-            $table->text('inclusion_title');
-            $table->text('inclusion_Content');
+            $table->text('inclusion_name');
+            $table->longText('inclusion_Content');
             $table->timestamps();
         });
+
+        $inclusions = new App\Inclusions();
+        $inclusions->inclusion_name = 'Default';
+        $inclusions->inclusion_Content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Duis semper arcu nec hendrerit mattis.
+        Nullam id lorem eu dolor congue varius a non nisi.
+        Donec quis nisi nec leo viverra lobortis eu ut lacus.';
+        $inclusions->save();
     }
 
     /**

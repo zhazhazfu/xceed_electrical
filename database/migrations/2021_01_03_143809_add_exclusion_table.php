@@ -15,10 +15,18 @@ class AddExclusionTable extends Migration
     {
         Schema::create('exclusions', function (Blueprint $table) {
             $table->id('pk_ex_id');
-            $table->text('exclusion_title');
-            $table->text('exclusion_Content');
+            $table->text('exclusion_name');
+            $table->longText('exclusion_Content');
             $table->timestamps();
         });
+
+        $exclusions = new App\Exclusions();
+        $exclusions->exclusion_name = 'Default';
+        $exclusions->exclusion_Content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Duis semper arcu nec hendrerit mattis.
+        Nullam id lorem eu dolor congue varius a non nisi.
+        Donec quis nisi nec leo viverra lobortis eu ut lacus.';
+        $exclusions->save();
     }
 
     /**
