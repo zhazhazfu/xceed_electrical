@@ -66,4 +66,18 @@ class MaterialController extends Controller
         return redirect()->route('materials.index')->with('success', 'Material updated');
     }
 
+    public function delete(request $request, $id)
+
+    {
+        
+        $materials = Material::find($id);
+        if (count($materials->itemHasMaterials) || count($materials->priceLists))
+            {
+              return redirect()->back()->withErrors(['Please delete related items and price Lists first.']);
+            }
+        $materials->delete();
+        return redirect()->back()->withSuccess('Material Deleted');
+
+    }
+
 }

@@ -32,14 +32,18 @@ Route::get('/adminqsetting', 'AdminqsettingController@index')->name('adminqsetti
 
 Route::get('/customers', 'CustomerController@index')->name('customers')->middleware('auth');
 Route::get('/customers', 'CustomerController@edit')->name('customers')->middleware('auth');
+Route::get('/delete_customer/{id}', 'CustomerController@delete')->name('delete_customers')->middleware('auth');
+
 Route::resource('customers', 'CustomerController')->middleware('auth');
 
 Route::get('/users', 'UserController@index')->name('users')->middleware('auth');
 Route::get('/users', 'UserController@edit')->name('users')->middleware('auth');
+Route::get('/delete_user/{id}', 'UserController@delete')->name('delete_user')->middleware('auth');
 Route::resource('users', 'UserController')->middleware('auth');
 
 Route::get('/suppliers', 'SupplierController@index')->name('suppliers')->middleware('auth');
 Route::get('/suppliers', 'SupplierController@edit')->name('suppliers')->middleware('auth');
+Route::get('/delete_supplier/{id}', 'SupplierController@delete')->name('delete_suppliers')->middleware('auth');
 Route::resource('suppliers', 'SupplierController')->middleware('auth');
 
 Route::get('/quoting', 'QuoteController@index')->name('quoting')->middleware('auth');
@@ -66,6 +70,7 @@ Route::resource('exclusions', 'ExclusionsController')->middleware('auth');
 
 Route::get('/materials', 'MaterialController@index')->name('materials')->middleware('auth');
 Route::get('/materials', 'MaterialController@edit')->name('materials')->middleware('auth');
+Route::get('/delete_material/{id}', 'MaterialController@delete')->name('delete_materials')->middleware('auth');
 Route::resource('materials', 'MaterialController')->middleware('auth');
 
 Route::get('/history', 'HistoryController@index')->name('history')->middleware('auth');
@@ -87,11 +92,13 @@ Route::resource('employeecosts', 'EmployeeCostController')->middleware('auth');
 
 Route::get('/discounts', 'DiscountController@index')->name('discounts')->middleware('auth');
 Route::get('/discounts', 'DiscountController@edit')->name('discounts')->middleware('auth');
+Route::get('/delete_discount/{id}', 'DiscountController@delete')->name('delete_discount')->middleware('auth');
 Route::resource('discounts', 'DiscountController')->middleware('auth');
 
 Route::get('/totalcosts', 'CompanyCostController@totalCosts')->name('totalcosts')->middleware('auth');
 Route::get('/companycosts', 'CompanyCostController@index')->name('companycosts')->middleware('auth');
 Route::get('/companycosts', 'CompanyCostController@edit')->name('companycosts')->middleware('auth');
+Route::get('/delete_companycost/{id}', 'CompanyCostController@delete')->name('delete_companycost')->middleware('auth');
 Route::resource('companycosts', 'CompanyCostController')->middleware('auth');
 
 Route::get('/categories', 'CategoryController@index')->name('categories')->middleware('auth');
@@ -104,6 +111,7 @@ Route::resource('subcategories', 'SubCategoryController')->middleware('auth');
 
 Route::get('/pricelist', 'PricelistDashController@index')->name('pricelist')->middleware('auth');
 Route::get('/pricelists', 'ItemHasMaterialController@index')->name('pricelists')->middleware('auth');
+Route::get('/delete_pricelists/{id}', 'ItemHasMaterialController@delete')->name('delete_pricelists')->middleware('auth');
 Route::get('/addItem', 'AddItemController@index')->name('addItem')->middleware('auth');
 Route::get('/pricelists/{page_id}/{id}/edit', 'ItemHasMaterialController@edit')->middleware('auth');
 Route::patch('/pricelists/{page_id}/{id}/update', 'ItemHasMaterialController@update')->middleware('auth');

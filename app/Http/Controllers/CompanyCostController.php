@@ -70,4 +70,15 @@ class CompanyCostController extends Controller
         return view('totalcosts', compact('pageHeading', 'companyCosts', 'employeeCosts'));
     }
 
+    public function delete(request $request, $id)
+
+    {
+        
+        $companyCosts = CompanyCost::find($id);
+        
+        $companyCosts->delete();
+        return redirect()->back()->withSuccess('Company cost Deleted');
+
+    }
+
 }

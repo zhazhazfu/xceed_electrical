@@ -68,4 +68,18 @@ class DiscountController extends Controller
         return redirect()->route('discounts.index')->with('success', 'Discount updated');
     }
 
+    public function delete(request $request, $id)
+
+    {
+        
+        $discounts = Discount::find($id);
+        if (count($discounts->customers))
+            {
+              return redirect()->back()->withErrors(['Please delete related customers first.']);
+            }
+        $discounts->delete();
+        return redirect()->back()->withSuccess('Discount Deleted');
+
+    }
+
 }

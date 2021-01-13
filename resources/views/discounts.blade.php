@@ -117,7 +117,15 @@
                     <tr>
                         <td>{{ $discount->discount_name }}</td>
                         <td>{{ $discount->discount_rate }}%</td>
-                        <td><a href="{{action('DiscountController@edit', $discount['pk_discount_id'])}}">Edit</a></td>
+                        <td>
+
+                           
+
+                            <a class="btn btn-primary badge-pill" style="width:80px;" href="{{action('DiscountController@edit', $discount['pk_discount_id'])}}">Edit</a>
+
+                            <a class="btn btn-danger badge-pill" style="width:80px;" href="/delete_discount/{{$discount['pk_discount_id']}}" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
+
+                        </td>
                     </tr>
                     @endif
                     @endforeach

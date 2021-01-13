@@ -61,4 +61,18 @@ class SupplierController extends Controller
         return redirect()->route('suppliers.index')->with('success', 'Supplier updated');
     }
 
+    public function delete(request $request, $id)
+
+    {
+        
+        $suppliers = Supplier::find($id);
+        if (count($suppliers->materials))
+            {
+              return redirect()->back()->withErrors(['Please delete related material first.']);
+            }
+        $suppliers->delete();
+        return redirect()->back()->withSuccess('Supplier Deleted');
+
+    }
+
 }

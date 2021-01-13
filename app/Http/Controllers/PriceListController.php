@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\PriceList;
+use App\Items;
 use App\Material;
 use App\Category;
 use App\SubCategory;
 use App\GrossMargin;
 use App\CompanyCost;
 use App\EmployeeCost;
+
 
 class PriceListController extends Controller
 {
@@ -71,6 +73,7 @@ class PriceListController extends Controller
         $priceLists = PriceList::find($pk_item_id);
         $subCategories = SubCategory::all();
         $materials = Material::all();
+        
 
         return view('editlayouts.pricelistedit', compact('priceLists', 'pk_item_id', 'pageHeading', 'subCategories', 'materials', 'page_id'));
     }

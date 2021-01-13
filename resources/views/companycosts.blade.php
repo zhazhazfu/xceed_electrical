@@ -111,7 +111,7 @@
                         <th scope="col" onclick="sortArchived(1)">Weekly Cost</th>
                         <th scope="col" onclick="sortArchived(2)">Monthly Cost</th>
                         <th scope="col" onclick="sortArchived(3)">Yearly Cost</th>
-                        <th scope="col">Edit</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -126,8 +126,11 @@
                         <td>${{number_format($companyCost->companycost_yearly/52,2)}}</td>
                         <td>${{number_format($companyCost->companycost_yearly/12,2)}}</td>
                         <td>${{number_format($companyCost->companycost_yearly,2)}}</td>
-                        <td><a
-                                href="{{action('CompanyCostController@edit', $companyCost['pk_companycost_id'])}}">Edit</a>
+                        <td>
+
+                                <a class="btn btn-primary badge-pill" style="width:80px;" href="{{action('CompanyCostController@edit', $companyCost['pk_companycost_id'])}}">Edit</a>
+
+                                <a class="btn btn-danger badge-pill" style="width:80px;" href="/delete_companycost/{{$companyCost['pk_companycost_id']}}" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
                         </td>
                     </tr>
 
@@ -175,7 +178,7 @@
                         <th scope="col" onclick="sortArchived(2)">Monthly Cost</th>
                         <th scope="col" onclick="sortArchived(3)">Yearly Cost</th>
 
-                        <th scope="col">Edit</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -186,8 +189,10 @@
                         <td>${{number_format($companyCost->companycost_yearly/52,2)}}</td>
                         <td>${{number_format($companyCost->companycost_yearly/12,2)}}</td>
                         <td>${{number_format($companyCost->companycost_yearly,2)}}</td>
-                        <td><a
-                                href="{{action('CompanyCostController@edit', $companyCost['pk_companycost_id'])}}">Edit</a>
+                        <td>
+                            <a class="btn btn-primary badge-pill" style="width:80px;" href="{{action('CompanyCostController@edit', $companyCost['pk_companycost_id'])}}">Edit</a>
+
+                            <a class="btn btn-danger badge-pill" style="width:80px;" href="/delete_companycost/{{$companyCost['pk_companycost_id']}}" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
                         </td>
                     </tr>
                     @endif

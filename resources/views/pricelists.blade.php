@@ -149,11 +149,9 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                 <label for="input">Select subcategory</label>
                                 <select class="form-control" id="fk_subcategory_id" name="fk_subcategory_id">
                                     @foreach($subCategories as $subCategory)
-                                    @if ($page_id ==  $subCategory->fk_category_id)
                                     <option value="{{ $subCategory -> pk_subcategory_id }}">
                                         {{ $subCategory -> subcategory_name }}
                                     </option>
-                                    @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -256,14 +254,14 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                         <th scope="col" onclick="sortActive(4)">Materials</th>
                         <th scope="col" onclick="sortActive(5)">Total Charge</th>
                         <th scope="col">Pricing</th>
-                        <th scope="col">Edit</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($subCategories as $subCategory)
                     @foreach($subCategory->items as $item)
                     @foreach ($item->itemHasMaterials as $itemHasMaterials)
-                    @if(($item->item_archived == '0') && ($page_id ==  $subCategory->fk_category_id) )
+                    @if($item->item_archived == '0')
                     <tr>
                         <td>{{ $item->item_number }}</td>
                         <td>{{ $item->item_jobtype }}</td>
@@ -280,7 +278,11 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                             </a>
                         </td>
                         <td>
-                            <a href="{{url('/pricelists/'.$page_id.'/'.$item['pk_item_id'].'/edit')}}">Edit</a>
+                            
+
+                            <a class="btn btn-primary badge-pill" style="width:80px;" href="{{url('/pricelists/'.$page_id.'/'.$item['pk_item_id'].'/edit')}}">Edit</a>
+
+                            <a class="btn btn-danger badge-pill" style="width:80px;" href="/delete_pricelists/{{$item['pk_item_id']}}" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
                         </td>
                     </tr>
 

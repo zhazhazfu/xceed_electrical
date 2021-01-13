@@ -113,13 +113,13 @@
             <div class="col-sm-7">
                 <p class="h2">Customers</p>
             </div>
-
             <div class="col-sm-5">
                 <input type="text" class="form-control float-left" id="active_input" onkeyup="activeFunction()"
                     placeholder="Search customer name">
             </div>
         </div>
         <div class='table-responsive'>
+          
             <table id="active_table" class="display table table-hover table-sm mt-1">
                 <thead>
                     <tr>
@@ -129,7 +129,7 @@
                         <th scope="col" onclick="sortActive(3)">Email</th>
                         <th scope="col" onclick="sortActive(4)">Address</th>
                         <th scope="col" onclick="sortActive(5)">Discount</th>
-                        <th scope="col">Edit</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -142,7 +142,13 @@
                         <td>{{ $customer->customer_email }}</td>
                         <td>{{ $customer->customer_address }}</td>
                         <td>{{ $customer->discount->discount_name }}</td>
-                        <td><a href="{{action('CustomerController@edit', $customer['pk_customer_id'])}}">Edit</a></td>
+                        <td>
+                            <a class="btn btn-primary badge-pill" style="width:80px;" href="{{action('CustomerController@edit', $customer['pk_customer_id'])}}">Edit</a>
+
+                            <a class="btn btn-danger badge-pill" style="width:80px;" href="/delete_customer/{{$customer['pk_customer_id']}}" onclick="return confirm('Delete customer?');">Delete</a>
+
+
+                        </td>
                     </tr>
                     @endif
                     @endforeach
@@ -200,3 +206,4 @@
 </div>
 
 @stop
+

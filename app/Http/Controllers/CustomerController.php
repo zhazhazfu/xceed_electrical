@@ -67,4 +67,13 @@ class CustomerController extends Controller
         return redirect()->route('customers.index')->with('success', 'Customer updated');
     }
     
+    public function delete(request $request, $id)
+
+    {
+        
+        $customers = Customer::find($id);
+        $customers->delete();
+        return redirect()->back()->withSuccess('Customer Deleted');
+
+    }
 }

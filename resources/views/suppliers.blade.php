@@ -118,7 +118,7 @@
                         <th scope="col" onclick="sortActive(1)">Contact Name</th>
                         <th scope="col" onclick="sortActive(2)">Phone</th>
                         <th scope="col" onclick="sortActive(3)">Email</th>
-                        <th scope="col">Edit</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -129,7 +129,13 @@
                         <td>{{ $supplier->supplier_contactname }}</td>
                         <td>{{ $supplier->supplier_phone }}</td>
                         <td>{{ $supplier->supplier_email }}</td>
-                        <td><a href="{{action('SupplierController@edit', $supplier['pk_supplier_id'])}}">Edit</a></td>
+                        <td>
+                            <a class="btn btn-primary badge-pill" style="width:80px;" href="{{action('SupplierController@edit', $supplier['pk_supplier_id'])}}">Edit</a>
+
+                            <a class="btn btn-danger badge-pill" style="width:80px;" href="/delete_supplier/{{$supplier['pk_supplier_id']}}" onclick="return confirm('Delete supplier?');">Delete</a>
+
+
+                        </td>
                     </tr>
                     @endif
                     @endforeach

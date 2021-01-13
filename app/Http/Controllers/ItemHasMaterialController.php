@@ -83,8 +83,12 @@ class ItemHasMaterialController extends Controller
         $priceLists = PriceList::find($pk_item_id);
         $subCategories = SubCategory::all();
         $materials = Material::all();
+        $itemHasMaterials = Items::find($priceLists->pk_item_id)->itemHasMaterials->toArray();
 
-        return view('editlayouts.pricelistedit', compact('priceLists', 'pk_item_id', 'pageHeading', 'subCategories', 'materials', 'page_id'));
+        $itemHasMaterials = array_column($itemHasMaterials, 'fk_material_id');
+     
+       
+        return view('editlayouts.pricelistedit', compact('priceLists', 'pk_item_id', 'pageHeading', 'subCategories', 'materials', 'page_id','itemHasMaterials'));
     }
 
     public function update(Request $request, $page_id, $pk_item_id)
@@ -105,13 +109,24 @@ class ItemHasMaterialController extends Controller
         $priceLists->item_jobtype = $request->get('item_jobtype');
         $priceLists->fk_subcategory_id = $request->get('fk_subcategory_id');
         $priceLists->item_description = $request->get('item_description');
-        $priceLists->fk_material_id = $request->get('fk_material_id');
+       // $priceLists->fk_material_id = $request->get('fk_material_id');
         $priceLists->item_estimatedtime = $request->get('item_estimatedtime');
         $priceLists->item_servicecall = $request->get('item_servicecall');
         $priceLists->item_archived = $request->get('item_archived');
         $priceLists->save();
 
         return redirect('/pricelists/'.$page_id)->with('success', 'Product updated');
+    }
+
+    public function delete(request $request, $id)
+
+    {
+        $priceLists = Items::find($id);
+       
+        
+        $priceLists->delete();
+        return redirect()->back()->withSuccess('Pricelist Deleted');
+
     }
     
 }

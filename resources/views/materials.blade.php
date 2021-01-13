@@ -123,7 +123,7 @@
                         <th scope="col" onclick="sortActive(1)">Description</th>
                         <th scope="col" onclick="sortActive(2)">Material Cost</th>
                         <th scope="col" onclick="sortActive(3)">Supplier</th>
-                        <th scope="col">Edit</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -134,7 +134,14 @@
                         <td>{{ $material->material_description }}</td>
                         <td>${{number_format($material->material_cost,2) }}</td>
                         <td>{{ $material->suppliers->supplier_companyname }}</td>
-                        <td><a href="{{action('MaterialController@edit', $material['pk_material_id'])}}">Edit</a></td>
+                        <td>
+                         
+
+                            <a class="btn btn-primary badge-pill" style="width:80px;" href="{{action('MaterialController@edit', $material['pk_material_id'])}}">Edit</a>
+
+                            <a class="btn btn-danger badge-pill" style="width:80px;" href="/delete_material/{{$material['pk_material_id']}}" onclick="return confirm('Delete Material?');">Delete</a>
+
+                        </td>
                     </tr>
                     @endif
                     @endforeach

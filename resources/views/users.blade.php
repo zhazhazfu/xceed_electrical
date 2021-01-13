@@ -131,7 +131,7 @@
                         <th scope="col" onclick="sortActive(1)">Full Name</th>
                         <th scope="col" onclick="sortActive(2)">Type</th>
                         <th scope="col" onclick="sortActive(3)">Email</th>
-                        <th>Edit</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -142,7 +142,14 @@
                         <td>{{ $user->user_firstlast }}</td>
                         <td>{{ $user->role }}</td>
                         <td>{{ $user->email }}</td>
-                        <td><a href="{{action('UserController@edit', $user['pk_user_id'])}}">Edit</a></td>
+                        <td>
+                            
+                             <a class="btn btn-primary badge-pill" style="width:80px;" href="{{action('UserController@edit', $user['pk_user_id'])}}">Edit</a>
+
+                            <a class="btn btn-danger badge-pill" style="width:80px;" href="/delete_user/{{$user['pk_user_id']}}" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
+
+
+                        </td>
                     </tr>
                     @endif
                     @endforeach
