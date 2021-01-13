@@ -328,8 +328,8 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                     </div>
                                     <div class="form-row pb-2">
                                         <div class="form-group col-md-4">
-                                            <label for="input">Charge Rate</label>
-                                            <label class="sr-only" for="inlineFormInputGroup">Charge Rate</label>
+                                            <label for="input">Labour Cost</label>
+                                            <label class="sr-only" for="inlineFormInputGroup">Labour Cost</label>
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">$</div>
