@@ -79,7 +79,6 @@ class DiscountController extends Controller
             }
         $discounts->delete();
         return redirect()->back()->withSuccess('Discount Deleted');
-
     }
 
 }

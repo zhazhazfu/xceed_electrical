@@ -84,6 +84,7 @@ Route::get('/preview', 'PreviewController@index')->name('preview')->middleware('
 
 Route::get('/grossmargin', 'GrossMarginController@index')->name('grossmargin')->middleware('auth');
 Route::get('/grossmargin', 'GrossMarginController@edit')->name('grossmargin')->middleware('auth');
+Route::get('/delete_grossmargin/{id}', 'GrossMarginController@delete')->name('delete_grossmargin')->middleware('auth');
 Route::resource('grossmargin', 'GrossMarginController')->middleware('auth');
 
 Route::get('/employeecosts', 'EmployeeCostController@index')->name('employeecosts')->middleware('auth');

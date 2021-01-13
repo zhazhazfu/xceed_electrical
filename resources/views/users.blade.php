@@ -1,202 +1,85 @@
-@extends('layouts.app')
+<?php
 
-@section('title', 'User Management')
+namespace App\Http\Controllers;
 
-@section('content')
+use Illuminate\Http\Request;
+use App\Discount;
+use App\EmployeeCost;
+use App\GrossMargin;
+use App\CompanyCost;
+use Faker\Provider\ar_JO\Company;
 
-@if (Auth::user() && Auth::user()->role != 'admin')
-<div class="mx-auto mt-5" style="width: 200px;">
-    <h2>
-        Access denied
-    </h2>
-</div>
+class DiscountController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
 
-@elseif (Auth::user() && Auth::user()->role == 'admin')
+    public function index()
+    {
+        //
+        $pageHeading = 'Discounts';
 
-<!-- Button trigger modal -->
-<div class=" p-3 mb-5 bg-white rounded border">
-    <div>
-        @if(count($errors) > 0)
-        <div class="alert alert-danger">
-            <ul>
-                @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
-        @if(\Session::has('success'))
-        <div class="alert alert-success">
-            <p>{{ \Session::get('success') }}</p>
-        </div>
-        @endif
-    </div>
+        $discounts = Discount::all();
+  
+        return view('discounts', compact('pageHeading', 'discounts'));
+    }
 
 
-    <!-- Add user button -->
-    <button type="button" class="btn btn-primary float-right ml-3" data-toggle="modal" data-target="#userModal">
-        Add User
-    </button>
+    public function store(Request $request)
+    {
+        $this->validate($request,[
+            'discount_name' => 'required',
+        ]);
 
-    <!-- Active/Archived buttons -->
-    <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
-        <label class="btn btn-secondary active">
-            <input type="radio" name="options" id="active" autocomplete="off" checked> Active
-        </label>
-        <label class="btn btn-secondary">
-            <input type="radio" name="options" id="archived" autocomplete="off"> Archived
-        </label>
-    </div>
+        $newDiscount = new Discount([
+            'discount_name'  => $request->get('discount_name'),
+            'discount_rate'  => $request->get('discount_rate'),
+            'discount_archived'	=> $request->get('discount_archived')
+        ]);
 
-    <!-- Modal -->
-    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="userModalLabel">Enter user details</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
+        $newDiscount->save();
+        return back()->with('success', 'Discount added');    
+    }
 
-                    <form method="post" action="{{ url('users') }}">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="user_archived" value="0">
-                        <div class="form-row">
-                            <div class="form-group col-sm">
-                                <label for="input">Username</label>
-                                <input type="text" class="form-control" id="inputName" name="user_name"
-                                    placeholder="Username">
-                            </div>
-                            <div class="form-group col-sm">
-                                <label for="input">Full name</label>
-                                <input type="text" class="form-control" id="inputCompany" name="user_firstlast"
-                                    placeholder="Full Name">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-sm">
-                                <label for="input">Password</label>
-                                <input type="password" class="form-control" id="inputPhone" name="password"
-                                    placeholder="Password">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-sm">
-                                <label for="input">email</label>
-                                <input type="text" class="form-control" id="inputPhone" name="email"
-                                    placeholder="Email">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-sm">
-                                <label for="input">User type</label>
-                                <select id="role" name="role" class="form-control">
-                                    <option value="user" selected>User</option>
-                                    <option value="admin">Admin</option>
-                                </select>
-                            </div>
-                        </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save User</button>
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- End modal -->
+    public function edit($pk_discount_id)
+    {
+        $pageHeading = 'Discounts';
+        $discounts = Discount::find($pk_discount_id);
 
-    <!-- Active content -->
-    <div id="active_div">
-        <div class="row mb-4">
-            <div class="col-sm-7">
-                <p class="h2">Users</p>
-            </div>
+        return view('editlayouts.discountedit', compact('discounts', 'pk_discount_id', 'pageHeading'));
+    }
 
-            <div class="col-sm-5">
-                <input type="text" class="form-control float-right" id="active_input" onkeyup="activeFunction()"
-                    placeholder="Search username">
-            </div>
-        </div>
+    public function update(Request $request, $pk_discount_id)
+    {
 
-        <div class='table-responsive'>
-            <table id="active_table" class="display table table-hover table-sm">
-                <thead>
-                    <tr>
-                        <th scope="col" onclick="sortActive(0)">Username</th>
-                        <th scope="col" onclick="sortActive(1)">Full Name</th>
-                        <th scope="col" onclick="sortActive(2)">Type</th>
-                        <th scope="col" onclick="sortActive(3)">Email</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($users as $user)
-                    @if($user->user_archived == '0')
-                    <tr>
-                        <td>{{ $user->user_name }}</td>
-                        <td>{{ $user->user_firstlast }}</td>
-                        <td>{{ $user->role }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>
-                            
-                             <a class="btn btn-primary badge-pill" style="width:80px;" href="{{action('UserController@edit', $user['pk_user_id'])}}">Edit</a>
+        $this->validate($request,[
+            'discount_name' => 'required',
+        ]);
+        
+        $discounts = Discount::find($pk_discount_id);
+        $discounts->discount_name = $request->get('discount_name');
+        $discounts->discount_rate = $request->get('discount_rate');
+        $discounts->discount_archived = $request->get('discount_archived');
+        $discounts->save();
 
-                            <a class="btn btn-danger badge-pill" style="width:80px;" href="/delete_user/{{$user['pk_user_id']}}" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
+        return redirect()->route('discounts.index')->with('success', 'Discount updated');
+    }
 
+    public function delete(request $request, $id)
 
-                        </td>
-                    </tr>
-                    @endif
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
+    {
+        
+        $discounts = Discount::find($id);
+        if (count($discounts->customers))
+            {
+              return redirect()->back()->withErrors(['Please delete related customers first.']);
+            }
+        $discounts->delete();
+        return redirect()->back()->withSuccess('Discount Deleted');
 
-    <!-- Archived content -->
-    <div id="archived_div" style="display: none">
+    }
 
-        <div class="row mb-4">
-            <div class="col-sm-7">
-                <p class="h2">Archived Users</p>
-            </div>
-
-            <div class="col-sm-5">
-                <input type="text" class="form-control float-right" id="archived_input" onkeyup="archivedFunction()"
-                    placeholder="Search username">
-
-            </div>
-        </div>
-        <table id="archived_table" class="display table table-hover table-sm">
-            <thead>
-                <tr>
-                    <th scope="col" onclick="sortArchived(0)">Username</th>
-                    <th scope="col" onclick="sortArchived(1)">Full Name</th>
-                    <th scope="col" onclick="sortArchived(2)">Type</th>
-                    <th scope="col" onclick="sortActive(3)">Email</th>
-                    <th>Edit</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($users as $user)
-                @if($user->user_archived == '1')
-                <tr>
-                    <td>{{ $user->user_name }}</td>
-                    <td>{{ $user->user_firstlast }}</td>
-                    <td>{{ $user->role }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td><a href="{{action('UserController@edit', $user['pk_user_id'])}}">Edit</a></td>
-                </tr>
-                @endif
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-</div>
-@endif
-@stop
+}
