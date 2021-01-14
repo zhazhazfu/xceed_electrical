@@ -16,7 +16,6 @@ class AddGM extends Migration
 
         Schema::create('grossmargins', function (Blueprint $table) {
             $table->id('pk_gm_id');
-            $table->double('gm_percentage');
             $table->double('gm_rate');
             $table->timestamps();
         });
@@ -24,7 +23,6 @@ class AddGM extends Migration
         $grossmargins = new App\GrossMargin();
         $grossmargins->pk_gm_id = 1;
         $grossmargins->gm_rate = 1.739;
-        $grossmargins->gm_percentage = 42.5;
         $grossmargins->save();
 
         // $grossmargins = new App\GrossMargin();

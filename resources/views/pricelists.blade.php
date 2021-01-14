@@ -112,7 +112,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
     <!-- Modal -->
     <div class="modal fade" id="itemModal" tabindex="-1" role="dialog" aria-labelledby="itemModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-xl " role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="itemModalLabel">Enter product details</h5>
@@ -210,19 +210,6 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                 </div>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-sm">
-                                <label for="input">Labour Cost</label>
-                                <label class="sr-only" for="inlineFormInputGroup">Labour Cost</label>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">$</div>
-                                    </div>
-                                    <input type="text" class="form-control" id="item_labourcost"
-                                        name="item_labourcost" placeholder="10">
-                                </div>
-                            </div>
-                        </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -271,7 +258,9 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                         <td>{{ $item->item_description }}</td>
                         <td>{{ $itemHasMaterials->material->material_description }}</td>
                         @foreach ($grossMargins as $grossMargin)
-                        <td>{{ number_format((($itemHasMaterials->material->material_cost*$grossMargin->gm_rate) + $itemHasMaterials->item_servicecall + $itemHasMaterials->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2) }}
+                        {{-- <td>{{ number_format((($itemHasMaterials->material->material_cost*$grossMargin->gm_rate) + $itemHasMaterials->item_servicecall + $itemHasMaterials->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2) }}
+                        </td> --}}
+                        <td>{{ number_format((($itemHasMaterials->material->material_cost*$grossMargin->gm_rate) + $item->item_servicecall + $item->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2) }}
                         </td>
                         @endforeach
                         <td>
@@ -341,8 +330,8 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                     </div>
                                     <div class="form-row pb-2">
                                         <div class="form-group col-md-4">
-                                            <label for="input">Charge Rate</label>
-                                            <label class="sr-only" for="inlineFormInputGroup">Charge Rate</label>
+                                            <label for="input">Labour Cost</label>
+                                            <label class="sr-only" for="inlineFormInputGroup">Labour Cost</label>
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">$</div>

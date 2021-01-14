@@ -54,7 +54,6 @@ class ItemHasMaterialController extends Controller
             'fk_material_id' => 'required',
             'item_estimatedtime' => 'required',
             'item_servicecall' => 'required',
-            'item_labourcost' => 'required'
         ]);
 
 
@@ -65,10 +64,11 @@ class ItemHasMaterialController extends Controller
             'item_description' => $request->get('item_description'), 
             'item_estimatedtime' => $request->get('item_estimatedtime'),
             'item_servicecall' => $request->get('item_servicecall'),
-            'item_labourcost' => $request->get('item_labourcost'),
             'item_archived' => $request->get('item_archived')
         ]);
         $item->save(); // save the item to get a new id
+
+        
         $itemHasMaterial = new itemHasMaterials([
             'fk_item_id' => $item-> pk_item_id, // the new id is now available to store
             'fk_material_id' => $request->get('fk_material_id')
