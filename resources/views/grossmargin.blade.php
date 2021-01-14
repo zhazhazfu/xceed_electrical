@@ -181,13 +181,94 @@
                         {{ number_format($total_business_hourly_cost/365/8,2) }}
                     </td>
                     <td>
-                       
-                        {{ $gm->gm_percentage }}
-                     
-                        
-                          {{-- @foreach($grossmargin as $gm)
-                                    <option value="{{ $gm -> pk_gm_id }}">{{ $gm -> gm_percentage }}</option>
-                                @endforeach --}}
+                        @switch($gm->gm_rate)
+                            @case(1.111)
+                                <span>10</span>
+                                @break
+                            @case(1.143)
+                                <span>12.5</span>
+                                @break
+                            @case(1.176)
+                                <span>15</span>
+                                @break
+                            @case(1.25)
+                                <span>20</span>
+                                @break
+                            @case(1.29)
+                                <span>22.5</span>
+                                @break
+                            @case(1.333)
+                                <span>25</span>
+                                @break
+                            @case(1.379)
+                                <span>27.5</span>
+                                @break
+                           @case(1.429)
+                                <span>30</span>
+                                @break
+                            @case(1.481)
+                                <span>32.5</span>
+                                @break
+                            @case(1.4925)
+                                <span>33</span>
+                                @break
+                            @case(1.538)
+                                <span>35</span>
+                                @break
+                            @case(1.6)
+                                <span>37.5</span>
+                                @break
+                            @case(1.667)
+                                <span>40</span>
+                                @break
+                            @case(1.739)
+                                <span>42.5</span>
+                                @break
+                            @case(1.818)
+                                <span>45</span>
+                                @break
+                            @case(1.905)
+                                <span>47.5</span>
+                                @break        
+                            @case(2)
+                                <span>50</span>
+                                @break
+                            @case(2.1092)
+                                <span>52.5</span>
+                                @break
+                            @case(2.223)
+                                <span>55</span>
+                                @break
+                            @case(2.3529)
+                                <span>57.5</span>
+                                @break
+                            @case(2.5)
+                                <span>60</span>
+                                @break
+                            @case(2.666)
+                                <span>62.5</span>
+                                @break
+                            @case(2.852)
+                                <span>65</span>
+                                @break
+                            @case(3.075)
+                                <span>67.5</span>
+                                @break
+                            @case(3.333)
+                                <span>70</span>
+                                @break
+                            @case(4)
+                                <span>75</span>
+                                @break
+                            @case(5)
+                                <span>80</span>
+                                @break
+                            @case(6.667)
+                                <span>85</span>
+                                @break
+                            @default
+                                <span>Something went wrong, please try again</span>
+                        @endswitch
                     </td>
                     <td>
                        {{$gm->gm_rate}}
