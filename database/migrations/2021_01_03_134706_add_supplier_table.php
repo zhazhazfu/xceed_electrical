@@ -25,7 +25,6 @@ class AddSupplierTable extends Migration
 
         $supplier = new App\Supplier();
         $supplier->supplier_companyname = 'Estimate Supplier';
-        $supplier->supplier_contactname = 'Assign materials for estimations to me';
         $supplier->save();
 
         $supplier = new App\Supplier();

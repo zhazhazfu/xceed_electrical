@@ -21,7 +21,7 @@ class AddItemTable extends Migration
             $table->string('item_description');
             $table->double('item_estimatedtime');
             $table->double('item_servicecall');
-            $table->double('item_labourcost');
+            $table->double('item_labourcost')->nullable();
             $table->tinyInteger('item_archived');
             $table->timestamps();
         });

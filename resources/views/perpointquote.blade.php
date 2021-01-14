@@ -32,11 +32,12 @@
                         <label for="input">Customer name</label>
                         <label class="sr-only" for="customer_name">Customer Name</label>
                         <div class="input-group mb-2">
-                            <input id="customer_name" name="customer_name" class="form-control">
+                            <select id="customer_name" name="customer_name" class="form-control">
                                 @foreach($customers as $customer)
                                 <option value="{{ $customer->pk_customer_id }}">
                                     {{ $customer->customer_name }}
                                 </option>
+                            </select>
                                 @endforeach
                         </div>
                         <label for="input">Job Address</label>
@@ -110,7 +111,21 @@
                 <div class="form-group col-md">
                     <label for="input">Average Install Time</label>
                     <div class="input-group mb-2">
-                        <select type="text" class="form-control" id="customerName"></select>
+                        <select type="text" class="form-control" id="customerName">
+                            <option selected>0.00</option>
+                            <option>0.17</option>
+                            <option>0.25</option>
+                            <option>0.33</option>
+                            <option>0.42</option>
+                            <option>0.50</option>
+                            <option>0.57</option>
+                            <option>0.67</option>
+                            <option>0.75</option>
+                            <option>0.83</option>
+                            <option>0.92</option>
+                            <option>1.00</option>
+                            <option>1.25</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group col-md">
@@ -121,7 +136,7 @@
                             <div class="input-group-text">$</div>
                         </div>
                         <input type="text" class="form-control" id="inlineFormInputGroup" name="employee_basehourly"
-                            placeholder="">
+                            placeholder="" readonly>
                     </div>
                 </div>
                 <div class="form-group col-md">
@@ -132,16 +147,8 @@
                             <div class="input-group-text">$</div>
                         </div>
                         <input type="text" class="form-control" id="inlineFormInputGroup" name="employee_basehourly"
-                            placeholder="Cost x GM">
+                            placeholder="Cost x GM" readonly>
                     </div>
-                </div>
-                <div class="form-group col-md">
-                    <label for="selectCategory">Gross Margin</label>
-                    <select class="form-control" id="materialGM">
-                        @foreach($grossmargins as $grossmargin)
-                        <option value="{{$grossmargin->pk_gm_id}}">{{$grossmargin->gm_rate}}</option>
-                        @endforeach
-                    </select>
                 </div>
             </div>
             <hr>
@@ -175,17 +182,6 @@
                     <label for="yearlypay">Quantity</label>
                     <input type="text" class="form-control" id="yearlypay" placeholder="#">
                 </div>
-                <div class="form-group col-md">
-                    <label for="input">Material Cost</label>
-                    <label class="sr-only" for="inlineFormInputGroup">2</label>
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">$</div>
-                        </div>
-                        <input type="text" class="form-control" id="inlineFormInputGroup" name="employee_basehourly"
-                            placeholder="">
-                    </div>
-                </div>
 
                 <div class="form-group col-md">
                     <label for="input">Material Charge</label>
@@ -195,7 +191,7 @@
                             <div class="input-group-text">$</div>
                         </div>
                         <input type="text" class="form-control" id="inlineFormInputGroup" name="employee_basehourly"
-                            placeholder="Cost x GM">
+                            placeholder="Cost x GM" readonly>
                     </div>
                 </div>
             </div>
@@ -215,7 +211,7 @@
                             <div class="input-group-text">$</div>
                         </div>
                         <input type="text" class="form-control" id="inlineFormInputGroup" name="employee_basehourly"
-                            placeholder="Total Cost">
+                            placeholder="Total Cost" readonly>
                     </div>
                 </div>
                 <div class="form-group col-md">
@@ -226,31 +222,45 @@
                             <div class="input-group-text">$</div>
                         </div>
                         <input type="text" class="form-control" id="inlineFormInputGroup" name="employee_basehourly"
-                            placeholder="Total Charge">
-                    </div>
-                </div>
-                <div class="form-group col-md">
-                    <label for="input">Profit</label>
-                    <label class="sr-only" for="inlineFormInputGroup">2</label>
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">$</div>
-                        </div>
-                        <input type="text" class="form-control" id="inlineFormInputGroup" name="employee_basehourly"
-                            placeholder="Total Profit">
+                            placeholder="Total Charge" readonly>
                     </div>
                 </div>
             </div>
             <hr>
-                <div class="form row">
-                    <div class="form-group col-sm">
-                        <h5 class="pt-3 pb-1">Inclusions & Exclusions</h5>
-                        <label for="quote_inclusions">Inclusions</label>
-                        <textarea class="form-control" id="quote_inclusions" name="quote_inclusions" rows="2"></textarea>
+            <div class="col-sm-12 pb-2">
+                <h5 class="pt-3 pb-1 ">Inclusions & Exclusions</h5>
+                <div class="form-row">
+                    <div class="form-group">
+                    </div>
+                    <div class="form-group col-md-8">
+                        <select class="form-control" id="term_name" name="term_name">
+                            @foreach($quoteterms as $quoteterm)
+                            <option value="{{ $quoteterm->pk_term_id }}">{{ $quoteterm->term_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group col-md-8">
                         <label for="quote_exclusions">Exclusions</label>
-                        <textarea class="form-control" id="quote_inclusions" name="quote_exclusions" rows="2"></textarea>
+                        <select class="form-control" id="term_name" name="term_name">
+                            @foreach($quoteterms as $quoteterm)
+                            <option value="{{ $quoteterm->pk_term_id }}">{{ $quoteterm->term_name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
+            </div>
+
+            <div class="w-100"></div>
+            <div class="form row border-top">
+                <div class="form-group">
+                    <h5 class="pt-3 pb-1">Terms & Conditions</h5>
+                    <select class="form-control" id="term_name" name="term_name">
+                        @foreach($quoteterms as $quoteterm)
+                        <option value="{{ $quoteterm->pk_term_id }}">{{ $quoteterm->term_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
             <div class="form row border-top">
                 <div class="form-group">
                 </div>
@@ -262,7 +272,7 @@
                 <div class="form-group col-md">
                     <label for="grandtotal">Total</label>
                     <div class="input-group mb-2" style="width:150px;">
-                    <input class="form-control" id="grandtotal" name="">
+                    <input class="form-control" id="grandtotal" name="" readonly>
                     </div>
                 </div>
             </div>
@@ -277,7 +287,7 @@
                             <div class="input-group-text">$</div>
                         </div>
                         <input type="text" class="form-control" id="inlineFormInputGroup" name="employee_basehourly"
-                            placeholder="">
+                            placeholder="" readonly>
                     </div>
                 </div>
                 <div class="form-group col-md">
@@ -288,27 +298,16 @@
                             <div class="input-group-text">$</div>
                         </div>
                         <input type="text" class="form-control" id="inlineFormInputGroup" name="employee_basehourly"
-                            placeholder="">
+                            placeholder="" readonly>
                     </div>
                 </div>
             </div>
-            <div class="w-100"></div>
-                <div class="form row border-top">
-                    <div class="form-group">
-                        <h5 class="pt-3 pb-1">Terms & Conditions</h5>
-                        <select class="form-control" id="term_name" name="term_name">
-                            @foreach($quoteterms as $quoteterm)
-                            <option value="{{ $quoteterm->pk_term_id }}">{{ $quoteterm->term_name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <input class="form-control" id="term_name" name="term_name" style="margin-bottom:20px;">
-                </div>
+            
 
-                <div class="float-right" style="margin-top:20px;">
-                    <button type="button" class="btn btn-secondary">Cancel</button>
-                    <button type="button" class="btn btn-success">Save Draft</button>
-                    <button type="submit" class="btn btn-primary">Generate Quote</button>
+            <div class="float-right" style="margin-top:20px;">
+                <button type="button" class="btn btn-secondary">Cancel</button>
+                <button type="button" class="btn btn-success">Save Draft</button>
+                <button type="submit" class="btn btn-primary">Generate Quote</button>
             </div>
         </div>
     </div>
