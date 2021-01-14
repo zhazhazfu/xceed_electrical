@@ -258,7 +258,9 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                         <td>{{ $item->item_description }}</td>
                         <td>{{ $itemHasMaterials->material->material_description }}</td>
                         @foreach ($grossMargins as $grossMargin)
-                        <td>{{ number_format((($itemHasMaterials->material->material_cost*$grossMargin->gm_rate) + $itemHasMaterials->item_servicecall + $itemHasMaterials->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2) }}
+                        {{-- <td>{{ number_format((($itemHasMaterials->material->material_cost*$grossMargin->gm_rate) + $itemHasMaterials->item_servicecall + $itemHasMaterials->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2) }}
+                        </td> --}}
+                        <td>{{ number_format((($itemHasMaterials->material->material_cost*$grossMargin->gm_rate) + $item->item_servicecall + $item->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2) }}
                         </td>
                         @endforeach
                         <td>
