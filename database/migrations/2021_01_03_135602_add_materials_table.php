@@ -15,8 +15,8 @@ class AddMaterialsTable extends Migration
     {
         Schema::create('materials', function (Blueprint $table) {
             $table->id('pk_material_id');
-            $table->foreignId('fk_supplier_id')->references('pk_supplier_id')->on('suppliers')->nullable();
-            $table->string('material_itemname')->nullable();
+            $table->foreignId('fk_supplier_id')->references('pk_supplier_id')->on('suppliers');
+            $table->string('material_itemcode')->nullable();
             $table->string('material_description');
             $table->double('material_cost');
             $table->tinyInteger('material_archived')->default(0);
@@ -25,15 +25,16 @@ class AddMaterialsTable extends Migration
 
         $materials = new App\Material();
         $materials->fk_supplier_id = '1';
-        $materials->material_itemname = 'None';
+        $materials->material_itemcode = 'None';
         $materials->material_description = 'Service Call inspection Only - 30 mins only';
         $materials->material_cost = '0';
         $materials->save();
 
         $materials = new App\Material();
-        $materials->fk_supplier_id = '1';
-        $materials->material_description = 'LED EMERGENCY oyster light + fixings + Misc + Cable ( 10 -30 metres ) - No conduit work';
-        $materials->material_cost = '160';
+        $materials->fk_supplier_id = '2';
+        $materials->material_itemcode = 'Light Ball';
+        $materials->material_description = 'LED EMERGENCY oyster light';
+        $materials->material_cost = '50';
         $materials->save();
     }
 
