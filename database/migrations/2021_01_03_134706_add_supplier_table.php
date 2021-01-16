@@ -23,6 +23,11 @@ class AddSupplierTable extends Migration
             $table->timestamps();
         });
 
+
+        $supplier = new App\Supplier();
+        $supplier->supplier_companyname = 'No Supplier';
+        $supplier->save();
+
         $supplier = new App\Supplier();
         $supplier->supplier_companyname = 'Estimate Supplier';
         $supplier->save();
