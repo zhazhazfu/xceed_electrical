@@ -130,8 +130,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                 <input type="text" class="form-control" id="item_number" name="item_number"
                                     placeholder="ELI-001">
                             </div>
-                        </div>
-                        <div class="form-row">
+
                             <div class="form-group col-sm">
                                 <label for="input">Job Type</label>
                                 <select class="form-control" id="item_jobtype" name="item_jobtype">
@@ -157,14 +156,14 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
-                        <div class="form-row">
+
                             <div class="form-group col-sm">
                                 <label for="input">Job description</label>
                                 <input type="text" class="form-control" id="item_description" name="item_description"
                                     placeholder="E.g. Attend, supply and install..">
                             </div>
                         </div>
+
                         <div class="form-row">
                             <div class="form-group col-sm">
                                 <label for="input">Select material</label>
@@ -177,6 +176,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                 </select>
                             </div>
                         </div>
+
                         <div class="form-row">
                             <div class="form-group col-sm">
                                 <label for="input">Estimated time (h)</label>
@@ -196,8 +196,6 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                     <option>1.25</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="form-row">
                             <div class="form-group col-sm">
                                 <label for="input">Service call</label>
                                 <label class="sr-only" for="inlineFormInputGroup">Service call</label>
@@ -210,12 +208,12 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                 </div>
                             </div>
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Product</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save Product</button>
-                </div>
-                </form>
             </div>
         </div>
     </div>
