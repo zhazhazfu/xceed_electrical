@@ -23,14 +23,20 @@
     <div class="row">
         <div class="col-sm">
             <h3>Edit Product</h3>
-            <form method="post" action="{{url('/pricelists/'.$page_id.'/'.$pk_item_id.'/update')}}">
+            <form method="post" action="{{url('/pricelists/'.$page_id.'/'.$pk_item_has_materails_id.'/update')}}">
                 {{csrf_field()}}
                 <input type="hidden" name="_method" value="PATCH">
                 <div class="form-row">
                     <div class="form-group col-sm">
                         <label for="input">Item #</label>
-                        <input type="text" class="form-control" id="item_number" name="item_number"
-                            value="{{$Items->item_number}}">
+                        @foreach ( $itemHasMaterial as $itemHasMaterial)
+                        @foreach ( $item as $item)
+                        @if ($itemHasMaterial->fk_item_id == $item->pk_item_id)
+                            <input type="text" class="form-control" id="item_number" name="item_number"
+                            value="{{$item->item_number}}">
+                        @endif
+                        @endforeach
+                        @endforeach
                     </div>
                 </div>
                 <div class="form-row">
@@ -51,7 +57,7 @@
                         <label for="input">Select subcategory</label>
                         <select class="form-control" id="fk_subcategory_id" name="fk_subcategory_id">
                             @foreach($subCategories as $subCategory)
-                            @if($subCategory->pk_subcategory_id == $Items->fk_subcategory_id)
+                            @if($subCategory->pk_subcategory_id == $item->fk_subcategory_id)
                             <option selected value="{{$subCategory->pk_subcategory_id}}">
                                 {{$subCategory->subcategory_name}}</option>
                             @else
@@ -66,7 +72,7 @@
                     <div class="form-group col-sm">
                         <label for="input">Job description</label>
                         <input type="text" class="form-control" id="inputCompany" name="item_description"
-                            value="{{$Items->item_description}}">
+                            value="{{$item->item_description}}">
                     </div>
                 </div>
                 <div class="form-row">
@@ -74,7 +80,7 @@
                         <label for="input">Select material</label>
                         <select class="form-control" id="fk_material_id" name="fk_material_id">
                             @foreach($materials as $material)
-                            @if($material->pk_material_id == $itemHasMaterials->fk_material_id)
+                            @if($material->pk_material_id == $itemHasMaterial->fk_material_id)
                             <option selected value="{{$material->pk_material_id}}">{{$material->material_description}}
                             </option>
                             @else
@@ -89,8 +95,8 @@
                     <div class="form-group col-sm">
                         <label for="input">Estimated time (h)</label>
                         <select id="item_estimatedtime" name="item_estimatedtime" class="form-control">
-                            <option value="{{$priceLists->item_estimatedtime}}" selected>
-                                {{$Items->item_estimatedtime}}
+                            <option value="{{$item->item_estimatedtime}}" selected>
+                                {{$item->item_estimatedtime}}
                             </option>
                             <option>0.00</option>
                             <option>0.17</option>
@@ -117,20 +123,7 @@
                                 <div class="input-group-text">$</div>
                             </div>
                             <input type="text" class="form-control" id="item_servicecall" name="item_servicecall"
-                                value="{{$Items->item_servicecall}}">
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-sm">
-                        <label for="input">Labour Cost</label>
-                        <label class="sr-only" for="inlineFormInputGroup">Labour Cost</label>
-                        <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">$</div>
-                            </div>
-                            <input type="text" class="form-control" id="item_servicecall" name="item_servicecall"
-                                value="{{$Items->item_labourcost}}">
+                                value="{{$item->item_servicecall}}">
                         </div>
                     </div>
                 </div>
@@ -138,7 +131,7 @@
                     <div class="form-group col-sm">
                         <label for="input">Archived</label>
                         <select id="item_archived" name="item_archived" class="form-control">
-                            @if ($priceLists->item_archived == 0)
+                            @if ($item->item_archived == 0)
                             <option value="0" selected>No</option>
                             <option value="1">Yes</option>
                             @else
