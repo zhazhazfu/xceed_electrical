@@ -54,6 +54,7 @@ class ItemHasMaterialController extends Controller
             'fk_material_id' => 'required',
             'item_estimatedtime' => 'required',
             'item_servicecall' => 'required',
+            'item_labourcost' => 'required'
         ]);
 
 
@@ -64,30 +65,36 @@ class ItemHasMaterialController extends Controller
             'item_description' => $request->get('item_description'), 
             'item_estimatedtime' => $request->get('item_estimatedtime'),
             'item_servicecall' => $request->get('item_servicecall'),
+            'item_labourcost' => $request->get('item_labourcost'),
             'item_archived' => $request->get('item_archived')
         ]);
         $item->save(); // save the item to get a new id
 
-        
-        $itemHasMaterial = new itemHasMaterials([
+        foreach ($request->fk_material_id as $key => $value) {
+            $itemHasMaterial = new itemHasMaterials([
             'fk_item_id' => $item-> pk_item_id, // the new id is now available to store
-            'fk_material_id' => $request->get('fk_material_id')
-        ]);
-        $itemHasMaterial->save();
+            'fk_material_id' => $value,
+            'quantity' => $request->quantity[$key]
+            ]);
+            $itemHasMaterial->save();
+        }
+        
         return back()->with('success', 'Job added');    
     }
 
-    public function edit($page_id, $pk_item_id)
+    public function edit($page_id, $pk_item_has_materails_id)
     {
         $pageHeading = 'Price List';
-        $priceLists = PriceList::find($pk_item_id);
+        $itemHasMaterialID = ItemHasMaterials::find($pk_item_has_materails_id);
+        $itemHasMaterial = ItemHasMaterials::all();
+        $item = Items::all();
         $subCategories = SubCategory::all();
         $materials = Material::all();
 
-        return view('editlayouts.pricelistedit', compact('priceLists', 'pk_item_id', 'pageHeading', 'subCategories', 'materials', 'page_id'));
+        return view('editlayouts.pricelistedit', compact('item', 'itemHasMaterialID', 'itemHasMaterial', 'pk_item_has_materails_id', 'pageHeading', 'subCategories', 'materials', 'page_id'));
     }
 
-    public function update(Request $request, $page_id, $pk_item_id)
+    public function update(Request $request, $page_id, $pk_item_has_materails_id)
     {
 
         $this->validate($request,[
@@ -100,16 +107,20 @@ class ItemHasMaterialController extends Controller
             'item_servicecall' => 'required',
         ]);
         
-        $priceLists = PriceList::find($pk_item_id);
-        $priceLists->item_number = $request->get('item_number');
-        $priceLists->item_jobtype = $request->get('item_jobtype');
-        $priceLists->fk_subcategory_id = $request->get('fk_subcategory_id');
-        $priceLists->item_description = $request->get('item_description');
-        $priceLists->fk_material_id = $request->get('fk_material_id');
-        $priceLists->item_estimatedtime = $request->get('item_estimatedtime');
-        $priceLists->item_servicecall = $request->get('item_servicecall');
-        $priceLists->item_archived = $request->get('item_archived');
-        $priceLists->save();
+        $itemHasMaterial = ItemHasMaterials::find($pk_item_has_materails_id);
+        
+        $item = Items::find($itemHasMaterial->fk_item_id );
+        $item->item_number = $request->get('item_number');
+        $item->item_jobtype = $request->get('item_jobtype');
+        $item->fk_subcategory_id = $request->get('fk_subcategory_id');
+        $item->item_description = $request->get('item_description');
+        $item->item_estimatedtime = $request->get('item_estimatedtime');
+        $item->item_servicecall = $request->get('item_servicecall');
+        $item->item_archived = $request->get('item_archived');
+        $item->save();
+
+        $itemHasMaterial->fk_material_id = $request->get('fk_material_id');
+        $itemHasMaterial->save();
 
         return redirect('/pricelists/'.$page_id)->with('success', 'Product updated');
     }

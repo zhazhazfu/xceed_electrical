@@ -130,8 +130,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                 <input type="text" class="form-control" id="item_number" name="item_number"
                                     placeholder="ELI-001">
                             </div>
-                        </div>
-                        <div class="form-row">
+
                             <div class="form-group col-sm">
                                 <label for="input">Job Type</label>
                                 <select class="form-control" id="item_jobtype" name="item_jobtype">
@@ -157,26 +156,42 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
-                        <div class="form-row">
+
                             <div class="form-group col-sm">
                                 <label for="input">Job description</label>
                                 <input type="text" class="form-control" id="item_description" name="item_description"
                                     placeholder="E.g. Attend, supply and install..">
                             </div>
                         </div>
+                        <div id="select_mat">
+                                <div id="select_mat_html">
+                                        <div class="form-row" >
+                                            <div class="form-group col-sm">
+                                                <label for="input">Select material</label>
+                                                <select class="form-control" id="fk_material_id" name="fk_material_id[]">
+                                                    @foreach($materials as $material)
+                                                    <option selected value="{{ $material -> pk_material_id }}">
+                                                        {{ $material -> material_description}}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-row" >
+                                            <div class="form-group col-sm">
+                                            <label for="input">Material quantity</label>
+                                            <input type="number" class="form-control" id="item_description" name="quantity[]"
+                                                placeholder="0" required>
+                                            </div>
+                                        </div>
+                                </div>
+                        </div>
                         <div class="form-row">
                             <div class="form-group col-sm">
-                                <label for="input">Select material</label>
-                                <select class="form-control" id="fk_material_id" name="fk_material_id">
-                                    @foreach($materials as $material)
-                                    <option selected value="{{ $material -> pk_material_id }}">
-                                        {{ $material -> material_description}}
-                                    </option>
-                                    @endforeach
-                                </select>
+                                <button id="dublicate_mat" class="btn btn-primary">Add more +</button>
                             </div>
                         </div>
+
                         <div class="form-row">
                             <div class="form-group col-sm">
                                 <label for="input">Estimated time (h)</label>
@@ -196,8 +211,6 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                     <option>1.25</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="form-row">
                             <div class="form-group col-sm">
                                 <label for="input">Service call</label>
                                 <label class="sr-only" for="inlineFormInputGroup">Service call</label>
@@ -209,13 +222,26 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                         name="item_servicecall" placeholder="0.00">
                                 </div>
                             </div>
+                            <div class="form-row">
+                            <div class="form-group col-sm">
+                                <label for="input">Labour Cost</label>
+                                <label class="sr-only" for="inlineFormInputGroup">Labour Cost</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">$</div>
+                                    </div>
+                                    <input type="text" class="form-control" id="item_labourcost"
+                                        name="item_labourcost" placeholder="10">
+                                </div>
+                            </div>
                         </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Product</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save Product</button>
-                </div>
-                </form>
             </div>
         </div>
     </div>
@@ -295,9 +321,18 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">$</div>
                                                 </div>
+                                                <?php 
+
+                                                    $temp_mat_cost = 0;
+                                                    foreach ($item->itemHasMaterials as $temp_itemHasMaterial)
+                                                    {
+                                                        $temp_mat_cost += $temp_itemHasMaterial->material->material_cost*$temp_itemHasMaterial->quantity;
+                                                    }
+
+                                                 ?>
                                                 <input type="text" class="form-control" id="inlineFormInputGroup"
                                                     name="materialCost"
-                                                    value="{{ number_format($itemHasMaterials->material->material_cost,2) }}"
+                                                    value="{{ number_format($temp_mat_cost,2) }}"
                                                     disabled>
                                             </div>
                                         </div>
@@ -673,3 +708,19 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
 </div>
 
 @stop
+
+@push('js')
+<script type="text/javascript">
+    
+
+    $(document).ready(function(){
+            $("#dublicate_mat").click(function(e){
+                e.preventDefault();
+                $("#select_mat").append($("#select_mat_html").clone(true));
+              });
+
+        });
+</script>
+@endpush
+
+

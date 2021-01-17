@@ -307,7 +307,7 @@
             <div class="float-right" style="margin-top:20px;">
                 <button type="button" class="btn btn-secondary">Cancel</button>
                 <button type="button" class="btn btn-success">Save Draft</button>
-                <button type="submit" class="btn btn-primary">Generate Quote</button>
+                <button type="submit" class="btn btn-primary">Submit Quote</button>
             </div>
         </div>
     </div>
