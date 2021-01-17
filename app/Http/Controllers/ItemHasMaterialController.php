@@ -54,6 +54,7 @@ class ItemHasMaterialController extends Controller
             'fk_material_id' => 'required',
             'item_estimatedtime' => 'required',
             'item_servicecall' => 'required',
+            'item_labourcost' => 'required'
         ]);
 
 
@@ -64,16 +65,20 @@ class ItemHasMaterialController extends Controller
             'item_description' => $request->get('item_description'), 
             'item_estimatedtime' => $request->get('item_estimatedtime'),
             'item_servicecall' => $request->get('item_servicecall'),
+            'item_labourcost' => $request->get('item_labourcost'),
             'item_archived' => $request->get('item_archived')
         ]);
         $item->save(); // save the item to get a new id
 
-        
-        $itemHasMaterial = new itemHasMaterials([
+        foreach ($request->fk_material_id as $key => $value) {
+            $itemHasMaterial = new itemHasMaterials([
             'fk_item_id' => $item-> pk_item_id, // the new id is now available to store
-            'fk_material_id' => $request->get('fk_material_id')
-        ]);
-        $itemHasMaterial->save();
+            'fk_material_id' => $value,
+            'quantity' => $request->quantity[$key]
+            ]);
+            $itemHasMaterial->save();
+        }
+        
         return back()->with('success', 'Job added');    
     }
 
@@ -103,7 +108,8 @@ class ItemHasMaterialController extends Controller
         ]);
         
         $itemHasMaterial = ItemHasMaterials::find($pk_item_has_materails_id);
-        $item = Items::all();
+        
+        $item = Items::find($itemHasMaterial->fk_item_id );
         $item->item_number = $request->get('item_number');
         $item->item_jobtype = $request->get('item_jobtype');
         $item->fk_subcategory_id = $request->get('fk_subcategory_id');

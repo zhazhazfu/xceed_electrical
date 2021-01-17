@@ -10,7 +10,8 @@ class ItemHasMaterials extends Model
     protected $primaryKey = 'pk_item_has_materails_id';
     protected $fillable = [
             'fk_item_id', 
-            'fk_material_id'
+            'fk_material_id',
+            'quantity'
         ];
 
     public function items()
