@@ -15,7 +15,6 @@ class Items extends Model
             'item_description',
             'item_estimatedtime',
             'item_servicecall',
-            'item_labourcost',
             'item_archived'
         ];
 
