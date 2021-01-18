@@ -30,10 +30,10 @@
                     <div class="form-group col-sm">
                         <label for="input">Item #</label>
                         @foreach ( $itemHasMaterial as $itemHasMaterial)
-                        @foreach ( $item as $item)
-                        @if ($itemHasMaterial->fk_item_id == $item->pk_item_id)
+                        @foreach ( $item as $Items)
+                        @if ($itemHasMaterial->fk_item_id == $Items->pk_item_id)
                             <input type="text" class="form-control" id="item_number" name="item_number"
-                            value="{{$item->item_number}}">
+                            value="{{$Items->item_number}}">
                         @endif
                         @endforeach
                         @endforeach
@@ -52,27 +52,12 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-sm">
-                        <label for="input">Select subcategory</label>
-                        <select class="form-control" id="fk_subcategory_id" name="fk_subcategory_id">
-                            @foreach($subCategories as $subCategory)
-                            @if($subCategory->pk_subcategory_id == $item->fk_subcategory_id)
-                            <option selected value="{{$subCategory->pk_subcategory_id}}">
-                                {{$subCategory->subcategory_name}}</option>
-                            @else
-                            <option value="{{$subCategory->pk_subcategory_id}}">{{$subCategory->subcategory_name}}
-                            </option>
-                            @endif
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
+ 
                 <div class="form-row">
                     <div class="form-group col-sm">
                         <label for="input">Job description</label>
                         <input type="text" class="form-control" id="inputCompany" name="item_description"
-                            value="{{$item->item_description}}">
+                            value="{{$Items->item_description}}">
                     </div>
                 </div>
                 <div class="form-row">
@@ -93,10 +78,26 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-sm">
+                        <label for="input">Select subcategory</label>
+                        <select class="form-control" id="fk_subcategory_id" name="fk_subcategory_id">
+                            @foreach($subCategories as $SubCategory)
+                            @if($SubCategory->pk_subcategory_id == $Items->fk_subcategory_id)
+                            <option selected value="{{$SubCategory->pk_subcategory_id}}">
+                                {{$SubCategory->subcategory_name}}</option>
+                            @else
+                            <option value="{{$SubCategory->pk_subcategory_id}}">{{$SubCategory->subcategory_name}}
+                            </option>
+                            @endif
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm">
                         <label for="input">Estimated time (h)</label>
                         <select id="item_estimatedtime" name="item_estimatedtime" class="form-control">
-                            <option value="{{$item->item_estimatedtime}}" selected>
-                                {{$item->item_estimatedtime}}
+                            <option value="{{$Items->item_estimatedtime}}" selected>
+                                {{$Items->item_estimatedtime}}
                             </option>
                             <option>0.00</option>
                             <option>0.17</option>
@@ -123,7 +124,7 @@
                                 <div class="input-group-text">$</div>
                             </div>
                             <input type="text" class="form-control" id="item_servicecall" name="item_servicecall"
-                                value="{{$item->item_servicecall}}">
+                                value="{{$Items->item_servicecall}}">
                         </div>
                     </div>
                 </div>
@@ -131,7 +132,7 @@
                     <div class="form-group col-sm">
                         <label for="input">Archived</label>
                         <select id="item_archived" name="item_archived" class="form-control">
-                            @if ($item->item_archived == 0)
+                            @if ($Items->item_archived == 0)
                             <option value="0" selected>No</option>
                             <option value="1">Yes</option>
                             @else
