@@ -24,15 +24,17 @@
         </div>
         <!-- Forces next column to break new line -->
         <div class="w-100 border-top"></div>
+    <form method="post" action="/quoting">
         <div class="col-sm-6 pb-2">
-            <form>
+            
+                {{ csrf_field() }}
                 <h5 class="pt-3 pb-1">Customer Details</h5>
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for="input">Customer name</label>
                         <label class="sr-only" for="customer_name">Customer name</label>
                         <div class="input-group mb-2">
-                            <select id="customer_name" name="customer_name" class="form-control">
+                            <select id="customer_name" name="customer_name" class="form-control" required>
                                 @foreach($customers as $customer)
                                 <option value="{{ $customer->pk_customer_id }}">
                                     {{ $customer->customer_name }}
@@ -42,14 +44,14 @@
                         </div>
                     </div>
                 </div>
-            </form>
+            
         </div>
         <div class="col-sm-6 pb-2">
             <h5 class="pt-3 pb-1">Quote Details</h5>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="quoteNumber">Quote Number</label>
-                    <input type="text" class="form-control" id="quoteNumber" placeholder="######" readonly>
+                    <input type="text" class="form-control" name="quote_number" id="quoteNumber" placeholder="######" required="">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="quoteDate">Date</label>
@@ -144,17 +146,17 @@
                 <div class="form-group">
                 </div>
                 <div class="form-group col-md-8">
-                    <select class="form-control" id="term_name" name="term_name">
-                        @foreach($quoteterms as $quoteterm)
-                        <option value="{{ $quoteterm->pk_term_id }}">{{ $quoteterm->term_name }}</option>
+                    <select class="form-control" id="term_name" name="ex_name" required>
+                        @foreach($exclusions as $quoteterm)
+                        <option value="{{ $quoteterm->pk_ex_id }}">{{ $quoteterm->exclusion_Content }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group col-md-8">
                     <label for="quote_exclusions">Exclusions</label>
-                    <select class="form-control" id="term_name" name="term_name">
-                        @foreach($quoteterms as $quoteterm)
-                        <option value="{{ $quoteterm->pk_term_id }}">{{ $quoteterm->term_name }}</option>
+                    <select class="form-control" id="term_name" name="in_name" required>
+                        @foreach($inclusions as $quoteterm)
+                        <option value="{{ $quoteterm->pk_in_id }}">{{ $quoteterm->inclusion_Content }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -168,7 +170,7 @@
                 <div class="form-group">
                 </div>
                 <div class="form-group col-md-8">
-                    <select class="form-control" id="term_name" name="term_name">
+                    <select class="form-control" id="term_name" name="term_name" required>
                         @foreach($quoteterms as $quoteterm)
                         <option value="{{ $quoteterm->pk_term_id }}">{{ $quoteterm->term_name }}</option>
                         @endforeach
@@ -192,6 +194,7 @@
                     <button type="submit" class="btn btn-primary m-2">Generate Quote</button>
             </div>
         </div>
+    </form>
     </div>
 </div>
 

@@ -31,6 +31,11 @@ class Quote extends Model
         return $this->belongsTo('App\Customer', 'fk_customer_id', 'pk_customer_id');
     }
 
+    public function Quote_has_item()
+    {
+        return $this->hasMany(Quote_has_item::class, 'fk_quote_id', 'pk_quote_id');
+    }
+
     // Relationships to be added:
 
     // One-to-Many:

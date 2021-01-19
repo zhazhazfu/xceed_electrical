@@ -176,12 +176,10 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                                     @endforeach
                                                 </select>
                                             </div>
-                                        </div>
-                                        <div class="form-row" >
                                             <div class="form-group col-sm">
-                                            <label for="input">Material quantity</label>
-                                            <input type="number" class="form-control" id="item_description" name="quantity[]"
-                                                placeholder="0" required>
+                                                <label for="input">Material quantity</label>
+                                                <input type="number" class="form-control" id="item_description" name="quantity[]"
+                                                    placeholder="0" required>
                                             </div>
                                         </div>
                                 </div>
@@ -223,18 +221,6 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                     </div>
                                     <input type="text" class="form-control" id="item_servicecall"
                                         name="item_servicecall" placeholder="0.00">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                            <div class="form-group col-sm">
-                                <label for="input">Labour Cost</label>
-                                <label class="sr-only" for="inlineFormInputGroup">Labour Cost</label>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">$</div>
-                                    </div>
-                                    <input type="text" class="form-control" id="item_labourcost"
-                                        name="item_labourcost" placeholder="10">
                                 </div>
                             </div>
                         </div>

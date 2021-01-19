@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Quote;
+use App\Perpointquote;
 use App\BusinessDetail;
 use App\Customer;
 use App\Category;
 use App\SubCategory;
 use App\PriceList;
 use App\QuoteTerm;
+use App\Inclusions;
+use App\Exclusions;
+use App\Quote_has_item;
 use App\Discount;
 use App\GrossMargin;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,10 +31,12 @@ class QuoteController extends Controller
             $subCategories = SubCategory::all();
             $priceLists = PriceList::all();
             $quoteterms = QuoteTerm::all();
+            $exclusions = Exclusions::all();
+            $inclusions = Inclusions::all();
             $discounts = Discount::all();
             $grossmargins = GrossMargin::all();
     
-            return view('quoting', compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'priceLists', 'quoteterms', 'discounts', 'grossmargins'));
+            return view('quoting', compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'priceLists', 'quoteterms', 'discounts', 'grossmargins', 'exclusions', 'inclusions'));
         }
 
         public function show($id="")
