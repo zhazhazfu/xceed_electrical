@@ -12,6 +12,8 @@ use App\PriceList;
 use App\QuoteTerm;
 use App\Discount;
 use App\GrossMargin;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Arr;
 
 class QuoteController extends Controller
 {
@@ -39,6 +41,42 @@ class QuoteController extends Controller
         $categoryName = $category->category_name;
   
         return view('quoting', compact('pageHeading', 'subCategories', 'categoryName'));
+    }
+
+    public function getSubcategories($id="")
+    {
+        $sCatNames = array();
+        $sCatIDs = array();
+        // $result = SubCategory::where('fk_category_id', '=', $id);
+
+        $result = SubCategory::where('fk_category_id', '=', $id)->get()->toArray();
+
+        // $aaa = var_export($result);
+
+        // $subCategories = json_decode(json_encode($result), true);
+
+        // $subCatName = $subCategories->subcategory_name;
+        // $subCatID = $subCategories->pk_subcategory_id;
+
+        // $subCatCount = count($subCategories);
+
+        // foreach ($sCatLength as ) {
+        //     foreach ($subCat->pk_subcategory_id as $id) {
+        //         $sCatIDs[$id] = $id;
+        //     }
+        //     foreach($subCat->subcategory_name as $name) {
+        //         $sCatNames[$id] = $subCategories[$id]->subcategory_name;
+        //     }
+        // }
+
+        $sCatNames = Arr::pluck($result, 'subcategory_name');
+        $sCatIDs = Arr::pluck($result, 'pk_subcategory_id');
+
+        return response()->json([
+            'id' => $sCatIDs,
+            'name' => $sCatNames, 
+        ]);
+
     }
 
 }

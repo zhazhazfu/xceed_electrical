@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Per Point Quoting')
+@section('title', 'Quoting')
 
 @section('content')
 
@@ -70,7 +70,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="selectCategory">Category</label>
-                    <select class="form-control" id="selectCategory">
+                    <select class="form-control" id="selectCategory" onchange="getSubcategory(this)">
                         @foreach($categories as $category)
                         @if($category->category_archived == '0')
                         <option value="{{ $category->pk_category_id }}">{{ $category->category_name }}</option>
@@ -80,23 +80,28 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="selectCategory">Sub-Category</label>
-                    <select class="form-control" id="fk_subcategory_id" name="fk_subcategory_id">
-                        @foreach($subCategories as $subCategory)
+                    <select class="form-control" id="subcategorySelect" name="subcategorySelect" onchange="getItem(this)">
+                        <!-- @foreach($subCategories as $subCategory)
                         <option value="{{ $subCategory -> pk_subcategory_id }}">
                             {{ $subCategory -> subcategory_name }}
                         </option>
-                        @endforeach
+                        @endforeach -->
                     </select>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="selectItemNumber">Item Code</label>
-                    <select class="form-control" id="item_number" name="item_number">
-                        @foreach($priceLists as $priceList)
+                    <select class="form-control" id="item_number" name="item_number" onchange="getDescription(this)">
+                        <!-- @foreach($priceLists as $priceList)
                         @if($priceList->item_archived == '0')
                         <option value="{{ $priceList->pk_item_id }}">{{ $priceList->item_number }}</option>
                         @endif
-                        @endforeach
+                        @endforeach -->
                     </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group w-100 px-2">
+                    <input type="text" class="form-control" id="itemNo" placeholder="Item Description" readonly>
                 </div>
             </div>
         </div>
@@ -195,6 +200,45 @@
         var id = $(this).children(":selected").attr("id");
     });
 
+    function getSubcategory(element) {
+            optionSelected = element.value;
+            // alert(optionSelected);
+            $('#subcategorySelect').find('option').remove();
+
+            $.ajax({
+                url: "getSubcategories/" + optionSelected,
+                context: document.body
+            }).done(function(data) {
+
+                // alert("data received");
+                // alert(data.id);
+                // alert(data.name);
+
+                $('item_number').find('option').remove();
+                
+                $iteration = 0;
+
+                data.id.forEach(function(subcategory) {
+                    option = document.createElement('option');
+                    option.value = data.id[$iteration];
+                    option.innerHTML = data.name[$iteration];
+
+                    // alert(option.value + option.innerHTML);
+                    document.getElementById('subcategorySelect').appendChild(option);
+                    $iteration++;
+                });
+
+                // option = document.createElement('option');
+                // option.value = data.id;
+                // option.innerHTML = data.name;
+                // document.getElementById('subcategorySelect').appendChild(option);
+                
+            });
+                
+                    
+
+         }
+    
 </script>
 
 <!-- Sets todays date as the quote date -->
@@ -203,6 +247,8 @@
     document.querySelector("#today").value = today;
 
     document.querySelector("#today2").valueAsDate = new Date();
+
+
 
 </script>
 @stop
