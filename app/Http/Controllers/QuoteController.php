@@ -41,4 +41,49 @@ class QuoteController extends Controller
         return view('quoting', compact('pageHeading', 'subCategories', 'categoryName'));
     }
 
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'quote_number' => 'required'
+        ]);
+
+        $newQuote = new Quote([
+            'quote_number'=> $request->get('quote_number'),
+            'quote_status'=> $request->get('quote_status'),
+            'quote_revisionnumber'=> $request->get('quote_revisonnumber'),
+            'quote_comment'=> $request->get('quote_comment'),
+        ]);
+    }
+
+    public function update(Request $request, $pk_quote_id)
+    {
+
+        $this->validate($request,[
+                    'customer_name' => 'required',
+                ]);
+
+             $quotes= Quote::find($pk_quote_id); 
+             $quotes->quote_number = $request->get('quote_number');
+             $quotes->quote_status = $request->get('quote_status');
+             $quotes->quote_revisionnumber = $request->get('quote_revisonnumber');
+             $quotes->quote_comment = $request -> get('quote_comment');
+             $quotes->save();
+
+        return redirect()->route('quote.index')->with('success', 'Quote updated');
+    }
+
+    // public function QuoteNumber()
+    // {
+    //     $latest = App\Quote::latest()->first();
+
+    //     if (! $latest)
+    //     {
+    //         return 'Q0001';
+    //     }
+
+    //     $String = preg_replace("/[^0-9\.]/", '', $latest->quote_number);
+
+    //     return 'q'. sprint('%04d',$String+1);
+    // }
+
 }

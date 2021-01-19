@@ -21,6 +21,7 @@ class AddPerpointQuoteTable extends Migration
             $table->foreignId('fk_term_id')->references('pk_term_id')->on('quoteterms');
             $table->foreignId('fk_in_id')->references('pk_in_id')->on('inclusions');
             $table->foreignId('fk_ex_id')->references('pk_ex_id')->on('exclusions');
+            
             $table->foreignId('fk_material_id')->references('pk_material_id')->on('materials');
             $table->bigInteger('perpoint_number');
             $table->integer('perpoint_status');
