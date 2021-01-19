@@ -73,6 +73,7 @@
                 <div class="form-group col-md-4">
                     <label for="selectCategory">Category</label>
                     <select class="form-control" id="selectCategory" onchange="getSubcategory(this)">
+                        <option value="" selected disabled>Please select a category</option>
                         @foreach($categories as $category)
                         @if($category->category_archived == '0')
                         <option value="{{ $category->pk_category_id }}">{{ $category->category_name }}</option>
@@ -83,27 +84,19 @@
                 <div class="form-group col-md-4">
                     <label for="selectCategory">Sub-Category</label>
                     <select class="form-control" id="subcategorySelect" name="subcategorySelect" onchange="getItem(this)">
-                        <!-- @foreach($subCategories as $subCategory)
-                        <option value="{{ $subCategory -> pk_subcategory_id }}">
-                            {{ $subCategory -> subcategory_name }}
-                        </option>
-                        @endforeach -->
+                        <option value="" selected disabled>Please select a subcategory</option>
                     </select>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="selectItemNumber">Item Code</label>
                     <select class="form-control" id="item_number" name="item_number" onchange="getDescription(this)">
-                        <!-- @foreach($priceLists as $priceList)
-                        @if($priceList->item_archived == '0')
-                        <option value="{{ $priceList->pk_item_id }}">{{ $priceList->item_number }}</option>
-                        @endif
-                        @endforeach -->
+                        <option value="" selected disabled>Please select an item</option>
                     </select>
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group w-100 px-2">
-                    <input type="text" class="form-control" id="itemNo" placeholder="Item Description" readonly>
+                <div class="form-group w-100 px-2" id="description">
+                    <input type="text" class="form-control" id="item_description" placeholder="Item Description" readonly>
                 </div>
             </div>
         </div>
@@ -206,7 +199,7 @@
     function getSubcategory(element) {
             optionSelected = element.value;
             // alert(optionSelected);
-            $('#subcategorySelect').find('option').remove();
+            $('#subcategorySelect').find('option').not(':first').remove();
 
             $.ajax({
                 url: "getSubcategories/" + optionSelected,
@@ -217,7 +210,7 @@
                 // alert(data.id);
                 // alert(data.name);
 
-                $('item_number').find('option').remove();
+                $('#item_number').find('option').not(':first').remove();
                 
                 $iteration = 0;
 
@@ -240,6 +233,44 @@
                 
                     
 
+         }
+
+         function getItem(element) {
+            optionSelected = element.value;
+            
+            $('#item_number').find('option').not(':first').remove();
+
+            $.ajax({
+                url: "getItems/" + optionSelected,
+                context: document.body
+            }).done(function(data) {
+                
+
+                $iteration = 0;
+                data.id.forEach(function(item) {
+                    option = document.createElement('option');
+                    option.value = data.id[$iteration];
+                    option.innerHTML = data.name[$iteration];
+
+                    document.getElementById('item_number').appendChild(option);
+                    $iteration++;
+                });
+            });
+            
+         }
+
+        function getDescription(element) {
+            optionSelected = element.value;
+            // alert(optionSelected);
+            $.ajax({
+                url: "getDescription/" + optionSelected,
+                context: document.body
+
+            }).done(function(data) {
+                // alert(data.id);
+                text = document.createTextNode(data.id);
+                document.getElementById('item_description').value = data.id;
+            });
          }
     
 </script>

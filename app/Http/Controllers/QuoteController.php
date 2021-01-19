@@ -10,6 +10,7 @@ use App\Customer;
 use App\Category;
 use App\SubCategory;
 use App\PriceList;
+use App\Items;
 use App\QuoteTerm;
 use App\Inclusions;
 use App\Exclusions;
@@ -59,11 +60,6 @@ class QuoteController extends Controller
 
         // $aaa = var_export($result);
 
-        // $subCategories = json_decode(json_encode($result), true);
-
-        // $subCatName = $subCategories->subcategory_name;
-        // $subCatID = $subCategories->pk_subcategory_id;
-
         // $subCatCount = count($subCategories);
 
         // foreach ($sCatLength as ) {
@@ -81,6 +77,35 @@ class QuoteController extends Controller
         return response()->json([
             'id' => $sCatIDs,
             'name' => $sCatNames, 
+        ]);
+
+    }
+
+    public function getItems($id="")
+    {
+        $iNames = array();
+        $iIDs = array();
+        $result = Items::where('fk_subcategory_id', '=', $id)->get()->toArray();
+
+        $iNames = Arr::pluck($result, 'item_number');
+        $iIDs = Arr::pluck($result, 'pk_item_id');
+
+        return response()->json([
+            'id' => $iIDs,
+            'name' => $iNames, 
+        ]);
+
+    }
+
+    public function getDescription($id="")
+    {
+
+        $result = Items::where('pk_item_id', '=', $id)->first();
+
+        $resultName = $result->item_description;
+
+        return response()->json([
+            'id' => $resultName, 
         ]);
 
     }
