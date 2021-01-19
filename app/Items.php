@@ -27,9 +27,4 @@ class Items extends Model
     {
         return $this->hasMany(ItemHasMaterials::class, 'fk_item_id', 'pk_item_id');
     }
-
-    public function Quote_has_item()
-    {
-        return $this->hasMany(Quote_has_item::class, 'fk_item_id', 'pk_item_id');
-    }
 }
