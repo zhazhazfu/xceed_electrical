@@ -17,7 +17,7 @@ class AddItemHasMaterialsTable extends Migration
             $table->id('pk_item_has_materails_id');
             $table->foreignId('fk_item_id')->references('pk_item_id')->on('items');
             $table->foreignId('fk_material_id')->references('pk_material_id')->on('materials');
-            $table->bigInteger('quantity');
+            $table->Integer('quantity');
             $table->timestamps();
         });
     }

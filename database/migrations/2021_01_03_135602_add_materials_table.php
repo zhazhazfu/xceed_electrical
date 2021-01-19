@@ -17,7 +17,7 @@ class AddMaterialsTable extends Migration
             $table->id('pk_material_id');
             $table->foreignId('fk_supplier_id')->references('pk_supplier_id')->on('suppliers');
             $table->string('material_itemcode')->nullable();
-            $table->string('material_description');
+            $table->string('material_description')->nullable();
             $table->double('material_cost');
             $table->tinyInteger('material_archived')->default(0);
             $table->timestamps();
@@ -35,6 +35,18 @@ class AddMaterialsTable extends Migration
         $materials->material_itemcode = 'Light Ball';
         $materials->material_description = 'LED EMERGENCY oyster light';
         $materials->material_cost = '50';
+        $materials->save();
+
+        $materials = new App\Material();
+        $materials->fk_supplier_id = '3';
+        $materials->material_itemcode = 'fixing';
+        $materials->material_cost = '10';
+        $materials->save();
+
+        $materials = new App\Material();
+        $materials->fk_supplier_id = '4';
+        $materials->material_itemcode = 'Cable';
+        $materials->material_cost = '10';
         $materials->save();
     }
 

@@ -171,7 +171,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                                 <select class="form-control" id="fk_material_id" name="fk_material_id[]">
                                                     @foreach($materials as $material)
                                                     <option selected value="{{ $material -> pk_material_id }}">
-                                                        {{ $material -> material_description}}
+                                                        {{ $material -> material_itemcode}}
                                                     </option>
                                                     @endforeach
                                                 </select>
@@ -271,7 +271,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                         <td>{{ $item->item_jobtype }}</td>
                         <td>{{ $subCategory->subcategory_name }}</td>
                         <td>{{ $item->item_description }}</td>
-                        <td>{{ $itemHasMaterials->material->material_description }}</td>
+                        <td>{{ $itemHasMaterials->material->material_itemcode }}</td>
                         @foreach ($grossMargins as $grossMargin)
                         {{-- <td>{{ number_format((($itemHasMaterials->material->material_cost*$grossMargin->gm_rate) + $itemHasMaterials->item_servicecall + $itemHasMaterials->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2) }}
                         </td> --}}
@@ -287,6 +287,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                             <a href="{{url('/pricelists/'.$page_id.'/'.$item['pk_item_id'].'/edit')}}">Edit</a>
                         </td>
                     </tr>
+                    
 
                     <!-- active pricing modal -->
 
@@ -508,7 +509,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                         <td>{{ $priceList->item_jobtype }}</td>
                         <td>{{ $priceList->subCategory->subcategory_name }}</td>
                         <td>{{ $priceList->item_description }}</td>
-                        <td>{{ $priceList->material->material_description }}</td>
+                        <td>{{ $priceList->material->material_itemcode }}</td>
                         @foreach ($grossMargins as $grossMargin)
                         <td>${{ number_format((($priceList->material->material_cost*$grossMargin->gm_rate) + $priceList->item_servicecall + $priceList->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2) }}
                         </td>
