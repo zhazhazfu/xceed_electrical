@@ -60,12 +60,16 @@
             </div>
         </div>
 
+    
         <div class="w-100 border-top"></div>
+        <div id="select_job">
+        <div id="select_job_html">
         <div class="col-sm-12 pb-2">
             <h5 class="pt-3 pb-1">Job</h5>
             <div class="form-row">
                 <div class="form-group">
                 </div>
+
                 <div class="form-group col-md-1">
                     <label for="itemNo">#</label>
                     <input type="text" class="form-control" id="itemNo" placeholder="#" readonly>
@@ -99,6 +103,19 @@
                     <input type="text" class="form-control" id="item_description" placeholder="Item Description" readonly>
                 </div>
             </div>
+
+        
+                <div class="form-row">
+                            <div class="form-group col-sm">
+                                <button id="dublicate_job" class="btn btn-primary">Add Jobs +</button>
+                            </div>
+                            <div class="form-group col-sm float-right">
+                                <button id="remove_job" class="btn btn-primary float-right">Remove Jobs -</button>
+                            </div>
+                        </div>
+
+                </div>
+                </div>
         </div>
 
         <div class="w-100 border-top"></div>
@@ -290,3 +307,21 @@
 
 </script>
 @stop
+
+@push('js')
+<script type="text/javascript">
+    
+
+    $(document).ready(function(){   
+            $("#dublicate_job").click(function(e){
+                e.preventDefault();
+                $("#select_job").append($("#select_job_html").clone(true));
+              });
+              
+            $("#remove_job").click(function(e){
+                e.preventDefault();
+                $("#select_job").children($("#select_job_html").remove());
+              });
+        });
+</script>
+@endpush
