@@ -233,7 +233,6 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                 </div>
             </div>
         </div>
-    </div>
     <!-- End modal -->
 
     <!-- Active content -->
