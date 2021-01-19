@@ -66,10 +66,10 @@
                         <select class="form-control" id="fk_material_id" name="fk_material_id">
                             @foreach($materials as $material)
                             @if($material->pk_material_id == $itemHasMaterial->fk_material_id)
-                            <option selected value="{{$material->pk_material_id}}">{{$material->material_description}}
+                            <option selected value="{{$material->pk_material_id}}">{{$material->material_itemcode}}
                             </option>
                             @else
-                            <option selected value="{{$material->pk_material_id}}">{{$material->material_description}}
+                            <option selected value="{{$material->pk_material_id}}">{{$material->material_itemcode}}
                             </option>
                             @endif
                             @endforeach
@@ -82,11 +82,11 @@
                         <select class="form-control" id="fk_subcategory_id" name="fk_subcategory_id">
                             @foreach($subCategories as $SubCategory)
                             @if($SubCategory->pk_subcategory_id == $Items->fk_subcategory_id)
-                            <option selected value="{{$SubCategory->pk_subcategory_id}}">
-                                {{$SubCategory->subcategory_name}}</option>
+                            <option selected value="{{$SubCategory->pk_subcategory_id}}">{{$SubCategory->subcategory_name}}</option>
                             @else
-                            <option value="{{$SubCategory->pk_subcategory_id}}">{{$SubCategory->subcategory_name}}
-                            </option>
+                            @if ($page_id ==  $SubCategory->fk_category_id)
+                            <option value="{{$SubCategory->pk_subcategory_id}}">{{$SubCategory->subcategory_name}}</option>
+                            @endif
                             @endif
                             @endforeach
                         </select>
