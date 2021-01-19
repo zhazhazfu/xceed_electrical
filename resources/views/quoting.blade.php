@@ -224,6 +224,8 @@
                     $iteration++;
                 });
 
+                document.getElementById('item_description').value = "Item Description";
+
                 // option = document.createElement('option');
                 // option.value = data.id;
                 // option.innerHTML = data.name;
@@ -255,6 +257,8 @@
                     document.getElementById('item_number').appendChild(option);
                     $iteration++;
                 });
+
+                document.getElementById('item_description').value = "Item Description";
             });
             
          }
