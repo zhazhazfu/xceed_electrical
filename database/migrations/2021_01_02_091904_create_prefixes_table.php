@@ -23,6 +23,11 @@ class CreatePrefixesTable extends Migration
         $prefixes->pk_prefix_id = 1;
         $prefixes->prefix = 'Q';
         $prefixes->save();
+
+        $prefixes = new App\prefix();
+        $prefixes->pk_prefix_id = 2;
+        $prefixes->prefix = 'PQ';
+        $prefixes->save();
     }
 
     /**
