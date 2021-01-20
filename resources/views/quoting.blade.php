@@ -49,7 +49,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="quoteNumber">Quote Number</label>
-                    <input type="text" class="form-control" id="quoteNumber" value="{{$Quotes->prefix->prefix ?? '' }}-{{str_pad($Quote->quote_number, 4, '0', STR_PAD)}}" readonly>    
+                    <input type="text" class="form-control" id="quoteNumber" value="{{$Quotes->prefix->prefix ?? '' }}-{{str_pad($Quote->quote_number, 4, '0', STR_PAD_LEFT)}}" readonly>    
                 </div>
                 <div class="form-group col-md-6">
                     <label for="quoteDate">Date</label>
