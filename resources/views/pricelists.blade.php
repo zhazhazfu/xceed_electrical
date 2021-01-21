@@ -270,7 +270,18 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                         <td>{{ $item->item_jobtype }}</td>
                         <td>{{ $subCategory->subcategory_name }}</td>
                         <td>{{ $item->item_description }}</td>
-                       
+                        <td>@foreach ($item->itemHasMaterials as $temp_itemHasMaterial)
+                            {{ $temp_itemHasMaterial->material->material_itemcode }} <br>
+                        @endforeach
+                        </td>
+                        <?php 
+                             $temp_mat_cost = 0;
+                             foreach ($item->itemHasMaterials as $temp_itemHasMaterial)
+                                     {
+                                        $temp_mat_cost += $temp_itemHasMaterial->material->material_cost*$temp_itemHasMaterial->quantity;
+                                      }
+
+                        ?>                        @foreach ($grossMargins as $grossMargin)
                         {{-- <td>{{ number_format((($itemHasMaterials->material->material_cost*$grossMargin->gm_rate) + $itemHasMaterials->item_servicecall + $itemHasMaterials->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2) }}
                         </td> --}}
                         
@@ -712,4 +723,5 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
         });
 </script>
 @endpush
+
 
