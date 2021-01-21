@@ -12,4 +12,9 @@ class Quote_has_item extends Model
             'fk_quote_id ', 
             'fk_item_id '
         ];
+
+    public function quotes()
+    {
+        return $this->belongsTo(Quote::class);
+    }
 }

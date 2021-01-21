@@ -182,16 +182,17 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                                     placeholder="0" required>
                                             </div>
                                         </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-sm">
+                                                <button id="dublicate_mat" class="btn btn-primary">Add more +</button>
+                                            </div>
+                                                <div class="form-group col-sm float-right">
+                                                    <button id="remove_mat" class="btn btn-primary float-right">Remove -</button>
+                                              </div>
+                                       </div>
                                 </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-sm">
-                                <button id="dublicate_mat" class="btn btn-primary">Add more +</button>
-                            </div>
-                            <div class="form-group col-sm float-right">
-                                <button id="remove_mat" class="btn btn-primary float-right">Remove -</button>
-                            </div>
-                        </div>
+                        
 
                         <div class="form-row">
                             <div class="form-group col-sm">
@@ -233,7 +234,6 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                 </div>
             </div>
         </div>
-    </div>
     <!-- End modal -->
 
     <!-- Active content -->

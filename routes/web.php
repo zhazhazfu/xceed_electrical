@@ -77,6 +77,10 @@ Route::resource('quoteterms', 'QuoteTermController')->middleware('auth');
 
 Route::get('/preview', 'PreviewController@index')->name('preview')->middleware('auth');
 
+Route::get('session/get','SessionController@accessSessionData');
+Route::get('session/set','SessionController@storeSessionData');
+Route::get('session/remove','SessionController@deleteSessionData');
+
 Route::get('/grossmargin', 'GrossMarginController@index')->name('grossmargin')->middleware('auth');
 Route::get('/grossmargin', 'GrossMarginController@edit')->name('grossmargin')->middleware('auth');
 Route::resource('grossmargin', 'GrossMarginController')->middleware('auth');

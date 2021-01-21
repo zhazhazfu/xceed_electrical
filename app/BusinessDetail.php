@@ -21,7 +21,7 @@ class BusinessDetail extends Model
 
     public function quotes()
     {
-        return $this->hasMany('App\Quote', 'fk_businessdetail_id', 'pk_businessdetail_id');
+        return $this->hasMany(Quote::class);
     }
 
 }
