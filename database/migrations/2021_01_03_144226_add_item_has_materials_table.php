@@ -16,8 +16,9 @@ class AddItemHasMaterialsTable extends Migration
         Schema::create('item_has_materials', function (Blueprint $table) {
             $table->id('pk_item_has_materails_id');
             $table->foreignId('fk_item_id')->references('pk_item_id')->on('items');
-            $table->foreignId('fk_material_id')->references('pk_material_id')->on('materials');
+            $table->foreignId('fk_material_id')->references('pk_material_id')->on('materials')->onUpdate('cascade');
             $table->bigInteger('quantity');
+            $table->tinyInteger('archived')->default(0);
             $table->timestamps();
         });
     }
