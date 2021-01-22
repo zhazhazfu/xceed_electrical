@@ -54,9 +54,4 @@ class User extends Authenticatable
         return $this->role === 'user';
      }
 
-     public function quotes()
-    {
-        return $this->hasMany(Quote::class);
-    }
-
 }

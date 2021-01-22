@@ -275,6 +275,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                 <tbody>
                     @foreach($subCategories as $subCategory)
                     @foreach($subCategory->items as $item)
+                    @foreach ($item->itemHasMaterials as $itemHasMaterials)
                     @if(($item->item_archived == '0') && ($page_id ==  $subCategory->fk_category_id) )
                     <tr>
                         <td>{{ $item->item_number }}</td>
@@ -458,7 +459,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                                 </div>
                                                 <input type="text" class="form-control" id="inlineFormInputGroup"
                                                     name="materialCharge"
-                                                    value="{{ number_format($temp_mat_cost*$grossMargin->gm_rate,2) }}"
+                                                    value="{{ number_format($itemHasMaterials->material->material_cost*$grossMargin->gm_rate,2) }}"
                                                     disabled>
                                             </div>
                                         </div>
@@ -559,7 +560,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                                 </div>
                                                 <input type="text" class="form-control" id="inlineFormInputGroup"
                                                     name="priceIncGst"
-                                                    value="{{ number_format((($temp_mat_cost*$grossMargin->gm_rate) + $item->item_servicecall + $item->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2) }}"
+                                                    value="{{ number_format((($itemHasMaterials->material->material_cost*$grossMargin->gm_rate) + $item->item_servicecall + $item->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2) }}"
                                                     disabled>
                                             </div>
                                         </div>

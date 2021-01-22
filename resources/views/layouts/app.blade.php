@@ -16,10 +16,6 @@
     <!-- Custom styles for this template -->
     <link href="/css/simple-sidebar.css" rel="stylesheet">
 
-    <link rel="icon" 
-     type="image/png" 
-     href="/favicon.png">
-
 </head>
 
 <body>

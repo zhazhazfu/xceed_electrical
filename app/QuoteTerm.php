@@ -13,8 +13,4 @@ class QuoteTerm extends Model
             'term_body'   
         ];
 
-    public function quotes()
-    {
-        return $this->hasMany(Quote::class);
-    }
 }

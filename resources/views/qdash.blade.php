@@ -45,7 +45,6 @@
             <a href="/{{ 'inclusions' }}" class="p-5 m-2 btn btn-outline-xceed w-75"> <h2> Inclusions </h2> </a>
             <a href="/{{ 'exclusions' }}" class="p-5 m-2 btn btn-outline-xceed w-75"> <h2> Exclusions </h2></a>
             <a href="/{{ 'termsconditions' }}" class="p-5 m-2 btn btn-outline-xceed w-75"> <h2> Terms & Conditions </h2></a>
-            <a href="/{{ 'prefix' }}" class="p-5 m-2 btn btn-outline-xceed w-75"> <h2> Quote Prefixes </h2></a>
     </div>
     
 </div>
