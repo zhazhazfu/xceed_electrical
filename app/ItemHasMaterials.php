@@ -11,7 +11,8 @@ class ItemHasMaterials extends Model
     protected $fillable = [
             'fk_item_id', 
             'fk_material_id',
-            'quantity'
+            'quantity',
+            'archived'
         ];
 
     public function items()

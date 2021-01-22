@@ -29,6 +29,12 @@
                 <div class="form-row">
                     <div class="form-group col-sm">
                         <label for="input">Item #</label>
+<<<<<<< HEAD
+                   
+                            <input type="text" class="form-control" id="item_number" name="item_number"
+                            value="{{$item->item_number}}">
+                        
+=======
                         @foreach ( $itemHasMaterial as $itemHasMaterial)
                         @foreach ( $item as $Items)
                         @if ($itemHasMaterial->fk_item_id == $Items->pk_item_id)
@@ -37,6 +43,7 @@
                         @endif
                         @endforeach
                         @endforeach
+>>>>>>> a9092e34ca22a85f322ffc7d55a9107842139cee
                     </div>
                 </div>
                 <div class="form-row">
@@ -60,6 +67,84 @@
                             value="{{$Items->item_description}}">
                     </div>
                 </div>
+<<<<<<< HEAD
+                <div id="select_mat">
+                @foreach ( $itemHasMaterial as $itemHasMaterials)
+                        
+                @if ($itemHasMaterials->fk_item_id == $item->pk_item_id)
+                  
+                                    <div id="select_mat_html">
+                                            <div class="form-row" >
+                                                <div class="form-group col-sm">
+                                                    <label for="input">Select material</label>
+                                                    <select class="form-control" id="fk_material_id" name="fk_material_id[]">
+                                                        @foreach($materials as $material)
+                                                            @if($material->pk_material_id == $itemHasMaterials->fk_material_id)
+                                                            <option selected value="{{$material->pk_material_id}}">{{$material->material_description}}
+                                                            </option>
+                                                            @else
+                                                            <option  value="{{$material->pk_material_id}}">{{$material->material_description}}
+                                                            </option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-row" >
+                                                <div class="form-group col-sm">
+                                                <label for="input">Material quantity</label>
+                                                <input type="number" value="{{$itemHasMaterials->quantity}}" class="form-control" id="item_description" name="quantity[]"
+                                                    placeholder="0" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-sm">
+                                                    <label for="input">Archived</label>
+                                                    <select class="form-control" id="archived" name="archived[]">
+                                                        
+                                                            
+                                                            <option @if($itemHasMaterials->archived == 0) 
+                                                                selected  @endif value="0">NO
+                                                            </option>
+                                                           
+                                                            <option @if($itemHasMaterials->archived == 1) 
+                                                                selected  @endif value="1">Yes
+                                                            </option>
+                                                            
+                                                        
+                                                    </select>
+                                                </div>
+                                    </div>
+                                    
+                    
+                @endif
+                        
+                @endforeach
+
+                                <div class="new_mat " style="display: none;" id="new_select_mat_html">
+                                        <div class="form-row" >
+                                            <div class="form-group col-sm">
+                                                <label for="input">Select material</label>
+                                                <select class="form-control" id="fk_material_id" name="new_fk_material_id[]">
+                                                    <option value="select material" selected disabled></option>
+                                                    @foreach($materials as $material)
+                                                    <option value="{{ $material -> pk_material_id }}">
+                                                        {{ $material -> material_description}}
+                                                    </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="new_qty" class="form-row" >
+                                            <div class="form-group col-sm">
+                                            <label for="input">Material quantity</label>
+                                            <input type="number" class="form-control" id="item_description" name="new_quantity[]"
+                                                placeholder="0" >
+                                            </div>
+                                        </div>
+                                    </div>
+
+=======
                 <div class="form-row">
                     <div class="form-group col-sm">
                         <label for="input">Select material</label>
@@ -75,7 +160,15 @@
                             @endforeach
                         </select>
                     </div>
+>>>>>>> a9092e34ca22a85f322ffc7d55a9107842139cee
                 </div>
+
+                <div class="form-row">
+                            <div class="form-group col-sm">
+                                <button id="dublicate_mat" class="btn btn-primary">Add more +</button>
+                            </div>
+                        </div>
+               
                 <div class="form-row">
                     <div class="form-group col-sm">
                         <label for="input">Select subcategory</label>
@@ -144,10 +237,36 @@
                 </div>
                 <div class="form-group">
                     <a class="btn btn-secondary" href="{{url('/pricelists/'.$page_id.'/')}}">Cancel</a>
-                    <input type="submit" class="btn btn-primary" value="Save">
+                    <input type="submit" class="btn btn-primary" value="Save" >
                 </div>
             </form>
         </div>
     </div>
 </div>
 @stop
+
+@push('js')
+<script type="text/javascript">
+    
+
+    $(document).ready(function(){
+
+        var check = 0;
+            $("#dublicate_mat").click(function(e){
+                e.preventDefault();
+console.log(check);
+                if(check<1)
+                {
+                    document.getElementById("new_select_mat_html").style.display = "block";
+                     check++;
+                }
+                else
+                {
+
+                    $("#select_mat").append($("#new_select_mat_html").clone(true));
+                }
+              });
+
+        });
+</script>
+@endpush

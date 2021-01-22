@@ -85,7 +85,7 @@ class ItemHasMaterialController extends Controller
         $pageHeading = 'Price List';
         $itemHasMaterialID = ItemHasMaterials::find($pk_item_has_materails_id);
         $itemHasMaterial = ItemHasMaterials::all();
-        $item = Items::all();
+        $item = Items::find($itemHasMaterialID->fk_item_id);
         $subCategories = SubCategory::all();
         $materials = Material::all();
 
@@ -117,8 +117,30 @@ class ItemHasMaterialController extends Controller
         $item->item_archived = $request->get('item_archived');
         $item->save();
 
-        $itemHasMaterial->fk_material_id = $request->get('fk_material_id');
-        $itemHasMaterial->save();
+
+        foreach ($request->fk_material_id as $key => $value) {
+            $itemMaterial = ItemHasMaterials::where('fk_item_id',$item->pk_item_id )->where('fk_material_id',$value )->first();
+
+            //$itemMaterial ->fk_material_id = $value;
+            $itemMaterial ->quantity = $request->quantity[$key];
+            $itemMaterial ->archived =$request->archived[$key];
+            $itemMaterial->save();
+        }
+
+
+        if ($request->has('new_fk_material_id')) {
+            
+        
+            foreach ($request->new_fk_material_id as $key => $value) {
+                $itemHasMaterial = new itemHasMaterials([
+                'fk_item_id' => $item-> pk_item_id, // the new id is now available to store
+                'fk_material_id' => $value,
+                'quantity' => $request->new_quantity[$key]
+                ]);
+                $itemHasMaterial->save();
+            }
+
+        }
 
         return redirect('/pricelists/'.$page_id)->with('success', 'Product updated');
     }
