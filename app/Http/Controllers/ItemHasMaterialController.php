@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\PriceList;
 use App\Items;
 use App\ItemHasMaterials;
 use App\Material;
@@ -54,7 +53,7 @@ class ItemHasMaterialController extends Controller
             'fk_material_id' => 'required',
             'item_estimatedtime' => 'required',
             'item_servicecall' => 'required',
-            'item_labourcost' => 'required'
+            'quantity' => 'required'
         ]);
 
 
@@ -65,7 +64,6 @@ class ItemHasMaterialController extends Controller
             'item_description' => $request->get('item_description'), 
             'item_estimatedtime' => $request->get('item_estimatedtime'),
             'item_servicecall' => $request->get('item_servicecall'),
-            'item_labourcost' => $request->get('item_labourcost'),
             'item_archived' => $request->get('item_archived')
         ]);
         $item->save(); // save the item to get a new id

@@ -77,6 +77,10 @@ Route::resource('quoteterms', 'QuoteTermController')->middleware('auth');
 
 Route::get('/preview', 'PreviewController@index')->name('preview')->middleware('auth');
 
+Route::get('session/get','SessionController@accessSessionData');
+Route::get('session/set','SessionController@storeSessionData');
+Route::get('session/remove','SessionController@deleteSessionData');
+
 Route::get('/grossmargin', 'GrossMarginController@index')->name('grossmargin')->middleware('auth');
 Route::get('/grossmargin', 'GrossMarginController@edit')->name('grossmargin')->middleware('auth');
 Route::resource('grossmargin', 'GrossMarginController')->middleware('auth');
@@ -119,3 +123,7 @@ Route::get('/main/successlogin', 'MainController@successlogin')->middleware('aut
 Route::get('/emailfornewpassword', 'EmailfornewpasswordController@index')->name('emailfornewpassword');
 Route::get('/resetpassword', 'ResetpasswordController@index')->name('resetpassword');
 Route::get('/main/logout', 'MainController@logout');
+
+Route::get('/getSubcategories/{id}', 'QuoteController@getSubCategories')->name('getSubcategories')->middleware('auth');
+Route::get('/getItems/{id}', 'QuoteController@getItems')->name('getItems')->middleware('auth');
+Route::get('/getDescription/{id}', 'QuoteController@getDescription')->name('getDescription')->middleware('auth');
