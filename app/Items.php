@@ -15,6 +15,7 @@ class Items extends Model
             'item_description',
             'item_estimatedtime',
             'item_servicecall',
+            'item_labourcost',
             'item_archived'
         ];
 
@@ -26,5 +27,10 @@ class Items extends Model
     public function itemHasMaterials()
     {
         return $this->hasMany(ItemHasMaterials::class, 'fk_item_id', 'pk_item_id')->where('archived',0);
+    }
+
+    public function Quote_has_item()
+    {
+        return $this->hasMany(Quote_has_item::class, 'fk_item_id', 'pk_item_id');
     }
 }
