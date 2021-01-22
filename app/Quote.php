@@ -23,12 +23,37 @@ class Quote extends Model
 
     public function businessDetails()
     {
-        return $this->belongsTo('App\BusinessDetail', 'fk_businessdetail_id', 'pk_businessdetail_id');
+        return $this->belongsTo(BusinessDetail::class, 'fk_businessdetail_id');
     }
 
     public function customers()
     {
-        return $this->belongsTo('App\Customer', 'fk_customer_id', 'pk_customer_id');
+        return $this->belongsTo(Customer::class, 'fk_customer_id');
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'fk_user_id');
+    }
+
+    public function quoteterms()
+    {
+        return $this->belongsTo(QuoteTerm::class,'fk_term_id');
+    }
+
+    public function inclusions()
+    {
+        return $this->belongsTo(Inclusions::class, 'fk_customer_id');
+    }
+
+    public function exclusions()
+    {
+        return $this->belongsTo(Exclusions::class, 'fk_customer_id');
+    }
+
+    public function Quote_has_item()
+    {
+        return $this->hasMany(Quote_has_item::class, 'fk_quote_id', 'pk_quote_id');
     }
 
     // Relationships to be added:

@@ -12,4 +12,9 @@ class Exclusions extends Model
             'exclusion_name',
             'exclusion_Content'  
         ];
+
+    public function quotes()
+    {
+        return $this->hasMany(Quote::class);
+    }
 }
