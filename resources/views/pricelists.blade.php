@@ -164,30 +164,34 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                             </div>
                         </div>
                         <div id="select_mat">
-                                <div id="select_mat_html">
-                                        <div class="form-row" >
-                                            <div class="form-group col-sm">
-                                                <label for="input">Select material</label>
-                                                <select class="form-control" id="fk_material_id" name="fk_material_id[]">
-                                                    @foreach($materials as $material)
-                                                    <option selected value="{{ $material -> pk_material_id }}">
-                                                        {{ $material -> material_itemcode}}
-                                                    </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-sm">
-                                                <label for="input">Material quantity</label>
-                                                <input type="number" class="form-control" id="item_description" name="quantity[]"
-                                                    placeholder="0" required>
-                                            </div>
-                                        </div>
-                                       
+                            <div id="select_mat_html">
+                                <div class="form-row" >
+                                    <div class="form-group col-sm">
+                                        <label for="input">Select material</label>
+                                        <select class="form-control" id="fk_material_id" name="fk_material_id[]">
+                                            @foreach($materials as $material)
+                                            <option selected value="{{ $material -> pk_material_id }}">
+                                                {{ $material -> material_itemcode}}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-sm">
+                                        <label for="input">Material quantity</label>
+                                        <input type="number" class="form-control" id="item_description" name="quantity[]"
+                                            placeholder="0" required>
+                                    </div>
                                 </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-sm">
-                                <button id="dublicate_mat" class="btn btn-primary">Add more +</button>
+                            
+                       
+                                <div class="form-row">
+                                    <div class="form-group col-sm">
+                                        <button id="dublicate_mat" class="btn btn-primary">Add more +</button>
+                                    </div>
+                                    <div class="form-group col-sm float-right">
+                                        <button id="remove_mat" class="btn btn-primary float-right">Remove -</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -883,15 +887,18 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
 
 @push('js')
 <script type="text/javascript">
-    
-
     $(document).ready(function(){
-            $("#dublicate_mat").click(function(e){
-                e.preventDefault();
-                $("#select_mat").append($("#select_mat_html").clone(true));
-              });
+        $("#dublicate_mat").click(function(e){
+            e.preventDefault();
+            $("#select_mat").append($("#select_mat_html").clone(true));
+            });
 
-        });
+    });
+
+    $("#remove_mat").click(function(e){
+        e.preventDefault();
+        $("#select_mat").children($("#select_mat_html").remove());
+    });
 </script>
 @endpush
 
