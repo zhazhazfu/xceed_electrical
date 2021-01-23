@@ -266,6 +266,7 @@
                 url: "getItems/" + optionSelected,
                 context: document.body
             }).done(function(data) {
+
                 $iteration = 0;
                 data.id.forEach(function(item) {
                     option = document.createElement('option');
@@ -317,6 +318,7 @@
                 c[1].value = ("#" + count);
                             
                 $("#select_job").append(copy);
+                
               });
               
             $("#remove_job").click(function(e){

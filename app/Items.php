@@ -25,6 +25,6 @@ class Items extends Model
 
     public function itemHasMaterials()
     {
-        return $this->hasMany(ItemHasMaterials::class, 'fk_item_id', 'pk_item_id');
+        return $this->hasMany(ItemHasMaterials::class, 'fk_item_id', 'pk_item_id')->where('archived',0);
     }
 }
