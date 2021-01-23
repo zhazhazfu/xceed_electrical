@@ -97,7 +97,7 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group w-100 px-2" id="description">
-                            <input data-id="1" type="text" class="form-control" id="item_description" placeholder="Item Description" readonly>
+                            <input data-id="1" type="text" class="form-control" name="item_description" id="item_description" placeholder="Item Description" readonly>
                         </div>
                     </div>
                     <div class="form-row">
@@ -212,9 +212,13 @@
 
     function getSubcategory(element) {
         optionSelected = element.value;
-        // alert(optionSelected);
-        $('#subcategorySelect').find('option').not(':first').remove();
+        number = element.getAttribute("data-id");
+        number = number - 1;
+        // alert(number);
 
+        // alert(optionSelected);
+        
+        // alert("aaaaaaaaaa");
         $.ajax({
             url: "getSubcategories/" + optionSelected,
             context: document.body
@@ -223,10 +227,24 @@
             // alert("data received");
             // alert(data.id);
             // alert(data.name);
-
-            $('#item_number').find('option').not(':first').remove();
-                
             $iteration = 0;
+
+            selectOption = document.getElementsByName('subcategorySelect')[number];
+            selectItems = document.getElementsByName('item_number')[number];
+
+            // $('#item_number').find('option').not(':first').remove();
+            // $('#subcategorySelect').find('option').not(':first').remove();
+            
+            // alert(selectOption.options.);
+            while (selectOption.firstChild) {
+                selectOption.removeChild(selectOption.firstChild);
+            }
+
+            while (selectItems.firstChild) {
+                selectItems.removeChild(selectItems.firstChild);
+            }
+            // document.getElementsByName('#subcategorySelect')[number].find('option').not(':first').remove();
+            // document.getElementsByName('#item_number')[number].find('option').not(':first').remove();
 
             data.id.forEach(function(subcategory) {
                 option = document.createElement('option');
@@ -234,11 +252,11 @@
                 option.innerHTML = data.name[$iteration];
 
                     // alert(option.value + option.innerHTML);
-                document.getElementById('subcategorySelect').appendChild(option);
+                selectOption.appendChild(option);
                 $iteration++;
             });
 
-            document.getElementById('item_description').value = "Item Description";
+            document.getElementsByName('item_description')[number].value = "Item Description";
 
             // option = document.createElement('option');
             // option.value = data.id;
@@ -250,7 +268,9 @@
 
     function getItem(element) {
         optionSelected = element.value;
-        
+        number = element.getAttribute("data-id");
+        number = number - 1;
+
         $('#item_number').find('option').not(':first').remove();
 
         $.ajax({
@@ -259,21 +279,32 @@
         }).done(function(data) {
 
             $iteration = 0;
+
+            selectItems = document.getElementsByName('item_number')[number];
+
+            var countCheck = 0;
+            while (selectItems.firstChild) {
+                selectItems.removeChild(selectItems.firstChild);
+            }
+
             data.id.forEach(function(item) {
                 option = document.createElement('option');
                 option.value = data.id[$iteration];
                 option.innerHTML = data.name[$iteration];
 
-                document.getElementById('item_number').appendChild(option);
+                selectItems.appendChild(option);
                 $iteration++;
             });
 
-            document.getElementById('item_description').value = "Item Description";
+            document.getElementById('item_description')[number].value = "Item Description";
         });
     }
 
     function getDescription(element) {
         optionSelected = element.value;
+        number = element.getAttribute("data-id");
+        number = number - 1;
+
         // alert(optionSelected);
         $.ajax({
             url: "getDescription/" + optionSelected,
@@ -282,7 +313,7 @@
         }).done(function(data) {
             // alert(data.id);
             text = document.createTextNode(data.id);
-            document.getElementsByName('item_description')[1].value = data.id;
+            document.getElementsByName('item_description')[number].value = data.id;
         });
     }
 
@@ -297,10 +328,19 @@
             // copy.attr("id", "select_job_html" + count);
             
             var c = copy.children().children().children().children();
+            var txt = "";
+            var i;
+            for (i = 0; i < c.length; i++) {
+                txt = txt + c[i].tagName + ", ";
+            }
+
+            // alert(txt);
+            // alert(c[3].getAttribute('data-id'));
             c[1].value = ("#" + count);
             
-            
-            //copy.find("data-id").value(count);
+            c[3].setAttribute('data-id', count);
+            c[5].setAttribute('data-id', count);
+            c[7].setAttribute('data-id', count);
                         
             $("#select_job").append(copy);
         });
