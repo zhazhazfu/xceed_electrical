@@ -21,6 +21,7 @@ class AddQuoteTable extends Migration
             $table->foreignId('fk_term_id')->references('pk_term_id')->on('quoteterms');
             $table->foreignId('fk_in_id')->references('pk_in_id')->on('inclusions');
             $table->foreignId('fk_ex_id')->references('pk_ex_id')->on('exclusions');
+            $table->foreignId('fk_prefix_id')->references('pk_prefix_id')->on('prefixes');
             $table->bigInteger('quote_number');
             $table->integer('quote_status');
             $table->integer('quote_revisonnumber');

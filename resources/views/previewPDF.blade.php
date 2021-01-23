@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.previewapp')
 
 @section('title', 'Preview')
 
@@ -13,7 +13,6 @@
     <title>Preview</title>
 </head>
 
-<h1> Preview </h1>
 <html>
 <div class="container rounded border pl-5 pr-5 pb-5 ">
     
@@ -81,11 +80,6 @@
 
             <br>Thanks & Regards,<br>
             <br>  Jayson Conceicao <br></p>
-            </div>
-
-            <div>
-                <button class="mx-1 btn btn-secondary"> Close </button>
-                <a href="/{{ 'previewPDF' }}" class="mx-1 btn btn-primary"> Generate PDF </a>
             </div>
 
 </div>
