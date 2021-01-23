@@ -72,7 +72,7 @@
 
                 <div class="form-group col-md-1">
                     <label for="itemNo">#</label>
-                    <input type="text" class="form-control" id="itemNo" placeholder="#" readonly>
+                    <input type="text" class="form-control" id="itemNo" placeholder="#1" readonly>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="selectCategory">Category</label>
@@ -208,10 +208,13 @@
     </div>
 </div>
 
-<script>
+@push('js')
+<script type="text/javascript">
     let fk_subcategory_id = $("#my_select").change(function () {
         var id = $(this).children(":selected").attr("id");
     });
+
+    var count = 1;
 
     function getSubcategory(element) {
             optionSelected = element.value;
@@ -263,8 +266,6 @@
                 url: "getItems/" + optionSelected,
                 context: document.body
             }).done(function(data) {
-                
-
                 $iteration = 0;
                 data.id.forEach(function(item) {
                     option = document.createElement('option');
@@ -293,8 +294,39 @@
                 document.getElementById('item_description').value = data.id;
             });
          }
-    
+
+         $(document).ready(function(){   
+            $("#dublicate_job").click(function(e){
+                e.preventDefault();
+
+                alert(count);
+
+                count++;
+                alert("new count = " + count);
+
+                var copy = $("#select_job_html").clone();
+                // copy.attr("id", "select_job_html" + count);
+                
+                var c = copy.children().children().children().children();
+                // var txt = "";
+                // var i;
+                // for (i = 0; i < c.length; i++) {
+                //     txt = txt + c[i].id;
+                // }
+                // alert(txt);
+                c[1].value = ("#" + count);
+                            
+                $("#select_job").append(copy);
+              });
+              
+            $("#remove_job").click(function(e){
+                e.preventDefault();
+                $("#select_job").children($("#select_job_html").remove());
+              });
+        });
+
 </script>
+@endpush
 
 <!-- Sets todays date as the quote date -->
 <script>
@@ -308,20 +340,9 @@
 </script>
 @stop
 
-@push('js')
+<!-- 
 <script type="text/javascript">
     
 
-    $(document).ready(function(){   
-            $("#dublicate_job").click(function(e){
-                e.preventDefault();
-                $("#select_job").append($("#select_job_html").clone(true));
-              });
-              
-            $("#remove_job").click(function(e){
-                e.preventDefault();
-                $("#select_job").children($("#select_job_html").remove());
-              });
-        });
-</script>
-@endpush
+    
+</script> -->
