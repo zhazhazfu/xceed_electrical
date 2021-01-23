@@ -144,95 +144,73 @@
         </div>
 
         <div class="w-100 border-top"></div>
-        <div class="col-sm-12 pb-2">
-            <h5 class="pt-3 pb-1">Inclusions & Exclusions</h5>
-            <div id="select_inc">
-            <div id="select_inc_html">
-            <div class="form-row">
-            <div class="form-group">
-                <div class="form-group col-md-8">
-                    <label for="quote_inclusions">Inclusions</label>
-                    <select class="form-control" id="in_name" name="inc_name" required>
-                        @foreach($inclusions as $quoteinc)
-                        <option value="{{ $quoteinc->pk_in_id }}">{{ $quoteinc->inclusion_Content }}</option>
-                        @endforeach
-                    </select>
-                </div>  
-                <div class="form-row">
-                            <div class="form-group col-sm">
-                                <button id="duplicate_inc" class="btn btn-primary">Add more +</button>
+            <div class="col-sm-12 pb-2">
+                <h5 class="pt-3 pb-1">Inclusions & Exclusions</h5>
+                <div id="select_inc">
+                    <div id="select_inc_html">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="form-group col-md-8">
+                                    <label for="quote_inclusions">Inclusions</label>
+                                    <select class="form-control" id="in_name" name="inc_name" required>
+                                        @foreach($inclusions as $quoteinc)
+                                        <option value="{{ $quoteinc->pk_in_id }}">{{ $quoteinc->inclusion_Content }}</option>
+                                        @endforeach
+                                    </select>
+                                    <button id="duplicate_inc" class="btn btn-primary my-2">Add more +</button>
+                                    <button id="remove_inc" class="btn btn-primary">Remove -</button>
+                                </div>  
                             </div>
-                            <div class="form-group col-sm">
-                                <button id="remove_inc" class="btn btn-primary">Remove -</button>
-                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    </div>
-            
-                
-            
-                <div class="w-100 border-top"></div>
-                <div class="col-sm-12 pb-2">
-                    <h5 class="pt-3 pb-1">Exclusions</h5>
-                    <div id="select_exc">
+
+            <div class="w-100 border-top"></div>
+            <div class="col-sm-12 pb-2">
+                <div id="select_exc">
                     <div id="select_exc_html">
-                    <div class="form-row">
-                    <div class="form-group">
-                <div class="form-group col-md-8">
-                    <label for="quote_exclusions">Exclusions</label>
-                    <select class="form-control" id="exc_name" name="exc_name" required>
-                        @foreach($exclusions as $quoteexc)
-                        <option value="{{ $quoteexc->pk_ex_id }}">{{ $quoteexc->exclusion_Content }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-row">
-                            <div class="form-group col-sm">
-                                <button id="duplicate_exc" class="btn btn-primary">Add more +</button>
-                            </div>
-                            <div class="form-group col-sm">
+                        <div class="form-row">
+                            <div class="form-group col-md-8 mx-2">
+                                <label for="quote_exclusions">Exclusions</label>
+                                <select class="form-control" id="exc_name" name="exc_name" required>
+                                    @foreach($exclusions as $quoteexc)
+                                    <option value="{{ $quoteexc->pk_ex_id }}">{{ $quoteexc->exclusion_Content }}</option>
+                                    @endforeach
+                                </select>    
+                                <button id="duplicate_exc" class="btn btn-primary my-2">Add more +</button>
                                 <button id="remove_exc" class="btn btn-primary">Remove -</button>
                             </div>
-                </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-           </div>
-           </div>
+            
+            <div class="w-100 border-top"></div>
+            <div class="col-sm-12 pb-2">
+                <h5 class="pt-3 pb-1">Terms & Conditions</h5>
+                <div class="form-row">
+                    <div class="form-group">
+                    </div>
+                    <div class="form-group col-md-8">
+                        <select class="form-control" id="term_name" name="term_name" required>
+                            @foreach($quoteterms as $quoteterm)
+                            <option value="{{ $quoteterm->pk_term_id }}">{{ $quoteterm->term_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
         
-        <div class="w-100 border-top"></div>
-        <div class="col-sm-12 pb-2">
-            <h5 class="pt-3 pb-1">Terms & Conditions</h5>
-            <div class="form-row">
-                <div class="form-group">
-                </div>
-                <div class="form-group col-md-8">
-                    <select class="form-control" id="term_name" name="term_name" required>
-                        @foreach($quoteterms as $quoteterm)
-                        <option value="{{ $quoteterm->pk_term_id }}">{{ $quoteterm->term_name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-        </div>
-       
-        <div class="w-100 border-top"></div>
-        <div class="col-sm-12">
-            <div class="form row border-top">
-                <div class="form-group">
-                </div>
-                <h5> </h5>
-            </div>
-            <div class="form-row float-right">
-                <div class="form-group">
-                </div>
+            <div class="w-100 border-top"></div>
+            <div class="col-sm-12">
+                <div class="form-row float-right">
                     <button type="button" class="btn btn-secondary m-2">Cancel</button>
                     <button type="button" class="btn btn-secondary m-2">Save</button>
                     <button type="submit" class="btn btn-primary m-2">Generate Quote</button>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
     </div>
 </div>
 
