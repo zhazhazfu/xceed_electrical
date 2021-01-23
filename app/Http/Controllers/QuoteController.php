@@ -17,6 +17,7 @@ use App\Exclusions;
 use App\Quote_has_item;
 use App\Discount;
 use App\GrossMargin;
+Use App\prefix;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Arr;
 
@@ -36,8 +37,9 @@ class QuoteController extends Controller
             $inclusions = Inclusions::all();
             $discounts = Discount::all();
             $grossmargins = GrossMargin::all();
+            $prefixes = prefix::all();
     
-            return view('quoting', compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'priceLists', 'quoteterms', 'discounts', 'grossmargins', 'exclusions', 'inclusions'));
+            return view('quoting', compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'priceLists', 'quoteterms', 'discounts', 'grossmargins', 'exclusions', 'inclusions','prefixes'));
         }
 
         public function show($id="")

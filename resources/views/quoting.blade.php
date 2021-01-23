@@ -46,6 +46,15 @@
                 <h5 class="pt-3 pb-1">Quote Details</h5>
                 <div class="form-row">
                     <div class="form-group col-md-6">
+                    <label for="input">Quote Prefix</label>
+                    <select class="form-control" id="Quote_prefix" name="Quote_prefix" required>
+                    <label for="Quote_prefix">Quote prefix</label>
+                     <label class="sr-only" for="Quote_prefix">Quote prefix</label>
+                            @foreach($prefixes as $prefix)
+                            <option value="{{ $prefix->pk_prefix_id }}">{{ $prefix->prefix}}</option>
+                            @endforeach
+                        </select>
+
                         <label for="quoteNumber">Quote Number</label>
                           @foreach (App\Quote::all() as $quotes )
                         <input type="text" class="form-control" name="quote_number" id="quote_number" value="{{$quotes->prefix->prefix }}-{{str_pad($quotes->quote_number, 4, '0', STR_PAD_LEFT)}}" readonly> @endforeach

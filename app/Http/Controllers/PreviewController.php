@@ -12,6 +12,7 @@ use App\PriceList;
 use App\QuoteTerm;
 use App\Discount;
 use App\GrossMargin;
+use App\preview;
 use PDF;
 
 class PreviewController extends Controller
@@ -28,6 +29,7 @@ class PreviewController extends Controller
             $quoteterms = QuoteTerm::all();
             $discounts = Discount::all();
             $grossmargins = GrossMargin::all();
+            $prefixes = prefix::all();
             
     
             return view('preview', compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'priceLists', 'quoteterms', 'discounts', 'grossmargins'));

@@ -132,3 +132,4 @@ Route::get('/main/logout', 'MainController@logout');
 Route::get('/getSubcategories/{id}', 'QuoteController@getSubCategories')->name('getSubcategories')->middleware('auth');
 Route::get('/getItems/{id}', 'QuoteController@getItems')->name('getItems')->middleware('auth');
 Route::get('/getDescription/{id}', 'QuoteController@getDescription')->name('getDescription')->middleware('auth');
+
