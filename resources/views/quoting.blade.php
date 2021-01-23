@@ -67,10 +67,7 @@
             <div data-id="1" name="select_job_html" id="select_job_html">
                 <div class="col-sm-12 pb-2">
                     <div class="form-row">
-                        <div class="form-group col-md-1">
-                            <label for="itemNo">#</label>
-                            <input type="text" class="form-control" id="itemNo" placeholder="#1" readonly>
-                        </div>
+                        
                         <div class="form-group col-md-4">
                             <label for="selectCategory">Category</label>
                             <select data-id="1" class="form-control" id="selectCategory" onchange="getSubcategory(this)">
@@ -388,13 +385,12 @@
             // alert(c[3].getAttribute('data-id'));
 
             copy[0].setAttribute('data-id', count);
-            c[1].value = ("#" + count);
 
+            c[1].setAttribute('data-id', count);
             c[3].setAttribute('data-id', count);
             c[5].setAttribute('data-id', count);
             c[7].setAttribute('data-id', count);
-            c[9].setAttribute('data-id', count);
-            c[10].setAttribute('data-id', count);
+            c[8].setAttribute('data-id', count);
             
             $("#select_job").append(copy);
         });
