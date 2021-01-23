@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'termsconditions')
+@section('title', 'Prefix')
 
 @section('content')
 
@@ -24,7 +24,7 @@
     </div>
 
     <a href="/{{ 'qdash' }}" type="button" class="btn btn-secondary float-right ml-3">Back</a>
-<button type="button" class="btn btn-primary float-right ml-3" data-toggle="modal" data-target="#quotetermsModal">Add T&C</button>
+<button type="button" class="btn btn-primary float-right ml-3" data-toggle="modal" data-target="#quotetermsModal">Add prefix</button>
 
 <div class="modal fade" id="quotetermsModal" tabindex="-1" role="dialog" aria-labelledby="quotetermsModalLabel"
     aria-hidden="true">
@@ -37,7 +37,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ url('termsconditions') }}">
+                <form method="post" action="{{ url('prefix') }}">
                     {{ csrf_field() }}
                 
                     <div class="form-row">
@@ -47,17 +47,17 @@
                                 <div class="input-group-prepend">
                                 </div>
                                 <input type="text" class="form-control"
-                                    name="term_name">
+                                    name="prefix">
                             </div>
                         </div>
                         
                     </div>
-                    <div class="form-row">
+                     {{-- <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="input">Description</label>
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
-                                </div>
+                                </div> 
                                
                                     <div class="form-group">
                                       <label for=""></label>
@@ -65,7 +65,7 @@
                                     </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
             </div>
             
             <div class="modal-footer">
@@ -91,13 +91,12 @@
                 <thead>
                     <tr>
                         <th scope="col">Prefix</th>
-                        <th scope="col">Description</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($prefixes as $prefix)
+                    @foreach($prefixes as $pre)
                     <tr>
-                        <td>{{ $prefix->prefix }}</td>
+                        <td>{{ $pre->prefix }}</td>
                         {{-- <td>{{ $QuoteTerm->term_body }}</td> --}}
                     </tr>
                     @endforeach

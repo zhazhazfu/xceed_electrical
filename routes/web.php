@@ -64,6 +64,10 @@ Route::get('/exclusions', 'ExclusionsController@index')->name('exclusions')->mid
 Route::get('/exclusions', 'ExclusionsController@edit')->name('exclusions')->middleware('auth');
 Route::resource('exclusions', 'ExclusionsController')->middleware('auth');
 
+Route::get('/prefix', 'PrefixController@index')->name('prefix')->middleware('auth');
+Route::get('/prefix', 'PrefixController@edit')->name('prefix')->middleware('auth');
+Route::resource('prefix', 'PrefixController')->middleware('auth');
+
 Route::get('/materials', 'MaterialController@index')->name('materials')->middleware('auth');
 Route::get('/materials', 'MaterialController@edit')->name('materials')->middleware('auth');
 Route::resource('materials', 'MaterialController')->middleware('auth');
