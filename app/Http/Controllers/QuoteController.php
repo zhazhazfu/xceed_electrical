@@ -14,9 +14,12 @@ use App\Items;
 use App\QuoteTerm;
 use App\Inclusions;
 use App\Exclusions;
+use App\CompanyCost;
+use App\EmployeeCost;
 use App\Quote_has_item;
 use App\Discount;
 use App\GrossMargin;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Arr;
 
@@ -30,17 +33,19 @@ class QuoteController extends Controller
             $customers = Customer::all();
             $categories = Category::all();
             $subCategories = SubCategory::all();
-            $priceLists = PriceList::all();
+            $items = Items::all();
             $quoteterms = QuoteTerm::all();
             $exclusions = Exclusions::all();
             $inclusions = Inclusions::all();
             $discounts = Discount::all();
-            $grossmargins = GrossMargin::all();
+            $grossMargins = GrossMargin::all();
+            $companyCosts = CompanyCost::all();
+            $employeeCosts = EmployeeCost::all();
     
-            return view('quoting', compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'priceLists', 'quoteterms', 'discounts', 'grossmargins', 'exclusions', 'inclusions'));
+            return view('quoting', compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms', 'discounts', 'grossMargins', 'exclusions', 'inclusions', 'companyCosts', 'employeeCosts'));
         }
 
-        public function show($id="")
+    public function show($id="")
     {
         $pageHeading = 'Quoting';
         $category = Category::find($id);
@@ -48,6 +53,39 @@ class QuoteController extends Controller
         $categoryName = $category->category_name;
   
         return view('quoting', compact('pageHeading', 'subCategories', 'categoryName'));
+    }
+
+    public function store(Request $request)
+    {
+
+        $this->validate($request, [
+            'customer_name' => 'required',
+            'quote_number' => 'required',
+            'item_number' => 'required',
+            'term_name' => 'required',
+        ]);
+
+        $business = BusinessDetail::where('businessdetail_email','info@xceedelectrical.com.au')->first();
+        $quote = new Quote;
+        $quote->fk_businessdetail_id  = $business->pk_businessdetail_id;
+        $quote->fk_customer_id  = $request->get('customer_name');
+        $quote->fk_user_id  = Auth::user()->pk_user_id;
+        $quote->fk_term_id  = $request->get('term_name'); 
+        $quote->fk_in_id  = $request->get('in_name');
+        $quote->fk_ex_id  = $request->get('ex_name');
+        $quote->quote_number = $request->get('quote_number');
+        $quote->quote_status = 1;
+        $quote->quote_revisonnumber = 1;
+
+        $quote->save();
+
+        $Quote_has_item = new Quote_has_item;
+        $Quote_has_item->fk_quote_id = $quote-> pk_quote_id;
+        $Quote_has_item->fk_item_id = $request->get('item_number');
+
+        $Quote_has_item->save();
+
+        return redirect('/history');    
     }
 
     public function getSubcategories($id="")

@@ -26,7 +26,6 @@
         <div class="w-100 border-top"></div>
     <form method="post" action="/quoting">
         <div class="col-sm-6 pb-2">
-            
                 {{ csrf_field() }}
                 <h5 class="pt-3 pb-1">Customer Details</h5>
                 <div class="form-row">
@@ -36,9 +35,7 @@
                         <div class="input-group mb-2">
                             <select id="customer_name" name="customer_name" class="form-control" required>
                                 @foreach($customers as $customer)
-                                <option value="{{ $customer->pk_customer_id }}">
-                                    {{ $customer->customer_name }}
-                                </option>
+                                <option value="{{ $customer->pk_customer_id }}">{{ $customer->customer_name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -51,7 +48,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="quoteNumber">Quote Number</label>
-                    <input type="text" class="form-control" name="quote_number" id="quoteNumber" placeholder="######" readonly="">
+                    <input type="text" class="form-control" name="quote_number" id="quoteNumber" placeholder="######">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="quoteDate">Date</label>
@@ -67,7 +64,6 @@
             <div data-id="1" name="select_job_html" id="select_job_html">
                 <div class="col-sm-12 pb-2">
                     <div class="form-row">
-                        
                         <div class="form-group col-md-4">
                             <label for="selectCategory">Category</label>
                             <select data-id="1" class="form-control" id="selectCategory" onchange="getSubcategory(this)">
@@ -99,10 +95,10 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-sm">
-                            <button data-id="1" id="dublicate_job" class="btn btn-primary">Add Jobs +</button>
+                            <button data-id="1" id="dublicate_job" class="btn btn-primary">Add Job</button>
                         </div>
                         <div class="form-group col-sm float-right">
-                            <button data-id="1" id="remove_job" class="btn btn-primary float-right">Remove Jobs -</button>
+                            <button data-id="1" id="remove_job" class="btn btn-danger float-right">Remove Job</button>
                         </div>
                     </div>
                 </div>
@@ -116,7 +112,7 @@
                 <div class="form-group">
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="input">GST</label>
+                    <label for="input">Price</label>
                     <label class="sr-only" for="inlineFormInputGroup">2</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
@@ -154,8 +150,8 @@
                                         <option value="{{ $quoteinc->pk_in_id }}">{{ $quoteinc->inclusion_Content }}</option>
                                         @endforeach
                                     </select>
-                                    <button id="duplicate_inc" class="btn btn-primary my-2">Add more +</button>
-                                    <button id="remove_inc" class="btn btn-primary">Remove -</button>
+                                    <button id="duplicate_inc" class="btn btn-primary my-2">Add</button>
+                                    <button id="remove_inc" class="btn btn-danger">Remove</button>
                                 </div>  
                             </div>
                         </div>
@@ -175,8 +171,8 @@
                                     <option value="{{ $quoteexc->pk_ex_id }}">{{ $quoteexc->exclusion_Content }}</option>
                                     @endforeach
                                 </select>    
-                                <button id="duplicate_exc" class="btn btn-primary my-2">Add more +</button>
-                                <button id="remove_exc" class="btn btn-primary">Remove -</button>
+                                <button id="duplicate_exc" class="btn btn-primary my-2">Add</button>
+                                <button id="remove_exc" class="btn btn-danger">Remove</button>
                             </div>
                         </div>
                     </div>
@@ -212,51 +208,17 @@
 </div>
 
 
-@push('js')
-<script type="text/javascript">
-    
- $(document).ready(function(){
-            $("#duplicate_inc").click(function(e){
-                e.preventDefault();
-                $("#select_inc").append($("#select_inc_html").clone(true));
-              });
-
-            $("#remove_inc").click(function(e){
-               e.preventDefault();
-               $("#select_inc").children($("#select_inc_html").remove());
-           });
-
-        });
-</script>
-@endpush
 
 @push('js')
 <script type="text/javascript">
-    
- $(document).ready(function(){
-            $("#duplicate_exc").click(function(e){
-                e.preventDefault();
-                $("#select_exc").append($("#select_exc_html").clone(true));
-              });
 
-            $("#remove_exc").click(function(e){
-               e.preventDefault();
-               $("#select_exc").children($("#select_exc_html").remove());
-           });
-
-        });
-</script>
-@endpush
-
-@push('js')
-<script type="text/javascript">
     let fk_subcategory_id = $("#my_select").change(function () {
         var id = $(this).children(":selected").attr("id");
     });
 
-    var count = 1;
+    var count = 1; //counter for data-id
 
-    function getSubcategory(element) {
+    function getSubcategory(element) {  //to get subcategory according to user's select
         optionSelected = element.value;
         number = element.getAttribute("data-id");
         number = number - 1;
@@ -308,11 +270,10 @@
             // option.value = data.id;
             // option.innerHTML = data.name;
             // document.getElementById('subcategorySelect').appendChild(option);
-            
         });
     }
 
-    function getItem(element) {
+    function getItem(element) {  //to get item number according to subcategory
         optionSelected = element.value;
         number = element.getAttribute("data-id");
         number = number - 1;
@@ -346,7 +307,7 @@
         });
     }
 
-    function getDescription(element) {
+    function getDescription(element) { //to get description according to item number
         optionSelected = element.value;
         number = element.getAttribute("data-id");
         number = number - 1;
@@ -363,7 +324,7 @@
         });
     }
 
-    $(document).ready(function(){   
+    $(document).ready(function(){   //add and remove the jobs
         $("#dublicate_job").click(function(e){
             e.preventDefault();
             // alert(count);
@@ -385,7 +346,6 @@
             // alert(c[3].getAttribute('data-id'));
 
             copy[0].setAttribute('data-id', count);
-
             c[1].setAttribute('data-id', count);
             c[3].setAttribute('data-id', count);
             c[5].setAttribute('data-id', count);
@@ -394,12 +354,12 @@
             
             $("#select_job").append(copy);
         });
-            
+    
         $("#remove_job").click(function(e){
             e.preventDefault();
             number = this.getAttribute("data-id");
-            // number = number - 1;
-            // alert(number);
+                // number = number - 1;
+                // alert(number);
 
             section = document.getElementsByName('select_job_html');
 
@@ -423,17 +383,36 @@
         });
     });
 
+    $(document).ready(function(){  //add and remove the inclusions
+        $("#duplicate_inc").click(function(e){
+            e.preventDefault();
+            $("#select_inc").append($("#select_inc_html").clone(true));
+        });
+
+        $("#remove_inc").click(function(e){
+            e.preventDefault();
+            $("#select_inc").children($("#select_inc_html").remove());
+        });
+    });
+    
+    $(document).ready(function(){   //add and remove the exclusions
+        $("#duplicate_exc").click(function(e){
+            e.preventDefault();
+            $("#select_exc").append($("#select_exc_html").clone(true));
+        });
+
+        $("#remove_exc").click(function(e){
+            e.preventDefault();
+            $("#select_exc").children($("#select_exc_html").remove());
+        });
+    });
 </script>
-
 @endpush
-
-
 
 <!-- Sets todays date as the quote date -->
 <script>
     let today = new Date().toISOString().substr(0, 10);
     document.querySelector("#today").value = today;
-
     document.querySelector("#today2").valueAsDate = new Date();
 </script>
 @stop

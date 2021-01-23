@@ -274,6 +274,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                             Materials </a> <br>
                         
                         </td>
+                        {{-- get total material cost  --}}
                         <?php
                             $temp_mat_cost = 0;
                             foreach ($item->itemHasMaterials as $temp_itemHasMaterial)
@@ -556,6 +557,9 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
         </div>
     </div>
 
+
+    {{-- achived tables --}}
+
     <div id="archived_div" style="display: none">
         <div class="row mb-4">
             <div class="col-sm-7">
@@ -596,6 +600,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                             Materials </a> <br>
                         
                         </td>
+                        {{-- get total material cost  --}}
                         <?php 
                              $temp_mat_cost = 0;
                              foreach ($item->itemHasMaterials as $temp_itemHasMaterial)
