@@ -47,7 +47,8 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="quoteNumber">Quote Number</label>
-                        <input type="text" class="form-control" name="quote_number" id="quoteNumber" placeholder="######" required="">
+                          @foreach (App\Quote::all() as $quotes )
+                        <input type="text" class="form-control" name="quote_number" id="quote_number" value="{{$quotes->prefix->prefix }}-{{str_pad($quotes->quote_number, 4, '0', STR_PAD_LEFT)}}" readonly> @endforeach
                     </div>
                     <div class="form-group col-md-6">
                         <label for="quoteDate">Date</label>
@@ -55,7 +56,6 @@
                     </div>
                 </div>
             </div>
-
         
             <div class="w-100 border-top"></div>
             <div id="select_job">
@@ -193,6 +193,7 @@
         </form>
     </div>
 </div>
+
 
 <script>
     let fk_subcategory_id = $("#my_select").change(function () {

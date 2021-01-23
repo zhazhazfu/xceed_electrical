@@ -59,7 +59,7 @@ class Quote extends Model
 
     public function prefix()
     {
-        return $this->belongsTo(prefix::class, 'fk_prefix_id');
+        return $this->belongsTo(prefix::class, 'fk_prefix_id', 'pk_prefix_id');
     }
 
     // Relationships to be added:
@@ -75,8 +75,8 @@ class Quote extends Model
      {
          parent::boot();
 
-         static::creating(function($model){
-             $model->quote_number = Quote::where('prefix_id', $model->prefix_id)->max('quote_number') + 1;
+         static::creating(function($quotes){
+             $quotes->quote_number = Quote::where('prefix_id', $quotes->prefix_id)->max('quote_number') + 1;
          });
      }
 

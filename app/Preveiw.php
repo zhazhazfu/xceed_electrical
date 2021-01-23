@@ -13,4 +13,11 @@ class Perveiw extends Model
         'fk_perpoint_id',
         'perveiw_html'
     ];
+
+    public function quotes()
+    {
+        return $this->hasMany('App\Quote', 'fk_preveiw_id', 'pk_preveiw_id');
+    }
+
+
 }

@@ -39,7 +39,8 @@
                 {{ $businessDetails->businessdetail_email }}<br>
                 {{ $businessDetails->businessdetail_website }}
             </p>
-            <h2 class="mt-3 mb-4">Quote : #quoteNumber</h2>
+            @foreach (App\Quote::all() as $quotes )
+            <h2 class="mt-3 mb-4">Quote : {{$quotes->prefix->prefix }}-{{str_pad($quotes->quote_number, 4, '0', STR_PAD_LEFT)}}</h2> @endforeach
     </div>
 
         <div>
@@ -56,7 +57,7 @@
             <br>
             <h2 class="mt-3 mb-4">Pricing</h2>
             <p>
-            <h4 class="mt-3 mb-4">Quote : #quoteNumber</h4>
+            <h4 class="mt-3 mb-4">Quote : {{$quotes->prefix->prefix }}-{{str_pad($quotes->quote_number, 4, '0', STR_PAD_LEFT)}}</h4>
             <h4 class="mt-3 mb-4">Customer : #SiteContactFullName</h4>
             </p>
             
