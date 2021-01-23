@@ -64,53 +64,51 @@
         <div class="w-100 border-top"></div>
         <div id="select_job">
         <div id="select_job_html">
-        <div class="col-sm-12 pb-2">
+        <div data-id="1" class="col-sm-12 pb-2">
             <h5 class="pt-3 pb-1">Job</h5>
             <div class="form-row">
                 <div class="form-group">
                 </div>
 
-                <div class="form-group col-md-1">
+                <div data-id="1" class="form-group col-md-1">
                     <label for="itemNo">#</label>
-                    <input type="text" class="form-control" id="itemNo" placeholder="#1" readonly>
+                    <input data-id="1" type="text" class="form-control" id="itemNo" placeholder="#1" readonly>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="selectCategory">Category</label>
-                    <select class="form-control" id="selectCategory" onchange="getSubcategory(this)">
-                        <option value="" selected disabled>Please select a category</option>
-                        @foreach($categories as $category)
-                        @if($category->category_archived == '0')
-                        <option value="{{ $category->pk_category_id }}">{{ $category->category_name }}</option>
+                    <label data-id="1" for="selectCategory">Category</label>
+                    <select data-id="1" class="form-control" id="selectCategory" onchange="getSubcategory(this)">
+                        <option data-id="1" value="" selected disabled>Please select a category</option>
+                            @foreach($categories as $category)
+                            @if($category->category_archived == '0')
+                        <option data-id="1" value="{{ $category->pk_category_id }}">{{ $category->category_name }}</option>
                         @endif
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="selectCategory">Sub-Category</label>
-                    <select class="form-control" id="subcategorySelect" name="subcategorySelect" onchange="getItem(this)">
+                    <label data-id="1" for="selectCategory">Sub-Category</label>
+                    <select data-id="1" class="form-control" id="subcategorySelect" name="subcategorySelect" onchange="getItem(this)">
                         <option value="" selected disabled>Please select a subcategory</option>
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="selectItemNumber">Item Code</label>
-                    <select class="form-control" id="item_number" name="item_number" onchange="getDescription(this)">
+                    <label data-id="1" for="selectItemNumber">Item Code</label>
+                    <select data-id="1" class="form-control" id="item_number" name="item_number" onchange="getDescription(this)">
                         <option value="" selected disabled>Please select an item</option>
                     </select>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group w-100 px-2" id="description">
-                    <input type="text" class="form-control" id="item_description" placeholder="Item Description" readonly>
+                    <input data-id="1" type="text" class="form-control" id="item_description" placeholder="Item Description" readonly>
                 </div>
             </div>
-
-        
                 <div class="form-row">
                             <div class="form-group col-sm">
-                                <button id="dublicate_job" class="btn btn-primary">Add Jobs +</button>
+                                <button data-id="1" id="dublicate_job" class="btn btn-primary">Add Jobs +</button>
                             </div>
                             <div class="form-group col-sm float-right">
-                                <button id="remove_job" class="btn btn-primary float-right">Remove Jobs -</button>
+                                <button data-id="1" id="remove_job" class="btn btn-primary float-right">Remove Jobs -</button>
                             </div>
                         </div>
 
@@ -292,33 +290,26 @@
             }).done(function(data) {
                 // alert(data.id);
                 text = document.createTextNode(data.id);
-                document.getElementById('item_description').value = data.id;
+                document.getElementsByName('item_description')[1].value = data.id;
             });
          }
 
          $(document).ready(function(){   
             $("#dublicate_job").click(function(e){
                 e.preventDefault();
-
-                alert(count);
-
+                // alert(count);
                 count++;
                 alert("new count = " + count);
 
-                var copy = $("#select_job_html").clone();
+                var copy = $("#select_job_html").clone(true);
                 // copy.attr("id", "select_job_html" + count);
                 
                 var c = copy.children().children().children().children();
-                // var txt = "";
-                // var i;
-                // for (i = 0; i < c.length; i++) {
-                //     txt = txt + c[i].id;
-                // }
-                // alert(txt);
                 c[1].value = ("#" + count);
+
+                // copy.find("[data-id]").value(count);
                             
                 $("#select_job").append(copy);
-                
               });
               
             $("#remove_job").click(function(e){
