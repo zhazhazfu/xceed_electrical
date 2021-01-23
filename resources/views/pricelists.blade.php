@@ -182,8 +182,6 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                             placeholder="0" required>
                                     </div>
                                 </div>
-                            
-                       
                                 <div class="form-row">
                                     <div class="form-group col-sm">
                                         <button id="dublicate_mat" class="btn btn-primary">Add more +</button>
