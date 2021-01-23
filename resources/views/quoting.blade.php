@@ -51,7 +51,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="quoteNumber">Quote Number</label>
-                    <input type="text" class="form-control" name="quote_number" id="quoteNumber" placeholder="######" required="">
+                    <input type="text" class="form-control" name="quote_number" id="quoteNumber" placeholder="######" readonly="">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="quoteDate">Date</label>
@@ -147,25 +147,49 @@
         <div class="col-sm-12 pb-2">
             <h5 class="pt-3 pb-1">Inclusions & Exclusions</h5>
             <div class="form-row">
-                <div class="form-group">
-                </div>
+            <div class="form-group">
+                
+                <div id="select_inc_html">
                 <div class="form-group col-md-8">
-                    <select class="form-control" id="term_name" name="ex_name" required>
-                        @foreach($exclusions as $quoteterm)
-                        <option value="{{ $quoteterm->pk_ex_id }}">{{ $quoteterm->exclusion_Content }}</option>
+                    <label for="quote_inclusions">Inclusions</label>
+                    <select class="form-control" id="in_name" name="inc_name" required>
+                        @foreach($inclusions as $quoteinc)
+                        <option value="{{ $quoteinc->pk_in_id }}">{{ $quoteinc->inclusion_Content }}</option>
                         @endforeach
                     </select>
+                </div>  
+                <div class="form-row">
+                            <div class="form-group col-sm">
+                                <button id="duplicate_inc" class="btn btn-primary">Add more +</button>
+                            </div>
+                            <div class="form-group col-sm">
+                                <button id="remove_inc" class="btn btn-primary">Remove -</button>
+                            </div>
                 </div>
+                </div>
+            
+
+                <div id="select_exc_html">
                 <div class="form-group col-md-8">
                     <label for="quote_exclusions">Exclusions</label>
-                    <select class="form-control" id="term_name" name="in_name" required>
-                        @foreach($inclusions as $quoteterm)
-                        <option value="{{ $quoteterm->pk_in_id }}">{{ $quoteterm->inclusion_Content }}</option>
+                    <select class="form-control" id="exc_name" name="exc_name" required>
+                        @foreach($exclusions as $quoteexc)
+                        <option value="{{ $quoteexc->pk_ex_id }}">{{ $quoteexc->exclusion_Content }}</option>
                         @endforeach
                     </select>
                 </div>
+                <div class="form-row">
+                            <div class="form-group col-sm">
+                                <button id="duplicate_exc" class="btn btn-primary">Add more +</button>
+                            </div>
+                            <div class="form-group col-sm">
+                                <button id="remove_exc" class="btn btn-primary">Remove -</button>
+                            </div>
+                </div>
+                </div>
             </div>
-        </div>
+           </div>
+           </div>
         
         <div class="w-100 border-top"></div>
         <div class="col-sm-12 pb-2">
@@ -201,6 +225,43 @@
     </form>
     </div>
 </div>
+
+
+@push('js')
+<script type="text/javascript">
+    
+ $(document).ready(function(){
+            $("#duplicate_inc").click(function(e){
+                e.preventDefault();
+                $("#select_inc").append($("#select_inc_html").clone(true));
+              });
+
+            $("#remove_inc").click(function(e){
+               e.preventDefault();
+               $("#select_inc").children($("#select_inc_html").remove());
+           });
+
+        });
+</script>
+@endpush
+
+@push('js')
+<script type="text/javascript">
+    
+ $(document).ready(function(){
+            $("#duplicate_exc").click(function(e){
+                e.preventDefault();
+                $("#select_exc").append($("#select_exc_html").clone(true));
+              });
+
+            $("#remove_exc").click(function(e){
+               e.preventDefault();
+               $("#select_exc").children($("#select_exc_html").remove());
+           });
+
+        });
+</script>
+@endpush
 
 @push('js')
 <script type="text/javascript">
@@ -352,7 +413,10 @@
     });
 
 </script>
+
 @endpush
+
+
 
 <!-- Sets todays date as the quote date -->
 <script>
