@@ -64,7 +64,7 @@
         <div class="w-100 border-top"></div>
         <div id="select_job">
             <h5 class="pt-3 pb-1">Job</h5>
-            <div id="select_job_html">
+            <div data-id="1" name="select_job_html" id="select_job_html">
                 <div class="col-sm-12 pb-2">
                     <div class="form-row">
                         <div class="form-group col-md-1">
@@ -102,10 +102,10 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-sm">
-                            <button id="dublicate_job" class="btn btn-primary">Add Jobs +</button>
+                            <button data-id="1" id="dublicate_job" class="btn btn-primary">Add Jobs +</button>
                         </div>
                         <div class="form-group col-sm float-right">
-                            <button id="remove_job" class="btn btn-primary float-right">Remove Jobs -</button>
+                            <button data-id="1" id="remove_job" class="btn btn-primary float-right">Remove Jobs -</button>
                         </div>
                     </div>
                 </div>
@@ -399,26 +399,53 @@
             // copy.attr("id", "select_job_html" + count);
             
             var c = copy.children().children().children().children();
-            var txt = "";
-            var i;
-            for (i = 0; i < c.length; i++) {
-                txt = txt + c[i].tagName + ", ";
-            }
+            // var d = copy.children().children().children().children();
+            // var txt = "";
+            // var i;
+            // for (i = 0; i < d.length; i++) {
+            //     txt = txt + d[i].tagName + ", ";
+            // }
 
             // alert(txt);
             // alert(c[3].getAttribute('data-id'));
+
+            copy[0].setAttribute('data-id', count);
             c[1].value = ("#" + count);
-            
+
             c[3].setAttribute('data-id', count);
             c[5].setAttribute('data-id', count);
             c[7].setAttribute('data-id', count);
-                        
+            c[9].setAttribute('data-id', count);
+            c[10].setAttribute('data-id', count);
+            
             $("#select_job").append(copy);
         });
             
         $("#remove_job").click(function(e){
             e.preventDefault();
-            $("#select_job").children($("#select_job_html").remove());
+            number = this.getAttribute("data-id");
+            // number = number - 1;
+            // alert(number);
+
+            section = document.getElementsByName('select_job_html');
+
+            var i;
+            var x;
+            for (i=0; i<section.length; i++) {
+                sectionID = section[i].getAttribute('data-id');
+                // alert(sectionID);
+                if (sectionID == number) {
+                    // alert('match found: ' + sectionID);
+                    x = i;
+                }
+            }
+
+            finalSection = section[x];
+
+            // alert(finalSection.getAttribute('data-id'));
+            // $("#select_job").children($("#select_job_html")[number].remove());
+
+            finalSection.remove();
         });
     });
 
