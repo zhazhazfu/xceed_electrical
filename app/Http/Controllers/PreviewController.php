@@ -15,6 +15,7 @@ use App\GrossMargin;
 use App\preview;
 use App\prefix;
 use App\Inclusions;
+use App\Exclusions;
 use PDF;
 
 class PreviewController extends Controller
@@ -36,9 +37,10 @@ class PreviewController extends Controller
             $grossmargins = GrossMargin::all();
             $prefixes = prefix::all();
             $inclusion = Inclusions::all();
+            $exclusion = Exclusions::all();
             
     
-            return view('preview', compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'priceLists', 'quoteterms', 'discounts', 'grossmargins','prefixes','inclusion'));
+            return view('preview', compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'priceLists', 'quoteterms', 'discounts', 'grossmargins','prefixes','inclusion','exclusion'));
         }
 
     //     public function show($id="")
@@ -57,13 +59,14 @@ class PreviewController extends Controller
 
         
         print_r($request->input());
-        $pageHeading = 'Preview';
-        $category = Category::find($id);
-        $subCategories = $category->subCategories;
-        $categoryName = $category->category_name;
-        
+        $request->session()->put('name',$request->input('job'));
+        // $pageHeading = 'Preview';
+        // $category = Category::find($id);
+        // $subCategories = $category->subCategories;
+        // $categoryName = $category->category_name;
+        return view('preview')->with('name',$request->session()->get('name'));
   
-        return view('preview', compact('pageHeading', 'subCategories', 'categoryName'));
+        //return view('preview', compact('pageHeading', 'subCategories', 'categoryName'));
     } 
 
     public function generatePDF()

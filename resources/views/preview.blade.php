@@ -77,22 +77,21 @@
 
             <br>
             <p class="font-weight-bold"><u> Inclusions </u></p>
-            @forEach($inclusion as $inclusion)@endforeach
-            <p>#data {{$inclusion->inclusion_Content}}</p>
+            {{-- @forEach($inclusion as $inclusion)@endforeach --}}
+            <p>#data {{$quote->inclusions->inclusion_Content}}</p>
 
             <p class="font-weight-bold"><u> Exclusions </u></p>
-            @forEach($inclusion as $inclusion)@endforeach
-            <p>#data</p>
+            {{-- @forEach($exclusion as $exclusion)@endforeach --}}
+            <p>#data {{$quote->exclusions->exclusion_Content}}</p>
 
             <p class="font-weight-bold"><u> Terms and Conditions </u></p>
-            @forEach($quoteterms as $quoteterm)@endforeach
-            <p>#data {{$quoteterm->term_body}}</p>
+            {{-- @forEach($quoteterms as $quoteterm)@endforeach --}}
+            <p>{{$quote->quoteterms->term_body}}</p>
 
-            <br>
-            <p><br>If you have any questions or queries in regard to the above quotation please contact myself on 0415 240 296 or contact the office on 02 9726 4869. All works should be given two weeks' notice prior to commencing works.<br>
+            <p>If you have any questions or queries in regard to the above quotation please contact myself on 0415 240 296 or contact the office on 02 9726 4869. All works should be given two weeks' notice prior to commencing works.
 
-            <br>Thanks & Regards,<br>
-            <br>  Jayson Conceicao <br></p>
+            <br><p>Thanks & Regards,<br></p>
+                <p>Jayson Conceicao </p>
             </div>
 
             <div>
