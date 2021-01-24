@@ -335,7 +335,7 @@
                 $iteration++;
             });
 
-            document.getElementById('item_description')[x].value = "Item Description";
+            document.getElementsByName('item_description')[x].value = "Item Description";
         });
     }
 
@@ -386,7 +386,6 @@
             var c = copy.children().children().children().children();
 
             // this code showed the tags of each child, e.g. "DIV, SELECT, DIV..."
-            // var d = copy.children().children().children().children();
             // var txt = "";
             // var i;
             // for (i = 0; i < d.length; i++) {
@@ -398,6 +397,7 @@
             c[1].setAttribute('data-id', count);
             c[3].setAttribute('data-id', count);
             c[5].setAttribute('data-id', count);
+            c[6].setAttribute('data-id', count);
             c[7].setAttribute('data-id', count);
             c[8].setAttribute('data-id', count);
             c[9].setAttribute('data-id', count);
