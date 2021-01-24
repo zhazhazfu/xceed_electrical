@@ -278,6 +278,16 @@
                 selectItems.removeChild(selectItems.firstChild);
             }
 
+            option = document.createElement('option');
+                option.value = "";
+                option.innerHTML = "Please select a subcategory";
+                selectOption.appendChild(option);
+
+            option2 = document.createElement('option');
+                option2.value = "";
+                option2.innerHTML = "Please select an item";
+                selectItems.appendChild(option2);
+
             //for each thing in the data make an option
             data.id.forEach(function(subcategory) {
                 option = document.createElement('option');
@@ -326,6 +336,13 @@
                 selectItems.removeChild(selectItems.firstChild);
             }
 
+            option = document.createElement('option');
+                option.value = "";
+                option.innerHTML = "Please select an item";
+                option.disabled = true;
+                option.selected = true;
+                selectItems.appendChild(option);
+            
             data.id.forEach(function(item) {
                 option = document.createElement('option');
                 option.value = data.id[$iteration];
