@@ -62,6 +62,11 @@ class Quote extends Model
         return $this->belongsTo(prefix::class, 'fk_prefix_id', 'pk_prefix_id');
     }
 
+    public function series()
+    {
+        return $date->format('d-m-y H:i:s');
+    }
+
     // Relationships to be added:
 
     // One-to-Many:
@@ -75,8 +80,8 @@ class Quote extends Model
      {
          parent::boot();
 
-         static::creating(function($quotes){
-             $quotes->quote_number = Quote::where('prefix_id', $quotes->prefix_id)->max('quote_number') + 1;
+         static::creating(function($model){
+             $model->quote_number = Quote::where('fk_prefix_id', $model->fk_prefix_id)->max('quote_number') + 1;
          });
      }
 

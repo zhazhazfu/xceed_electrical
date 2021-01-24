@@ -24,7 +24,7 @@
         </div>
         <!-- Forces next column to break new line -->
         <div class="w-100 border-top"></div>
-        <form method="post" action="/quoting">
+        <form method="post" action={{URL::to('/preview')}} class="">
             <div class="col-sm-6 pb-2">
                 {{ csrf_field() }}
                 <h5 class="pt-3 pb-1">Customer Details</h5>
@@ -54,14 +54,14 @@
                             <option value="{{ $prefix->pk_prefix_id }}">{{ $prefix->prefix}}</option>
                             @endforeach
                         </select>
-
-                        <label for="quoteNumber">Quote Number</label>
-                          @foreach (App\Quote::all() as $quotes )
-                        <input type="text" class="form-control" name="quote_number" id="quote_number" value="{{$quotes->prefix->prefix }}-{{str_pad($quotes->quote_number, 4, '0', STR_PAD_LEFT)}}" readonly> @endforeach
+                          {{-- @foreach (App\Quote::all() as $quotes )  --}}
+                          @foreach ($quotes as $quote ) @endforeach
+                          <label for="quoteNumber"></label>
+                        <input type="hidden" class="form-control" name="quote_number" id="quote_number" value="{{$quote->prefix->prefix }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}" readonly>  
                     </div>
                     <div class="form-group col-md-6">
                         <label for="quoteDate">Date</label>
-                        <input type="date" class="form-control" id="today" placeholder="10 September, 2020" readonly>
+                        <input type="date" class="form-control" id="today" value="" readonly>
                     </div>
                 </div>
             </div>
@@ -151,7 +151,7 @@
                     <div class="form-group">
                     </div>
                     <div class="form-group col-md-8">
-                        <select class="form-control" id="term_name" name="ex_name" required>
+                        <select class="form-control" id="ex_name" name="ex_name" required>
                             @foreach($exclusions as $quoteterm)
                             <option value="{{ $quoteterm->pk_ex_id }}">{{ $quoteterm->exclusion_Content }}</option>
                             @endforeach
@@ -159,7 +159,7 @@
                     </div>
                     <div class="form-group col-md-8">
                         <label for="quote_exclusions">Exclusions</label>
-                        <select class="form-control" id="term_name" name="in_name" required>
+                        <select class="form-control" id="in_name" name="in_name" required>
                             @foreach($inclusions as $quoteterm)
                             <option value="{{ $quoteterm->pk_in_id }}">{{ $quoteterm->inclusion_Content }}</option>
                             @endforeach

@@ -43,20 +43,20 @@ class PreviewPDFController extends Controller
         return view('preview', compact('pageHeading', 'subCategories', 'categoryName'));
     } 
 
-    public function generatePDF()
-    {
-        $pageHeading = 'Preview';
-            $quotes = Quote::all();
-            $businessDetails = BusinessDetail::first();
-            $customers = Customer::all();
-            $categories = Category::all();
-            $subCategories = SubCategory::all();
-            $priceLists = PriceList::all();
-            $quoteterms = QuoteTerm::all();
-            $discounts = Discount::all();
-            $grossmargins = GrossMargin::all();
-            $pdf =  PDF::loadView('previewPDF',compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'priceLists', 'quoteterms', 'discounts', 'grossmargins'));
+    // public function generatePDF()
+    // {
+    //     $pageHeading = 'Preview';
+    //         $quotes = Quote::all();
+    //         $businessDetails = BusinessDetail::first();
+    //         $customers = Customer::all();
+    //         $categories = Category::all();
+    //         $subCategories = SubCategory::all();
+    //         $priceLists = PriceList::all();
+    //         $quoteterms = QuoteTerm::all();
+    //         $discounts = Discount::all();
+    //         $grossmargins = GrossMargin::all();
+    //         $pdf =  PDF::loadView('previewPDF',compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'priceLists', 'quoteterms', 'discounts', 'grossmargins'));
   
-        return $pdf->download('Quote.pdf');
-    }
+    //     return $pdf->download('Quote.pdf');
+    // }
 }

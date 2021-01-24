@@ -112,4 +112,63 @@ class QuoteController extends Controller
 
     }
 
+    // public function update(Request $request, $page_id, $pk_quote_id)
+    // {
+
+    //     $this->validate($request,[
+    //         'quote_id' => 'required',
+    //         'fk_business_id' => 'required',
+    //         'fk_customer_id' => 'required',
+    //         'fk_user_id' => 'required',
+    //         'fk_item_id' => 'required',
+    //         'fk_in_id' => 'required',
+    //         'fk_ex_id' => 'required',
+    //         'fk_prefix_id' => 'required',
+    //     ]);
+        
+    //     $quotes = Quote::find($pk_quote_id);
+    //     $quotes->customer_name = $request->get('customer_name');
+    //     $quotes->fk_prefix_id = $request->get('prefix');
+    //     $quotes->fk_subcategory_id = $request->get('fk_subcategory_id');
+    //     $quotes->item_description = $request->get('item_description');
+    //     $quotes->fk_material_id = $request->get('fk_material_id');
+    //     $quotes->item_estimatedtime = $request->get('item_estimatedtime');
+    //     $quotes->item_servicecall = $request->get('item_servicecall');
+    //     $quotes->item_archived = $request->get('item_archived');
+    //     $quotes->save();
+
+    //     return redirect('/preview/'.$page_id)->with('success', 'Quote updated');
+    // }
+
+    public function store(Request $request)
+    {
+        $this->validate($request,[
+            'quote_id' => 'required',
+            'fk_business_id' => 'required',
+            'fk_customer_id' => 'required',
+            'fk_user_id' => 'required',
+            'fk_item_id' => 'required',
+            'fk_in_id' => 'required',
+            'fk_ex_id' => 'required',
+            'fk_prefix_id' => 'required',
+        ]);
+        
+        $quotes = Quote::find($pk_quote_id);
+
+        $quotes = new Quote([
+            
+            'quote_id' => $request->get('quote_id'),
+            'fk_buiness_id' => $request->get('fk_buiness_id'),
+            'fk_customer_id'=> $request->get('fk_customer_id'),
+            'fk_user_id' => $request->get('fk_user_id'), 
+            'fk_item_id'=> $request->get('fk_item_id'),
+            'fk_in_id' => $request->get('fk_in_id'),
+            'fk_ex_id' => $request->get('fk_ex_id'),
+            'fk_prefix_id' => $request->get('fk_prefix_id')
+        ]);
+
+        $Quote->save();
+        return back()->with('success', 'Quote added');    
+    }
+
 }

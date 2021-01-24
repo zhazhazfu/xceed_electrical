@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.previewapp')
 
-@section('title', 'Preview')
+ @section('title', 'Preview') 
 
-@section('content')
+ @section('content') 
 <!-- --------------- -->
 <style>
  
@@ -39,8 +39,12 @@
                 {{ $businessDetails->businessdetail_email }}<br>
                 {{ $businessDetails->businessdetail_website }}
             </p>
-            @foreach (App\Quote::all() as $quotes )
-            <h2 class="mt-3 mb-4">Quote : {{$quotes->prefix->prefix }}-{{str_pad($quotes->quote_number, 4, '0', STR_PAD_LEFT)}}</h2> @endforeach
+            @foreach ($quotes as $quote )
+            @endforeach
+            {{-- @if () --}}
+                
+            {{-- @endif --}}
+            <h2 class="mt-3 mb-4">Quote : {{$quote->prefix->prefix }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}</h2>  
     </div>
 
         <div>
@@ -57,10 +61,11 @@
             <br>
             <h2 class="mt-3 mb-4">Pricing</h2>
             <p>
-            <h4 class="mt-3 mb-4">Quote : {{$quotes->prefix->prefix }}-{{str_pad($quotes->quote_number, 4, '0', STR_PAD_LEFT)}}</h4>
-            <h4 class="mt-3 mb-4">Customer : #SiteContactFullName</h4>
+            <h4 class="mt-3 mb-4">Quote : {{$quote->prefix->prefix }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}</h4>
+            <h4 class="mt-3 mb-4">Customer : {{$quote->customers->customer_name}}</h4>
             </p>
-            
+           
+            {{-- <h5 class="mt-3 mb-4">customer name : {{$customer->customer_name}} </h5> --}}
              
             <p> #quote description </p>
 
@@ -72,10 +77,16 @@
 
             <br>
             <p class="font-weight-bold"><u> Inclusions </u></p>
-            <p>#data</p>
+            @forEach($inclusion as $inclusion)@endforeach
+            <p>#data {{$inclusion->inclusion_Content}}</p>
 
             <p class="font-weight-bold"><u> Exclusions </u></p>
+            @forEach($inclusion as $inclusion)@endforeach
             <p>#data</p>
+
+            <p class="font-weight-bold"><u> Terms and Conditions </u></p>
+            @forEach($quoteterms as $quoteterm)@endforeach
+            <p>#data {{$quoteterm->term_body}}</p>
 
             <br>
             <p><br>If you have any questions or queries in regard to the above quotation please contact myself on 0415 240 296 or contact the office on 02 9726 4869. All works should be given two weeks' notice prior to commencing works.<br>
@@ -86,7 +97,7 @@
 
             <div>
                 <button class="mx-1 btn btn-secondary"> Close </button>
-                <a href="/{{ 'previewPDF' }}" class="mx-1 btn btn-primary"> Generate PDF </a>
+                <a href="/{{ 'preview' }}" class="mx-1 btn btn-primary"> Generate PDF </a>
             </div>
 
 </div>

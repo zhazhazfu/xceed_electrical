@@ -1,4 +1,4 @@
-@extends('layouts.previewapp')
+{{-- @extends('layouts.previewapp')
 
 @section('title', 'Preview')
 
@@ -86,4 +86,4 @@
         
 
 </html>
-@endsection
+@endsection --}}

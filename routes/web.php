@@ -80,7 +80,9 @@ Route::get('/quoteterms', 'QuoteTermController@edit')->name('quoteterms')->middl
 Route::resource('quoteterms', 'QuoteTermController')->middleware('auth');
 
 Route::get('/preview', 'PreviewController@index')->name('preview')->middleware('auth');
-Route::get('/previewPDF', 'PreviewPDFController@generatePDF')->name('preview')->middleware('auth');
+Route::post('/preview', 'PreviewController@index')->name('preview')->middleware('auth');
+// Route::get('/previewPDF', 'PreviewPDFController@generatePDF')->name('preview')->middleware('auth');
+Route::get('/preview', 'PreviewController@generatePDF')->name('preview')->middleware('auth');
 
 Route::get('session/get','SessionController@accessSessionData');
 Route::get('session/set','SessionController@storeSessionData');
