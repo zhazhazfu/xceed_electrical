@@ -96,8 +96,9 @@
             </div>
 
             <div>
-                <button class="mx-1 btn btn-secondary"> Close </button>
-                <a href="/{{ 'preview' }}" class="mx-1 btn btn-primary"> Generate PDF </a>
+                {{-- <button class="mx-1 btn btn-secondary"> Close </button> --}}
+                <a href="/{{ 'dashboard' }}" class="mx-1 btn btn-primary"> Close </a>
+                <a href="/{{ 'preview' }}" class="btn btn-success"> Generate PDF </a>
             </div>
 
 </div>

@@ -196,7 +196,7 @@
                     </div>
                         <button type="button" class="btn btn-secondary m-2">Cancel</button>
                         <button type="button" class="btn btn-secondary m-2">Save</button>
-                        <button type="submit" class="btn btn-primary m-2">Generate Quote</button>
+                        <button type="submit" class="btn btn-success">Generate Quote</button>
                 </div>
             </div>
         </form>
