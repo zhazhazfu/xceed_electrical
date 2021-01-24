@@ -64,7 +64,7 @@
             <div data-id="1" name="select_job_html" id="select_job_html">
                 <div class="col-sm-12 pb-2">
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-5">
                             <label for="selectCategory">Category</label>
                             <select data-id="1" class="form-control" id="selectCategory" onchange="getSubcategory(this)">
                                 <option value="" selected disabled>Please select a category</option>
@@ -75,13 +75,13 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-5">
                             <label for="selectCategory">Sub-Category</label>
                             <select data-id="1" class="form-control" id="subcategorySelect" name="subcategorySelect" onchange="getItem(this)">
                                 <option value="" selected disabled>Please select a subcategory</option>
                             </select>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-2">
                             <label for="selectItemNumber">Item Code</label>
                             <select data-id="1" class="form-control" id="item_number" name="item_number" onchange="getDescription(this)">
                                 <option value="" selected disabled>Please select an item</option>
@@ -89,8 +89,11 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group w-100 px-2" id="description">
+                        <div class="form-group col-md-8" id="description">
                             <input data-id="1" type="text" class="form-control" name="item_description" id="item_description" placeholder="Item Description" readonly>
+                        </div>
+                        <div class="form-group col-md-4" id="description">
+                            <input data-id="1" type="text" class="form-control" name="item_price" id="item_price" placeholder="$0.00" readonly>
                         </div>
                     </div>
                     <div class="form-row">
@@ -118,7 +121,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">$</div>
                         </div>
-                        <input type="text" class="form-control" id="inlineFormInputGroup" name="employee_basehourly"
+                        <input type="text" class="form-control" id="priceDisplay" name="employee_basehourly"
                             placeholder="" readonly>
                     </div>
                 </div>
@@ -211,39 +214,62 @@
 
 @push('js')
 <script type="text/javascript">
-
+    
     let fk_subcategory_id = $("#my_select").change(function () {
         var id = $(this).children(":selected").attr("id");
     });
 
     var count = 1; //counter for data-id
 
-    function getSubcategory(element) {  //to get subcategory according to user's select
+    // function calculatePrice(id,counter) {
+        
+    //     $.ajax({
+    //         irl: "calculatePrice/" + id,
+    //         context: document.body
+    //     }).done(function(data) {
+    //         priceDisplay = document.getElementById('priceDisplay');
+
+    //     }
+    // };
+    
+    
+    function getSubcategory(element) {  //to get subcategory according to user's selection
         optionSelected = element.value;
         number = element.getAttribute("data-id");
-        number = number - 1;
-        // alert(number);
-
-        // alert(optionSelected);
+        // number = number - 1;
         
-        // alert("aaaaaaaaaa");
         $.ajax({
             url: "getSubcategories/" + optionSelected,
             context: document.body
         }).done(function(data) {
 
             // alert("data received");
-            // alert(data.id);
-            // alert(data.name);
             $iteration = 0;
 
-            selectOption = document.getElementsByName('subcategorySelect')[number];
-            selectItems = document.getElementsByName('item_number')[number];
+            // alert ("aaaa");
+            section = document.getElementsByName('subcategorySelect');
+                console.log(section);
+            
+            var i;
+            var x;
+            // for loop to determine which one gets begone-d
+            for (i=0; i<section.length; i++) {
+                sectionID = section[i].getAttribute('data-id');
+                // alert(sectionID);
+                if (sectionID == number) {
+                    // alert('match found: ' + sectionID);
+                    x = i;
+                }
+            }
+
+
+            selectOption = document.getElementsByName('subcategorySelect')[x];
+            selectItems = document.getElementsByName('item_number')[x];
 
             // $('#item_number').find('option').not(':first').remove();
             // $('#subcategorySelect').find('option').not(':first').remove();
             
-            // alert(selectOption.options.);
+            // code to remove the previous selections
             while (selectOption.firstChild) {
                 selectOption.removeChild(selectOption.firstChild);
             }
@@ -251,43 +277,49 @@
             while (selectItems.firstChild) {
                 selectItems.removeChild(selectItems.firstChild);
             }
-            // document.getElementsByName('#subcategorySelect')[number].find('option').not(':first').remove();
-            // document.getElementsByName('#item_number')[number].find('option').not(':first').remove();
 
+            //for each thing in the data make an option
             data.id.forEach(function(subcategory) {
                 option = document.createElement('option');
                 option.value = data.id[$iteration];
                 option.innerHTML = data.name[$iteration];
-
-                    // alert(option.value + option.innerHTML);
                 selectOption.appendChild(option);
                 $iteration++;
             });
-
-            document.getElementsByName('item_description')[number].value = "Item Description";
-
-            // option = document.createElement('option');
-            // option.value = data.id;
-            // option.innerHTML = data.name;
-            // document.getElementById('subcategorySelect').appendChild(option);
+            // clear previous item description
+            document.getElementsByName('item_description')[x].value = "Item Description";
         });
     }
 
     function getItem(element) {  //to get item number according to subcategory
         optionSelected = element.value;
         number = element.getAttribute("data-id");
-        number = number - 1;
-
+        // number = number - 1;
+        // alert(number);
         $('#item_number').find('option').not(':first').remove();
 
         $.ajax({
             url: "getItems/" + optionSelected,
             context: document.body
         }).done(function(data) {
-
             $iteration = 0;
 
-            selectItems = document.getElementsByName('item_number')[number];
+            // section = document.getElementsByName('item_number');
+            //     console.log(section);
+            
+            var i;
+            var x;
+            // for loop to determine which one gets begone-d
+            for (i=0; i<section.length; i++) {
+                sectionID = section[i].getAttribute('data-id');
+                // alert(sectionID);
+                if (sectionID == number) {
+                    // alert('match found: ' + sectionID);
+                    x = i;
+                }
+            }
+
+            selectItems = document.getElementsByName('item_number')[x];
 
             var countCheck = 0;
             while (selectItems.firstChild) {
@@ -303,14 +335,14 @@
                 $iteration++;
             });
 
-            document.getElementById('item_description')[number].value = "Item Description";
+            document.getElementById('item_description')[x].value = "Item Description";
         });
     }
 
     function getDescription(element) { //to get description according to item number
         optionSelected = element.value;
         number = element.getAttribute("data-id");
-        number = number - 1;
+        // number = number - 1;
 
         // alert(optionSelected);
         $.ajax({
@@ -319,22 +351,41 @@
 
         }).done(function(data) {
             // alert(data.id);
+
+            section = document.getElementsByName('item_description');
+                console.log(section);
+            
+            var i;
+            var x;
+            // for loop to determine which one gets begone-d
+            for (i=0; i<section.length; i++) {
+                sectionID = section[i].getAttribute('data-id');
+                // alert(sectionID);
+                if (sectionID == number) {
+                    // alert('match found: ' + sectionID);
+                    x = i;
+                }
+            }
+
             text = document.createTextNode(data.id);
-            document.getElementsByName('item_description')[number].value = data.id;
+            document.getElementsByName('item_description')[x].value = data.id;
         });
     }
 
     $(document).ready(function(){   //add and remove the jobs
         $("#dublicate_job").click(function(e){
             e.preventDefault();
-            // alert(count);
+            // iterate the counter
             count++;
             //alert("new count = " + count);
 
+            // get the section
             var copy = $("#select_job_html").clone(true);
-            // copy.attr("id", "select_job_html" + count);
-            
+
+            //reach the children of the section (it's a bit nested)
             var c = copy.children().children().children().children();
+
+            // this code showed the tags of each child, e.g. "DIV, SELECT, DIV..."
             // var d = copy.children().children().children().children();
             // var txt = "";
             // var i;
@@ -342,29 +393,30 @@
             //     txt = txt + d[i].tagName + ", ";
             // }
 
-            // alert(txt);
-            // alert(c[3].getAttribute('data-id'));
-
+            // sets the data-id attribute for each selectable element (form controls and such)
             copy[0].setAttribute('data-id', count);
             c[1].setAttribute('data-id', count);
             c[3].setAttribute('data-id', count);
             c[5].setAttribute('data-id', count);
             c[7].setAttribute('data-id', count);
             c[8].setAttribute('data-id', count);
+            c[9].setAttribute('data-id', count);
             
             $("#select_job").append(copy);
         });
     
+        // remove a job from the menu
         $("#remove_job").click(function(e){
             e.preventDefault();
+            // get data-id from the selector 
             number = this.getAttribute("data-id");
-                // number = number - 1;
-                // alert(number);
 
+            // find the section to delete
             section = document.getElementsByName('select_job_html');
-
+            // console.log(section);
             var i;
             var x;
+            // for loop to determine which one gets begone-d
             for (i=0; i<section.length; i++) {
                 sectionID = section[i].getAttribute('data-id');
                 // alert(sectionID);
