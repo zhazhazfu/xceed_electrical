@@ -19,6 +19,7 @@ use App\EmployeeCost;
 use App\Quote_has_item;
 use App\Discount;
 use App\GrossMargin;
+use App\ItemHasMaterials;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Arr;
@@ -144,6 +145,17 @@ class QuoteController extends Controller
 
         return response()->json([
             'id' => $resultName, 
+        ]);
+
+    }
+
+    public function calculatePrice($id="")
+    {
+        $result = ItemHasMaterials::where('fk_item_id', '=', $id)->first();
+        $price = $result->quantity;
+
+        return response()->json([
+            'price' => $price, 
         ]);
 
     }

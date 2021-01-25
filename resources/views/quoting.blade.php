@@ -221,17 +221,20 @@
 
     var count = 1; //counter for data-id
 
-    // function calculatePrice(id,counter) {
-        
-    //     $.ajax({
-    //         irl: "calculatePrice/" + id,
-    //         context: document.body
-    //     }).done(function(data) {
-    //         priceDisplay = document.getElementById('priceDisplay');
-
-    //     }
-    // };
     
+    
+    // function calculateTotal() {
+    //     section = document.getElementByID('priceDisplay');
+    //     priceSection = document.getElementsByID('item_price');
+
+    //     var i;
+    //     var total;
+    //     for (i=0; i<priceSection.length; i++) {
+    //         total = total + priceSection[i].value;
+    //     }
+
+    //     section.value = "$" + total;
+    // }
     
     function getSubcategory(element) {  //to get subcategory according to user's selection
         optionSelected = element.value;
@@ -242,13 +245,13 @@
             url: "getSubcategories/" + optionSelected,
             context: document.body
         }).done(function(data) {
-
+            // alert(data);
             // alert("data received");
             $iteration = 0;
 
             // alert ("aaaa");
             section = document.getElementsByName('subcategorySelect');
-                console.log(section);
+                // console.log(section);
             
             var i;
             var x;
@@ -306,7 +309,7 @@
         number = element.getAttribute("data-id");
         // number = number - 1;
         // alert(number);
-        $('#item_number').find('option').not(':first').remove();
+        // $('#item_number').find('option').not(':first').remove();
 
         $.ajax({
             url: "getItems/" + optionSelected,
@@ -370,7 +373,7 @@
             // alert(data.id);
 
             section = document.getElementsByName('item_description');
-                console.log(section);
+                // console.log(section);
             
             var i;
             var x;
@@ -384,10 +387,33 @@
                 }
             }
 
-            text = document.createTextNode(data.id);
+            // alert("step 1");
+            // var price = calculatePrice(optionSelected);
+            // alert("step 3");
+            // console.log(price);
+            // alert(price);
+
             document.getElementsByName('item_description')[x].value = data.id;
+            // document.getElementsByName('priceDisplay')[x].value = price;
+            calculatePrice(optionSelected, x);
         });
     }
+
+    function calculatePrice(id,counter) {
+        // alert("calculating price...");
+        $.ajax({
+            url: "calculatePrice/" + id,
+            context: document.body
+        }).done(function(data) {
+            console.log("price = " + data.price);
+            // alert("price = " + data.price);
+            section = document.getElementsByName('item_price');
+            
+            // alert(data.price);
+            section[counter].value = "$" + data.price;
+            // return(data);
+        });
+    };
 
     $(document).ready(function(){   //add and remove the jobs
         $("#dublicate_job").click(function(e){
