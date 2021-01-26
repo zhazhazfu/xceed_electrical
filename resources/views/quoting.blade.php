@@ -58,9 +58,10 @@
                             @endforeach
                         </select>
                           {{-- @foreach (App\Quote::all() as $quotes )  --}}
-                          @foreach ($quotes as $quote ) @endforeach
-                          <label for="quoteNumber"></label>
+                        @foreach ($quotes as $quote ) 
+                        <label for="quoteNumber"></label>
                         <input type="hidden" class="form-control" name="quote_number" id="quote_number" value="{{$quote->prefix->prefix }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}" readonly>  
+                        @endforeach
                     </div>
                     <div class="form-group col-md-6">
                         <label for="quoteDate">Date</label>
