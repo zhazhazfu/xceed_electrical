@@ -164,30 +164,32 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                             </div>
                         </div>
                         <div id="select_mat">
-                                <div id="select_mat_html">
-                                        <div class="form-row" >
-                                            <div class="form-group col-sm">
-                                                <label for="input">Select material</label>
-                                                <select class="form-control" id="fk_material_id" name="fk_material_id[]">
-                                                    @foreach($materials as $material)
-                                                    <option selected value="{{ $material -> pk_material_id }}">
-                                                        {{ $material -> material_itemcode}}
-                                                    </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-sm">
-                                                <label for="input">Material quantity</label>
-                                                <input type="number" class="form-control" id="item_description" name="quantity[]"
-                                                    placeholder="0" required>
-                                            </div>
-                                        </div>
-                                       
+                            <div id="select_mat_html">
+                                <div class="form-row" >
+                                    <div class="form-group col-sm">
+                                        <label for="input">Select material</label>
+                                        <select class="form-control" id="fk_material_id" name="fk_material_id[]">
+                                            @foreach($materials as $material)
+                                            <option selected value="{{ $material -> pk_material_id }}">
+                                                {{ $material -> material_itemcode}}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-sm">
+                                        <label for="input">Material quantity</label>
+                                        <input type="number" class="form-control" id="item_description" name="quantity[]"
+                                            placeholder="0" required>
+                                    </div>
                                 </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-sm">
-                                <button id="dublicate_mat" class="btn btn-primary">Add more +</button>
+                                <div class="form-row">
+                                    <div class="form-group col-sm">
+                                        <button id="dublicate_mat" class="btn btn-primary">Add more +</button>
+                                    </div>
+                                    <div class="form-group col-sm float-right">
+                                        <button id="remove_mat" class="btn btn-primary float-right">Remove -</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -272,16 +274,15 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                             Materials </a> <br>
                         
                         </td>
-                        <?php 
-                             $temp_mat_cost = 0;
-                             foreach ($item->itemHasMaterials as $temp_itemHasMaterial)
-                                {
-                                    $temp_mat_cost += $temp_itemHasMaterial->material->material_cost*$temp_itemHasMaterial->quantity;
-                                }
+                        {{-- get total material cost  --}}
+                        <?php
+                            $temp_mat_cost = 0;
+                            foreach ($item->itemHasMaterials as $temp_itemHasMaterial)
+                            {
+                                $temp_mat_cost += $temp_itemHasMaterial->material->material_cost*$temp_itemHasMaterial->quantity;
+                            }
                         ?>
                         @foreach ($grossMargins as $grossMargin)
-                        {{-- <td>{{ number_format((($itemHasMaterials->material->material_cost*$grossMargin->gm_rate) + $itemHasMaterials->item_servicecall + $itemHasMaterials->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2) }}
-                        </td> --}}
                         <td>{{ number_format((($temp_mat_cost*$grossMargin->gm_rate) + $item->item_servicecall + $item->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2) }}
                         </td>
                         @endforeach
@@ -296,7 +297,6 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                     </tr>
 
                     <!-- Material modal -->
-                    
                     <div class="modal fade" id="matModal{{ $item->pk_item_id }}" tabindex="-1"
                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
@@ -556,6 +556,9 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
             </table>
         </div>
     </div>
+
+
+    {{-- achived tables --}}
 
     <div id="archived_div" style="display: none">
         <div class="row mb-4">
@@ -597,6 +600,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                             Materials </a> <br>
                         
                         </td>
+                        {{-- get total material cost  --}}
                         <?php 
                              $temp_mat_cost = 0;
                              foreach ($item->itemHasMaterials as $temp_itemHasMaterial)
@@ -881,248 +885,23 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
             </table>
         </div>
     </div>
-
-    {{-- <!-- Archived content -->
-    <div id="archived_div" style="display: none">
-        <div class="row mb-4">
-            <div class="col-sm-7">
-                <p class="h2">Archived {{$categoryName}} items</p>
-            </div>
-
-            <div class="col-sm-5">
-                <input type="text" class="form-control float-left" id="archived_input" onkeyup="archivedFunction()"
-                    placeholder="Search Item ID">
-            </div>
-        </div>
-        <div class='table-responsive'>
-            <table id="archived_table" class="display table table-hover table-sm">
-                <thead>
-                    <tr>
-                    <tr>
-                        <th scope="col" onclick="sortArchived(0)">Item #</th>
-                        <th scope="col" onclick="sortArchived(1)">Job Type</th>
-                        <th scope="col" onclick="sortArchived(2)">Sub-Category</th>
-                        <th scope="col" onclick="sortArchived(3)">Description</th>
-                        <th scope="col" onclick="sortArchived(4)">Materials</th>
-                        <th scope="col" onclick="sortArchived(5)">Total Charge</th>
-                        <th scope="col">Pricing</th>
-                        <th scope="col">Edit</th>
-                    </tr>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($subCategories as $subCategory)
-                    @foreach($subCategory->items as $item)
-                    @foreach ($itemHasMaterial as )
-                        
-                    @endforeach
-                    @if($item->item_archived == '1')
-                    <tr>
-                        <td>{{ $priceList->item_number }}</td>
-                        <td>{{ $priceList->item_jobtype }}</td>
-                        <td>{{ $priceList->subCategory->subcategory_name }}</td>
-                        <td>{{ $priceList->item_description }}</td>
-                        <td>{{ $priceList->material->material_description }}</td>
-                        @foreach ($grossMargins as $grossMargin)
-                        <td>${{ number_format((($priceList->material->material_cost*$grossMargin->gm_rate) + $priceList->item_servicecall + $priceList->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2) }}
-                        </td>
-                        @endforeach
-                        <td>
-                            <a href data-toggle="modal" data-target="#exampleModal2{{ $priceList->pk_item_id }}">
-                                Pricing
-                            </a>
-                        </td>
-                        <td>
-                            <a href="{{url('/pricelists/'.$page_id.'/'.$priceList['pk_item_id'].'/edit')}}">Edit</a>
-                        </td>
-                    </tr>
-                    
-                    <!-- archived pricing modal -->
-                    <div class="modal fade" id="exampleModal2{{ $priceList->pk_item_id }}" tabindex="-1"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">{{ $priceList->item_number }} |
-                                        {{ $priceList->item_description }}</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-
-                                    <div class="form-row pb-2">
-                                        <div class="form-group col-md-4">
-                                            <label for="input">Material Cost</label>
-                                            <label class="sr-only" for="inlineFormInputGroup">Material Cost</label>
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">$</div>
-                                                </div>
-                                                <input type="text" class="form-control" id="inlineFormInputGroup"
-                                                    name="materialCost"
-                                                    value="{{ number_format($priceList->material->material_cost,2) }}"
-                                                    disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="input">Gross Margin</label>
-                                            <label class="sr-only" for="inlineFormInputGroup">Gross Margin</label>
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">x</div>
-                                                </div>
-                                                @foreach ($grossMargins as $grossMargin)
-                                                <input type="text" class="form-control" id="inlineFormInputGroup"
-                                                    name="grossMargin" value="{{$grossMargin->gm_rate}}" disabled>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="input">Material Charge</label>
-                                            <label class="sr-only" for="inlineFormInputGroup">Material Charge</label>
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">$</div>
-                                                </div>
-                                                <input type="text" class="form-control" id="inlineFormInputGroup"
-                                                    name="materialCharge"
-                                                    value="{{ number_format($priceList->material->material_cost*$grossMargin->gm_rate,2) }}"
-                                                    disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-row pb-2">
-                                        <div class="form-group col-md-4">
-                                            <label for="input">Charge Rate</label>
-                                            <label class="sr-only" for="inlineFormInputGroup">Charge Rate</label>
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">$</div>
-                                                </div>
-                                                @foreach ($grossMargins as $grossMargin)
-                                                <input type="text" class="form-control" id="inlineFormInputGroup"
-                                                    name="chargeRate"
-                                                    value="{{ number_format($total_business_hourly_cost * $grossMargin->gm_rate /365/8,2) }}"
-                                                    disabled>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="input">Estimated Time</label>
-                                            <label class="sr-only" for="inlineFormInputGroup">Estimated Time</label>
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">x</div>
-                                                </div>
-                                                <input type="text" class="form-control" id="inlineFormInputGroup"
-                                                    name="estimatedTime"
-                                                    value="{{ $priceList->item_estimatedtime }} hours" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="input">Labour Charge</label>
-                                            <label class="sr-only" for="inlineFormInputGroup">Labour Charge</label>
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">$</div>
-                                                </div>
-                                                <input type="text" class="form-control" id="inlineFormInputGroup"
-                                                    name="labourCharge"
-                                                    value="{{ number_format($priceList->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8),2) }}"
-                                                    disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-row pb-2 border-bottom">
-                                        <div class="form-group col-md-8">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="input">Service Call Charge</label>
-                                            <label class="sr-only" for="inlineFormInputGroup">Service Call
-                                                Charge</label>
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">$</div>
-                                                </div>
-                                                <input type="text" class="form-control" id="inlineFormInputGroup"
-                                                    name="serviceCallCharge"
-                                                    value="${{number_format($priceList->item_servicecall,2) }}"
-                                                    disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-row pb-2 pt-4">
-                                        <div class="form-group col-md-4">
-                                            <label for="input">Price</label>
-                                            <label class="sr-only" for="inlineFormInputGroup">Price</label>
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">$</div>
-                                                </div>
-                                                <input type="text" class="form-control" id="inlineFormInputGroup"
-                                                    name="price"
-                                                    value="{{ number_format(($priceList->material->material_cost*$grossMargin->gm_rate) + $priceList->item_servicecall + $priceList->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8),2) }}"
-                                                    disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="input">GST</label>
-                                            <label class="sr-only" for="inlineFormInputGroup">GST</label>
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">$</div>
-                                                </div>
-                                                <input type="text" class="form-control" id="inlineFormInputGroup"
-                                                    name="gst"
-                                                    value="{{ number_format((($priceList->material->material_cost*$grossMargin->gm_rate) + $priceList->item_servicecall + $priceList->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*0.1,2) }}"
-                                                    disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="input">Price Inc GST</label>
-                                            <label class="sr-only" for="inlineFormInputGroup">Price Inc GST</label>
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">$</div>
-                                                </div>
-                                                <input type="text" class="form-control" id="inlineFormInputGroup"
-                                                    name="priceIncGst"
-                                                    value="{{ number_format((($priceList->material->material_cost*$grossMargin->gm_rate) + $priceList->item_servicecall + $priceList->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2) }}"
-                                                    disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endif
-                    @endforeach
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div> --}}
 </div>
 @stop
 
 @push('js')
 <script type="text/javascript">
-    
-
     $(document).ready(function(){
-            $("#dublicate_mat").click(function(e){
-                e.preventDefault();
-                $("#select_mat").append($("#select_mat_html").clone(true));
-              });
+        $("#dublicate_mat").click(function(e){
+            e.preventDefault();
+            $("#select_mat").append($("#select_mat_html").clone(true));
+            });
 
-        });
+    });
+
+    $("#remove_mat").click(function(e){
+        e.preventDefault();
+        $("#select_mat").children($("#select_mat_html").remove());
+    });
 </script>
 @endpush
 

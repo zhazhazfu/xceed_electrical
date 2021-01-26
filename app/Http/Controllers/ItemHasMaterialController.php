@@ -76,7 +76,7 @@ class ItemHasMaterialController extends Controller
             ]);
             $itemHasMaterial->save();
         }
-        
+        // store data into both table
         return back()->with('success', 'Job added');    
     }
 
@@ -120,8 +120,6 @@ class ItemHasMaterialController extends Controller
 
         foreach ($request->fk_material_id as $key => $value) {
             $itemMaterial = ItemHasMaterials::where('fk_item_id',$item->pk_item_id )->where('fk_material_id',$value )->first();
-
-            //$itemMaterial ->fk_material_id = $value;
             $itemMaterial ->quantity = $request->quantity[$key];
             $itemMaterial ->archived =$request->archived[$key];
             $itemMaterial->save();

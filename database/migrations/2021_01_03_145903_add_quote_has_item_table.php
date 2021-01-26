@@ -16,7 +16,7 @@ class AddQuoteHasItemTable extends Migration
         Schema::create('quote_has_items', function (Blueprint $table) {
             $table->id('pk_quote_has_item_id');
             $table->foreignId('fk_quote_id')->references('pk_quote_id')->on('quotes');
-            $table->foreignId('fk_item_id')->references('pk_item_id')->on('items');
+            $table->foreignId('fk_item_has_materails_id')->references('pk_item_has_materails_id')->on('item_has_materials');
             $table->timestamps();
         });
     }
