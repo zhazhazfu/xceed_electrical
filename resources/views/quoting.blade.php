@@ -26,22 +26,21 @@
         <div class="w-100 border-top"></div>
     <form method="post" action="/quoting">
         <div class="col-sm-6 pb-2">
-                {{ csrf_field() }}
-                <h5 class="pt-3 pb-1">Customer Details</h5>
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="input">Customer name</label>
-                        <label class="sr-only" for="customer_name">Customer name</label>
-                        <div class="input-group mb-2">
-                            <select id="customer_name" name="customer_name" class="form-control" required>
-                                @foreach($customers as $customer)
-                                <option value="{{ $customer->pk_customer_id }}">{{ $customer->customer_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+            {{ csrf_field() }}
+            <h5 class="pt-3 pb-1">Customer Details</h5>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="input">Customer name</label>
+                    <label class="sr-only" for="customer_name">Customer name</label>
+                    <div class="input-group mb-2">
+                        <select id="customer_name" name="customer_name" class="form-control" required>
+                            @foreach($customers as $customer)
+                            <option value="{{ $customer->pk_customer_id }}">{{ $customer->customer_name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
-            
+            </div>
         </div>
         <div class="col-sm-6 pb-2">
             <h5 class="pt-3 pb-1">Quote Details</h5>
@@ -56,7 +55,6 @@
                 </div>
             </div>
         </div>
-
     
         <div class="w-100 border-top"></div>
         <div id="select_job">
@@ -64,7 +62,7 @@
             <div data-id="1" name="select_job_html" id="select_job_html">
                 <div class="col-sm-12 pb-2">
                     <div class="form-row">
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-3">
                             <label for="selectCategory">Category</label>
                             <select data-id="1" class="form-control" id="selectCategory" onchange="getSubcategory(this)">
                                 <option value="" selected disabled>Please select a category</option>
@@ -75,7 +73,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-7">
                             <label for="selectCategory">Sub-Category</label>
                             <select data-id="1" class="form-control" id="subcategorySelect" name="subcategorySelect" onchange="getItem(this)">
                                 <option value="" selected disabled>Please select a subcategory</option>
@@ -121,7 +119,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">$</div>
                         </div>
-                        <input type="text" class="form-control" id="priceDisplay" name="employee_basehourly"
+                        <input type="text" class="form-control price_input" id="inlineFormInputGroup" name="employee_basehourly"
                             placeholder="" readonly>
                     </div>
                 </div>
@@ -132,7 +130,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">$</div>
                         </div>
-                        <input type="text" class="form-control" id="inlineFormInputGroup" name="employee_basehourly"
+                        <input type="text" class="form-control gst_input" id="inlineFormInputGroup" name="employee_basehourly"
                             placeholder="" readonly>
                     </div>
                 </div>
@@ -251,7 +249,7 @@
 
             // alert ("aaaa");
             section = document.getElementsByName('subcategorySelect');
-                // console.log(section);
+            // console.log(section);
             
             var i;
             var x;
@@ -355,6 +353,28 @@
                 $iteration++;
             });
 
+            var id_values = $("select[name='item_number']").map(function(){return $(this).val();}).get();
+            console.log(id_values);
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                } 
+            });
+
+            $.ajax({
+                type:'POST',
+                
+                url:'{{ URL::to('/quote_pricings') }}',
+                            
+                data:{ id_values: id_values},
+                            
+                success:function(data){
+                    $(".price_input").val(data.final_price);
+                    $(".gst_input").val(data.final_gst);
+                },
+            });
+
             document.getElementsByName('item_description')[x].value = "Item Description";
         });
     }
@@ -365,6 +385,28 @@
         // number = number - 1;
 
         // alert(optionSelected);
+        var id_values = $("select[name='item_number']").map(function(){return $(this).val();}).get();
+        console.log(id_values);
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            } 
+        });
+
+        $.ajax({
+            type:'POST',
+            
+            url:'{{ URL::to('/quote_pricings') }}',
+                        
+            data:{ id_values: id_values},
+                        
+            success:function(data){
+                $(".price_input").val(data.final_price);
+                $(".gst_input").val(data.final_gst);
+            },
+        });
+
         $.ajax({
             url: "getDescription/" + optionSelected,
             context: document.body
@@ -471,6 +513,28 @@
 
             finalSection = section[x];
 
+            var id_values = $("select[name='item_number']").map(function(){return $(this).val();}).get();
+            console.log(id_values);
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                } 
+            });
+
+            $.ajax({
+                type:'POST',
+                
+                url:'{{ URL::to('/quote_pricings') }}',
+                            
+                data:{ id_values: id_values},
+                            
+                success:function(data){
+                    $(".price_input").val(data.final_price);
+                    $(".gst_input").val(data.final_gst);
+                },
+            });
+
             // alert(finalSection.getAttribute('data-id'));
             // $("#select_job").children($("#select_job_html")[number].remove());
 
@@ -511,10 +575,3 @@
     document.querySelector("#today2").valueAsDate = new Date();
 </script>
 @stop
-
-<!-- 
-<script type="text/javascript">
-    
-
-    
-</script> -->
