@@ -47,7 +47,7 @@
                                 <div class="input-group-prepend">
                                 </div>
                                 <input type="text" class="form-control"
-                                    name="prefix">
+                                    name="prefix_name">
                             </div>
                         </div>
                         
@@ -96,7 +96,7 @@
                 <tbody>
                     @foreach($prefixes as $pre)
                     <tr>
-                        <td>{{ $pre->prefix }}</td>
+                        <td>{{ $pre->prefix_name }}</td>
                         {{-- <td>{{ $QuoteTerm->term_body }}</td> --}}
                     </tr>
                     @endforeach

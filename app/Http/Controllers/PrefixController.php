@@ -5,25 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\prefix;
+use App\Prefix;
 
 class PrefixController extends Controller
 {
     public function index()
     {
         $pageHeading = 'Quote Prefixes';
-        $prefixes = prefix::all();
+        $prefixes = Prefix::all();
         return view('prefix', compact('pageHeading','prefixes'));
     }
 
     public function store(Request $request)
     {
         $this->validate($request,[
-            'prefix' => 'required'
+            'prefix_name' => 'required'
         ]);
 
-        $prefixes = new prefix([
-            'prefix' => $request->get('prefix')
+        $prefixes = new Prefix([
+            'prefix_name' => $request->get('prefix_name')
         ]);
 
         $prefixes->save();
