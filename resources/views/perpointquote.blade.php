@@ -5,7 +5,7 @@
 @section('content')
 
 <div class="container rounded border pl-5 pr-5 pb-5">
-    <h2 class="mt-3 mb-4">Create Quote</h2>
+    <h2 class="mt-3 mb-4">Create Per Point Quote</h2>
     <div class="row">
         <div class="col-sm-6 pb-4">
             <p>
@@ -72,261 +72,580 @@
                 </div>
             </div>
         </div>
-        <div class="w-100"></div>
-        <div class="col-sm-12">
-            <div class="form row border-top">
-                <div class="form-group">
-                </div>
-                <h5 class="pt-3 pb-1 ml-2 pl-1">Item</h5>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                </div>
-                <div class="form-group">
-                    <label for="itemName">Item Name</label>
-                    <input type="text" class="form-control" id="itemName">
-                </div>
-                <div class="form-group col-md">
-                    <label for="selectCategory">Job Category</label>
-                    <input class="form-control" id="selectCategory">
-                </div>
-                <div class="form-group col-md">
-                    <label for="selectCategory">Job Description</label>
-                    <input class="form-control" id="fk_subcategory_id" name="fk_subcategory_id">
-                </div>
-            </div>
-            <div class="form-row pb-2">
-                <div class="form-group">
-                </div>
-                <div class="form-group">
-                    <label for="input">Service Call</label>
-                    <label class="sr-only" for="inlineFormInputGroup">2</label>
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">$</div>
-                        </div>
-                        <input type="text" class="form-control" id="inlineFormInputGroup" name="employee_basehourly" placeholder="">
-                    </div>
-                </div>
-                <div class="form-group col-md">
-                    <label for="input">Average Install Time</label>
-                    <div class="input-group mb-2">
-                        <select type="text" class="form-control" id="customerName">
-                            <option selected>0.00</option>
-                            <option>0.17</option>
-                            <option>0.25</option>
-                            <option>0.33</option>
-                            <option>0.42</option>
-                            <option>0.50</option>
-                            <option>0.57</option>
-                            <option>0.67</option>
-                            <option>0.75</option>
-                            <option>0.83</option>
-                            <option>0.92</option>
-                            <option>1.00</option>
-                            <option>1.25</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group col-md">
-                    <label for="input">Labour Cost</label>
-                    <label class="sr-only" for="inlineFormInputGroup">2</label>
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">$</div>
-                        </div>
-                        <input type="text" class="form-control" id="inlineFormInputGroup" name="employee_basehourly"
-                            placeholder="" readonly>
-                    </div>
-                </div>
-                <div class="form-group col-md">
-                    <label for="input">Labour Charge</label>
-                    <label class="sr-only" for="inlineFormInputGroup">2</label>
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">$</div>
-                        </div>
-                        <input type="text" class="form-control" id="inlineFormInputGroup" name="employee_basehourly"
-                            placeholder="Cost x GM" readonly>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="form row">
-                <div class="form-group">
-                </div>
-                <h5 class="pt-3 pb-1 pl-1 ml-1">Materials</h5>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                </div>
-                <div class="form-group">
-                    <label for="selectCategory">Material</label>
-                    <div class="input-group-append">
-                        <button class="btn btn-secondary" type="button" style="width:150px;">Add Material</button>
-                    <select class="form-control" id="selectMaterial" style="margin-left:10px; width: 150px;">
-                        {{-- @foreach($material as $materials)
-                        <option value="{{ $materials -> pk_material_id }}">
-                            {{ $materials -> material_description }}
-                        </option>
-                        @endforeach --}}
-                    </select>
-                </div>
-                </div>
-                
-            </div>
-            <div class="form-row pb-2">
-                <div class="form-group">
-                </div>
-                <div class="form-group">
-                    <label for="yearlypay">Quantity</label>
-                    <input type="text" class="form-control" id="yearlypay" placeholder="#">
-                </div>
 
-                <div class="form-group col-md">
-                    <label for="input">Material Charge</label>
-                    <label class="sr-only" for="inlineFormInputGroup">2</label>
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">$</div>
+        <div class="w-100 border-top"></div>
+        <div id="select_job">
+            <h5 class="pt-3 pb-1">Item</h5>
+            <div data-id="1" name="select_job_html" id="select_job_html">
+                <div class="col-sm-12 pb-2">
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="selectCategory">Category</label>
+                            <select data-id="1" class="form-control" id="selectCategory" onchange="getSubcategory(this)">
+                                <option value="" selected disabled>Please select a category</option>
+                                @foreach($categories as $category)
+                                @if($category->category_archived == '0')
+                                <option value="{{ $category->pk_category_id }}">{{ $category->category_name }}</option>
+                                @endif
+                                @endforeach
+                            </select>
                         </div>
-                        <input type="text" class="form-control" id="inlineFormInputGroup" name="employee_basehourly"
-                            placeholder="Cost x GM" readonly>
+                        <div class="form-group col-md-7">
+                            <label for="selectCategory">Sub-Category</label>
+                            <select data-id="1" class="form-control" id="subcategorySelect" name="subcategorySelect" onchange="getItem(this)">
+                                <option value="" selected disabled>Please select a subcategory</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="selectItemNumber">Item Code</label>
+                            <select data-id="1" class="form-control" id="item_number" name="item_number" onchange="getDescription(this)">
+                                <option value="" selected disabled>Please select an item</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-8" id="description">
+                            <input data-id="1" type="text" class="form-control" name="item_description" id="item_description" placeholder="Item Description" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <input data-id="1" class="form-control" id="quantity" name="quantity" placeholder="Quantity" onchange="getQuantity(this)">
+                        </div>
+                        <div class="form-group col-md-4" id="description">
+                            <input data-id="1" type="text" class="form-control" name="item_price" id="item_price" placeholder="$0.00" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-sm">
+                            <button data-id="1" id="dublicate_job" class="btn btn-primary">Add Job</button>
+                        </div>
+                        <div class="form-group col-sm float-right">
+                            <button data-id="1" id="remove_job" class="btn btn-danger float-right">Remove Job</button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="form row">
-                <div class="form-group">
-                </div>
-                <h6 class="pt-3 pb-1 pl-1">Total Labour & Materials Cost</h6>
-            </div>
-            <div class="form-row pb-2">
-                <div class="form-group">
-                </div>
-                <div class="form-group col-md">
-                    <label for="input">Pre-margin</label>
-                    <label class="sr-only" for="inlineFormInputGroup">2</label>
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">$</div>
-                        </div>
-                        <input type="text" class="form-control" id="inlineFormInputGroup" name="employee_basehourly"
-                            placeholder="Total Cost" readonly>
-                    </div>
-                </div>
-                <div class="form-group col-md">
-                    <label for="input">Post-Margin</label>
-                    <label class="sr-only" for="inlineFormInputGroup">2</label>
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">$</div>
-                        </div>
-                        <input type="text" class="form-control" id="inlineFormInputGroup" name="employee_basehourly"
-                            placeholder="Total Charge" readonly>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="col-sm-12 pb-2">
-                <h5 class="pt-3 pb-1 ">Inclusions & Exclusions</h5>
+        </div>
+
+        <div class="w-100 border-top"></div>
+        <div id="select_job">
+            <h5 class="pt-3 pb-1">Material</h5>
+            <div data-id="1" name="select_job_html" id="select_job_html">
+                <div class="col-sm-12 pb-2">
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                <select class="form-control" id="selectMaterial" style="margin-left:10px; width: 150px;" placeholder="Material">
+                    {{-- @foreach($material as $materials)
+                    <option value="{{ $materials -> pk_material_id }}">
+                        {{ $materials -> material_description }}
+                    </option>
+                    @endforeach --}}
+                </select>
                 <div class="form-row">
-                    <div class="form-group">
+                    <div class="form-group col-sm">
+                        <button data-id="1" id="dublicate_job" class="btn btn-primary">Add Material</button>
                     </div>
-                    <div class="form-group col-md-8">
-                        <select class="form-control" id="term_name" name="term_name">
-                            @foreach($quoteterms as $quoteterm)
-                            <option value="{{ $quoteterm->pk_term_id }}">{{ $quoteterm->term_name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group col-md-8">
-                        <label for="quote_exclusions">Exclusions</label>
-                        <select class="form-control" id="term_name" name="term_name">
-                            @foreach($quoteterms as $quoteterm)
-                            <option value="{{ $quoteterm->pk_term_id }}">{{ $quoteterm->term_name }}</option>
-                            @endforeach
-                        </select>
+                    <div class="form-group col-sm float-right">
+                        <button data-id="1" id="remove_job" class="btn btn-danger float-right">Remove Material</button>
                     </div>
                 </div>
             </div>
-
-            <div class="w-100"></div>
-            <div class="form row border-top">
-                <div class="form-group">
-                    <h5 class="pt-3 pb-1">Terms & Conditions</h5>
-                    <select class="form-control" id="term_name" name="term_name">
-                        @foreach($quoteterms as $quoteterm)
-                        <option value="{{ $quoteterm->pk_term_id }}">{{ $quoteterm->term_name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="form row border-top">
-                <div class="form-group">
-                </div>
-                <h5 class="pt-3 pb-1" style="padding-left:10px;">Grand Total</h5>
-            </div>
+        </div>
+            
+        </div>
+        <div class="w-100 border-top"></div>
+        <div class="col-sm-12 pb-2">
+            <h5 class="pt-3 pb-1">Grand Total</h5>
             <div class="form-row">
                 <div class="form-group">
                 </div>
-                <div class="form-group col-md">
-                    <label for="grandtotal">Total</label>
-                    <div class="input-group mb-2" style="width:150px;">
-                    <input class="form-control" id="grandtotal" name="" readonly>
-                    </div>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                </div>
-                <div class="form-group col-md">
-                    <label for="input">GST</label>
+                <div class="form-group col-md-2">
+                    <label for="input">Price</label>
                     <label class="sr-only" for="inlineFormInputGroup">2</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
                             <div class="input-group-text">$</div>
                         </div>
-                        <input type="text" class="form-control" id="inlineFormInputGroup" name="employee_basehourly"
+                        <input type="text" class="form-control price_input" id="inlineFormInputGroup" name="employee_basehourly"
                             placeholder="" readonly>
                     </div>
                 </div>
-                <div class="form-group col-md">
+                <div class="form-group col-md-2">
                     <label for="input">Price Inc GST</label>
                     <label class="sr-only" for="inlineFormInputGroup">2</label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
                             <div class="input-group-text">$</div>
                         </div>
-                        <input type="text" class="form-control" id="inlineFormInputGroup" name="employee_basehourly"
+                        <input type="text" class="form-control gst_input" id="inlineFormInputGroup" name="employee_basehourly"
                             placeholder="" readonly>
                     </div>
                 </div>
             </div>
-            
-
-            <div class="float-right" style="margin-top:20px;">
-                <button type="button" class="btn btn-secondary">Cancel</button>
-                <button type="button" class="btn btn-success">Save Draft</button>
-                <button type="submit" class="btn btn-primary">Submit Quote</button>
-            </div>
         </div>
+
+        <div class="w-100 border-top"></div>
+            <div class="col-sm-12 pb-2">
+                <h5 class="pt-3 pb-1">Inclusions & Exclusions</h5>
+                <div id="select_inc">
+                    <div id="select_inc_html">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="form-group col-md-8">
+                                    <label for="quote_inclusions">Inclusions</label>
+                                    <select class="form-control" id="inc_name" name="inc_name" required>
+                                        @foreach($inclusions as $quoteinc)
+                                        <option value="{{ $quoteinc->pk_in_id }}">{{ $quoteinc->inclusion_Content }}</option>
+                                        @endforeach
+                                    </select>
+                                    <button id="duplicate_inc" class="btn btn-primary my-2">Add</button>
+                                    <button id="remove_inc" class="btn btn-danger">Remove</button>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-100 border-top"></div>
+            <div class="col-sm-12 pb-2">
+                <div id="select_exc">
+                    <div id="select_exc_html">
+                        <div class="form-row">
+                            <div class="form-group col-md-8 mx-2">
+                                <label for="quote_exclusions">Exclusions</label>
+                                <select class="form-control" id="exc_name" name="exc_name" required>
+                                    @foreach($exclusions as $quoteexc)
+                                    <option value="{{ $quoteexc->pk_ex_id }}">{{ $quoteexc->exclusion_Content }}</option>
+                                    @endforeach
+                                </select>    
+                                <button id="duplicate_exc" class="btn btn-primary my-2">Add</button>
+                                <button id="remove_exc" class="btn btn-danger">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="w-100 border-top"></div>
+            <div class="col-sm-12 pb-2">
+                <h5 class="pt-3 pb-1">Terms & Conditions</h5>
+                <div class="form-row">
+                    <div class="form-group">
+                    </div>
+                    <div class="form-group col-md-8">
+                        <select class="form-control" id="term_name" name="term_name" required>
+                            @foreach($quoteterms as $quoteterm)
+                            <option value="{{ $quoteterm->pk_term_id }}">{{ $quoteterm->term_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="w-100 border-top"></div>
+            <div class="col-sm-12">
+                <div class="form-row float-right">
+                    <button type="button" class="btn btn-secondary m-2">Cancel</button>
+                    <button type="button" class="btn btn-secondary m-2">Save</button>
+                    <button type="submit" class="btn btn-primary m-2">Generate Quote</button>
+                </div>
+            </div>
+        </form>
     </div>
-    </form>
 </div>
 
-<script>
+
+
+@push('js')
+<script type="text/javascript">
+    
     let fk_subcategory_id = $("#my_select").change(function () {
         var id = $(this).children(":selected").attr("id");
     });
 
+    var count = 1; //counter for data-id
+
+    
+    
+    function calculateTotal() {
+        var id_values = $("select[name='item_number']").map(function(){return $(this).val();}).get();
+        console.log(id_values);
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            } 
+        });
+
+        $.ajax({
+            type:'POST',
+            
+            url:'{{ URL::to('/quote_pricings') }}',
+                        
+            data:{ id_values: id_values},
+                        
+            success:function(data){
+                $(".price_input").val(data.final_price);
+                $(".gst_input").val(data.final_gst);
+            },
+        });
+
+        // alert("total calculated");
+    }
+    
+    function getSubcategory(element) {  //to get subcategory according to user's selection
+        optionSelected = element.value;
+        number = element.getAttribute("data-id");
+        // number = number - 1;
+        
+        $.ajax({
+            url: "getSubcategories/" + optionSelected,
+            context: document.body
+        }).done(function(data) {
+            // alert(data);
+            // alert("data received");
+            $iteration = 0;
+
+            // alert ("aaaa");
+            section = document.getElementsByName('subcategorySelect');
+            // console.log(section);
+            
+            var i;
+            var x;
+            // for loop to determine which one gets begone-d
+            for (i=0; i<section.length; i++) {
+                sectionID = section[i].getAttribute('data-id');
+                // alert(sectionID);
+                if (sectionID == number) {
+                    // alert('match found: ' + sectionID);
+                    x = i;
+                }
+            }
+
+
+            selectOption = document.getElementsByName('subcategorySelect')[x];
+            selectItems = document.getElementsByName('item_number')[x];
+
+            // $('#item_number').find('option').not(':first').remove();
+            // $('#subcategorySelect').find('option').not(':first').remove();
+            
+            // code to remove the previous selections
+            while (selectOption.firstChild) {
+                selectOption.removeChild(selectOption.firstChild);
+            }
+
+            while (selectItems.firstChild) {
+                selectItems.removeChild(selectItems.firstChild);
+            }
+
+            option = document.createElement('option');
+                option.value = "";
+                option.innerHTML = "Please select a subcategory";
+                selectOption.appendChild(option);
+
+            option2 = document.createElement('option');
+                option2.value = "";
+                option2.innerHTML = "Please select an item";
+                selectItems.appendChild(option2);
+
+            //for each thing in the data make an option
+            data.id.forEach(function(subcategory) {
+                option = document.createElement('option');
+                option.value = data.id[$iteration];
+                option.innerHTML = data.name[$iteration];
+                selectOption.appendChild(option);
+                $iteration++;
+            });
+            // clear previous item description
+            calculateTotal();
+            document.getElementsByName('item_description')[x].value = "Item Description";
+            document.getElementsByName('item_price')[x].value= "$0.00";
+        });
+    }
+
+    function getItem(element) {  //to get item number according to subcategory
+        optionSelected = element.value;
+        number = element.getAttribute("data-id");
+        // number = number - 1;
+        // alert(number);
+        // $('#item_number').find('option').not(':first').remove();
+
+        $.ajax({
+            url: "getItems/" + optionSelected,
+            context: document.body
+        }).done(function(data) {
+            $iteration = 0;
+
+            // section = document.getElementsByName('item_number');
+            //     console.log(section);
+            
+            var i;
+            var x;
+            // for loop to determine which one gets begone-d
+            for (i=0; i<section.length; i++) {
+                sectionID = section[i].getAttribute('data-id');
+                // alert(sectionID);
+                if (sectionID == number) {
+                    // alert('match found: ' + sectionID);
+                    x = i;
+                }
+            }
+
+            selectItems = document.getElementsByName('item_number')[x];
+
+            var countCheck = 0;
+            while (selectItems.firstChild) {
+                selectItems.removeChild(selectItems.firstChild);
+            }
+
+            option = document.createElement('option');
+                option.value = "";
+                option.innerHTML = "Please select an item";
+                option.disabled = true;
+                option.selected = true;
+                selectItems.appendChild(option);
+            
+            data.id.forEach(function(item) {
+                option = document.createElement('option');
+                option.value = data.id[$iteration];
+                option.innerHTML = data.name[$iteration];
+
+                selectItems.appendChild(option);
+                $iteration++;
+            });
+
+            // var id_values = $("select[name='item_number']").map(function(){return $(this).val();}).get();
+            // console.log(id_values);
+
+            // $.ajaxSetup({
+            //     headers: {
+            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //     } 
+            // });
+
+            // $.ajax({
+            //     type:'POST',
+                
+            //     url:'{{ URL::to('/quote_pricings') }}',
+                            
+            //     data:{ id_values: id_values},
+                            
+            //     success:function(data){
+            //         $(".price_input").val(data.final_price);
+            //         $(".gst_input").val(data.final_gst);
+            //     },
+            // });
+            
+            document.getElementsByName('item_description')[x].value = "Item Description";
+            document.getElementsByName('item_price')[x].value= "$0.00";
+            calculateTotal();
+        });
+    }
+
+    function getDescription(element) { //to get description according to item number
+        optionSelected = element.value;
+        number = element.getAttribute("data-id");
+        // number = number - 1;
+
+        // alert(optionSelected);
+
+        // var id_values = $("select[name='item_number']").map(function(){return $(this).val();}).get();
+        // console.log(id_values);
+
+        // $.ajaxSetup({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //     } 
+        // });
+
+        // $.ajax({
+        //     type:'POST',
+            
+        //     url:'{{ URL::to('/quote_pricings') }}',
+                        
+        //     data:{ id_values: id_values},
+                        
+        //     success:function(data){
+        //         $(".price_input").val(data.final_price);
+        //         $(".gst_input").val(data.final_gst);
+        //     },
+        // });
+
+        $.ajax({
+            url: "getDescription/" + optionSelected,
+            context: document.body
+
+        }).done(function(data) {
+            // alert(data.id);
+
+            section = document.getElementsByName('item_description');
+                // console.log(section);
+            
+            var i;
+            var x;
+            // for loop to determine which one gets begone-d
+            for (i=0; i<section.length; i++) {
+                sectionID = section[i].getAttribute('data-id');
+                // alert(sectionID);
+                if (sectionID == number) {
+                    // alert('match found: ' + sectionID);
+                    x = i;
+                }
+            }
+
+            // alert("step 1");
+            // var price = calculatePrice(optionSelected);
+            // alert("step 3");
+            // console.log(price);
+            // alert(price);
+
+            document.getElementsByName('item_description')[x].value = data.id;
+            document.getElementsByName('item_price')[x].value= "$0.00";
+            calculatePrice(optionSelected, x);
+            calculateTotal();
+        });
+    }
+
+    function calculatePrice(id,counter) {
+        // alert("calculating price...");
+        $.ajax({
+            url: "calculatePrice/" + id,
+            context: document.body
+        }).done(function(data) {
+            console.log("price = " + data.price);
+            // alert("price = " + data.price);
+            section = document.getElementsByName('item_price');
+            
+            // alert(data.price);
+            section[counter].value = "$" + data.price;
+            // return(data);
+        });
+    };
+
+    $(document).ready(function(){   //add and remove the jobs
+        $("#dublicate_job").click(function(e){
+            e.preventDefault();
+            // iterate the counter
+            count++;
+            //alert("new count = " + count);
+
+            // get the section
+            var copy = $("#select_job_html").clone(true);
+
+            //reach the children of the section (it's a bit nested)
+            var c = copy.children().children().children().children();
+
+            // this code showed the tags of each child, e.g. "DIV, SELECT, DIV..."
+            // var txt = "";
+            // var i;
+            // for (i = 0; i < d.length; i++) {
+            //     txt = txt + d[i].tagName + ", ";
+            // }
+
+            // sets the data-id attribute for each selectable element (form controls and such)
+            copy[0].setAttribute('data-id', count);
+            c[1].setAttribute('data-id', count);
+            c[3].setAttribute('data-id', count);
+            c[5].setAttribute('data-id', count);
+            c[6].setAttribute('data-id', count);
+            c[7].setAttribute('data-id', count);
+            c[8].setAttribute('data-id', count);
+            c[9].setAttribute('data-id', count);
+            
+            $("#select_job").append(copy);
+            calculateTotal();
+        });
+    
+        // remove a job from the menu
+        $("#remove_job").click(function(e){
+            e.preventDefault();
+            // get data-id from the selector 
+            number = this.getAttribute("data-id");
+
+            // find the section to delete
+            section = document.getElementsByName('select_job_html');
+            // console.log(section);
+            var i;
+            var x;
+            // for loop to determine which one gets begone-d
+            for (i=0; i<section.length; i++) {
+                sectionID = section[i].getAttribute('data-id');
+                // alert(sectionID);
+                if (sectionID == number) {
+                    // alert('match found: ' + sectionID);
+                    x = i;
+                }
+            }
+
+            finalSection = section[x];
+
+            // var id_values = $("select[name='item_number']").map(function(){return $(this).val();}).get();
+            // console.log(id_values);
+
+            // $.ajaxSetup({
+            //     headers: {
+            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //     } 
+            // });
+
+            // $.ajax({
+            //     type:'POST',
+                
+            //     url:'{{ URL::to('/quote_pricings') }}',
+                            
+            //     data:{ id_values: id_values},
+                            
+            //     success:function(data){
+            //         $(".price_input").val(data.final_price);
+            //         $(".gst_input").val(data.final_gst);
+            //     },
+            // });
+                // alert("aaa");
+            
+
+            // alert(finalSection.getAttribute('data-id'));
+            // $("#select_job").children($("#select_job_html")[number].remove());
+
+            finalSection.remove();
+            calculateTotal();
+        });
+    });
+
+    $(document).ready(function(){  //add and remove the inclusions
+        $("#duplicate_inc").click(function(e){
+            e.preventDefault();
+            $("#select_inc").append($("#select_inc_html").clone(true));
+        });
+
+        $("#remove_inc").click(function(e){
+            e.preventDefault();
+            $("#select_inc").children($("#select_inc_html").remove());
+        });
+    });
+    
+    $(document).ready(function(){   //add and remove the exclusions
+        $("#duplicate_exc").click(function(e){
+            e.preventDefault();
+            $("#select_exc").append($("#select_exc_html").clone(true));
+        });
+
+        $("#remove_exc").click(function(e){
+            e.preventDefault();
+            $("#select_exc").children($("#select_exc_html").remove());
+        });
+    });
 </script>
+@endpush
 
 <!-- Sets todays date as the quote date -->
 <script>
     let today = new Date().toISOString().substr(0, 10);
     document.querySelector("#today").value = today;
-
     document.querySelector("#today2").valueAsDate = new Date();
-
 </script>
 @stop
+
+
+        
