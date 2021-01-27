@@ -24,7 +24,7 @@ class AddQuoteTable extends Migration
             $table->foreignId('fk_prefix_id')->references('pk_prefix_id')->on('prefixes');
             $table->bigInteger('quote_number');
             $table->integer('quote_status');
-            $table->integer('quote_revisonnumber');
+            $table->integer('quote_revisonnumber')->nullable();
             $table->string('quote_comment')->nullable();
             $table->timestamps();
         });

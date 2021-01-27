@@ -91,7 +91,7 @@
                             </div>
 
                             <div class="form-group col-sm">
-                                <label for="input">Archived</label>
+                                <label for="input">Removed</label>
                                 <select class="form-control" id="archived" name="archived[]">
                                     <option @if($itemHasMaterials->archived == 0) selected  @endif value="0">NO</option>
                                     <option @if($itemHasMaterials->archived == 1) selected  @endif value="1">Yes</option>

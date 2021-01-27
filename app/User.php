@@ -50,11 +50,11 @@ class User extends Authenticatable
         return $this->role === 'admin';
      }
  
-     public function isUser() {
+    public function isUser() {
         return $this->role === 'user';
-     }
+    }
 
-     public function quotes()
+    public function quotes()
     {
         return $this->hasMany(Quote::class);
     }

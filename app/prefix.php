@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class prefix extends Model
+class Prefix extends Model
 {
     protected $table = 'prefixes';
     protected $primaryKey = 'pk_prefix_id';
     protected $fillable = [
-        'prefix'
+        'prefix_name'
     ];
 
     public function quotes()

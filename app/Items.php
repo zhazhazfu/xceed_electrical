@@ -23,8 +23,18 @@ class Items extends Model
         return $this->belongsTo(SubCategory::class, 'fk_subcategory_id');
     }
 
+    public function quote()
+    {
+        return $this->belongsTo(Quote::class);
+    }
+
     public function itemHasMaterials()
     {
         return $this->hasMany(ItemHasMaterials::class, 'fk_item_id', 'pk_item_id')->where('archived',0);
+    }
+
+    public function quoteHasItem()
+    {
+        return $this->hasMany(QuoteHasItem::class);
     }
 }

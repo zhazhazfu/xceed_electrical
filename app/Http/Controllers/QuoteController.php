@@ -14,11 +14,11 @@ use App\Inclusions;
 use App\Exclusions;
 use App\CompanyCost;
 use App\EmployeeCost;
-use App\Quote_has_item;
 use App\Discount;
 use App\GrossMargin;
 Use App\prefix;
 use App\ItemHasMaterials;
+use App\QuoteHasItem;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Arr;
@@ -39,63 +39,74 @@ class QuoteController extends Controller
             $inclusions = Inclusions::all();
             $discounts = Discount::all();
             $grossmargins = GrossMargin::all();
-            $prefixes = prefix::all();
+            $prefixes = Prefix::all();
             $companyCosts = CompanyCost::all();
             $employeeCosts = EmployeeCost::all();
     
             return view('quoting', compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms', 'discounts', 'grossmargins', 'exclusions', 'inclusions', 'companyCosts', 'employeeCosts', 'prefixes'));
         }
 
-    public function show($id="")
-    {
-        $pageHeading = 'Quoting';
-        $category = Category::find($id);
-        $subCategories = $category->subCategories;
-        $categoryName = $category->category_name;
+    // public function show($id="")
+    // {
+    //     $pageHeading = 'Quoting';
+    //     $category = Category::find($id);
+    //     $subCategories = $category->subCategories;
+    //     $categoryName = $category->category_name;
   
-        return view('quoting', compact('pageHeading', 'subCategories', 'categoryName'));
-    }
+    //     return view('quoting', compact('pageHeading', 'subCategories', 'categoryName'));
+    // }
 
-    public function store(Request $request)
+    public function store(Request $request) 
     {
-
+        
         $this->validate($request, [
             'customer_name' => 'required',
-            'quote_number' => 'required',
+            'quote_prefix' => 'required',
             'item_number' => 'required',
             'term_name' => 'required',
+            'inc_name' => 'required',
+            'exc_name' => 'required',
+            'price' => 'required',
+            'gst_price' => 'required'
         ]);
-
+        
         $business = BusinessDetail::where('businessdetail_email','info@xceedelectrical.com.au')->first();
         $quote = new Quote;
-        $quote->fk_businessdetail_id  = $business->pk_businessdetail_id;
-        $quote->fk_customer_id  = $request->get('customer_name');
-        $quote->fk_user_id  = Auth::user()->pk_user_id;
-        $quote->fk_term_id  = $request->get('term_name'); 
-        $quote->fk_in_id  = $request->get('in_name');
-        $quote->fk_ex_id  = $request->get('ex_name');
-        $quote->fk_prefix_id = $request->get('Quote_prefix');
+        $quote->fk_businessdetail_id = $business->pk_businessdetail_id;
+        $quote->fk_customer_id = $request->get('customer_name');
+        $quote->fk_user_id = Auth::user()->pk_user_id;
+        $quote->fk_term_id = $request->get('term_name'); 
+        $quote->fk_in_id = $request->get('inc_name');
+        $quote->fk_ex_id = $request->get('exc_name');
+        $quote->fk_prefix_id = $request->get('quote_prefix');
         $quote->quote_number = $request->get('quote_number');
         $quote->quote_status = 1;
         $quote->quote_revisonnumber = 1;
-
+        $quote->quote_comment = $request->get('quote_comment');
         $quote->save();
 
-        // foreach ($request->get('item_number') as $key => $value) {
-        //     $Quote_has_item = new Quote_has_item;
-        //     $Quote_has_item->fk_quote_id = $quote->pk_quote_id;
-        //     $Quote_has_item->fk_item_id = $value;
-        //     $Quote_has_item->save();
-        // }
-
         foreach ($request->get('item_number') as $key => $value) {
-            $Quote_has_item = new Quote_has_item([
-                'fk_quote_id' => $quote->pk_quote_id,
-                '$fk_item_id' => $value,
-            ]);
-            $Quote_has_item->save();
+            $QuoteHasItem = new QuoteHasItem();
+            $QuoteHasItem->fk_quote_id = $quote->pk_quote_id;
+            $QuoteHasItem->fk_item_id = $value;
+            $QuoteHasItem->price = $request->get('price');
+            $QuoteHasItem->GST_price = $request->get('gst_price');
+            $QuoteHasItem->save();
         }
-        return redirect('/history');    
+
+        $pageHeading = 'Preview';
+        $businessDetails = BusinessDetail::first();
+        $quotes = Quote::all();
+        $customers = Customer::all();
+        $categories = Category::all();
+        $subCategories = SubCategory::all();
+        $items = Items::all();
+        $quoteterms = QuoteTerm::all();
+        $discounts = Discount::all();
+        $grossmargins = GrossMargin::all();
+        $prefixes = Prefix::all();
+        $inclusion = Inclusions::all();
+        return View('preview',compact('pageHeading','quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms', 'discounts', 'grossmargins','prefixes','inclusion' ));
     }
 
     public function getSubcategories($id="")
@@ -140,7 +151,7 @@ class QuoteController extends Controller
     public function calculatePrice($id="")
     {
         $item = Items::where('pk_item_id', '=', $id)->first();
-      //  $price = $result->quantity;
+      
 
         $companyCosts = CompanyCost::all();
         $employeeCosts = EmployeeCost::all();
@@ -202,26 +213,14 @@ class QuoteController extends Controller
         $grossMargin = GrossMargin::get()->last();
 
         $temp_mat_cost = 0;
-                foreach ($item->itemHasMaterials as $temp_itemHasMaterial)
-                {
-                    $temp_mat_cost += $temp_itemHasMaterial->material->material_cost*$temp_itemHasMaterial->quantity;
-                }
-                $price = number_format(($temp_mat_cost*$grossMargin->gm_rate) + $item->item_servicecall + $item->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8)*1.1,2);
+        foreach ($item->itemHasMaterials as $temp_itemHasMaterial)
+        {
+            $temp_mat_cost += $temp_itemHasMaterial->material->material_cost*$temp_itemHasMaterial->quantity;
+        }
+        $price = number_format((($temp_mat_cost*$grossMargin->gm_rate) + $item->item_servicecall + $item->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2);
 
-        return response()->json([
-            'price' => $price, 
-        ]);
+        return response()->json(['price' => $price]);
     }
-
-    // public function calculatePrice($id="")
-    // {
-    //     $result = ItemHasMaterials::where('fk_item_id', '=', $id)->first();
-    //     $price = $result->quantity;
-
-    //     return response()->json([
-    //         'price' => $price, 
-    //     ]);
-    // }
 
     // public function total_pricings(Request $request)
     // {
@@ -359,7 +358,6 @@ class QuoteController extends Controller
 
                 $final_gst += number_format((($temp_mat_cost*$grossMargin->gm_rate) + $item->item_servicecall + $item->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2);                  
             }
-               
         }
         return response()->json(compact('final_price' , 'final_gst'));
     }

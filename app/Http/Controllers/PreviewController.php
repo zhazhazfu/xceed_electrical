@@ -22,11 +22,12 @@ class PreviewController extends Controller
 {
     public function index(Request $request)
         {   
-            $customers = Customer::all();
+            
             // print_r($request->input());
             // $request->session()->put()
             $pageHeading = 'Preview';
             $quotes = Quote::all();
+            $customers = Customer::all();
             $businessDetails = BusinessDetail::first();
             $customers = Customer::all();
             $categories = Category::all();

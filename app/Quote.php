@@ -18,8 +18,7 @@ class Quote extends Model
             'fk_prefix_id', //new
             'quote_number',
             'quote_status', //new
-            'quote_revisionnumber',
-            'quote_comment', 
+            'quote_comment',
         ];
 
     public function businessDetails()
@@ -52,20 +51,22 @@ class Quote extends Model
         return $this->belongsTo(Exclusions::class, 'fk_customer_id');
     }
 
-    public function Quote_has_item()
-    {
-        return $this->hasMany(Quote_has_item::class, 'fk_quote_id', 'pk_quote_id');
-    }
-
     public function prefix()
     {
-        return $this->belongsTo(prefix::class, 'fk_prefix_id', 'pk_prefix_id');
+        return $this->belongsTo(Prefix::class, 'fk_prefix_id');
     }
 
-    public function series()
+    public function quotehasitem()
     {
-        return $date->format('d-m-y H:i:s');
+        return $this->hasMany(QuoteHasItem::class, 'fk_quote_id', 'pk_quote_id');
     }
+
+    
+
+    // public function series()
+    // {
+    //     return $date->format('d-m-y H:i:s');
+    // }
 
     // Relationships to be added:
 
@@ -77,12 +78,12 @@ class Quote extends Model
     // Status
 
     public static function boot()
-     {
-         parent::boot();
+    {
+        parent::boot();
 
-         static::creating(function($model){
-             $model->quote_number = Quote::where('fk_prefix_id', $model->fk_prefix_id)->max('quote_number') + 1;
-         });
-     }
+        static::creating(function($model){
+            $model->quote_number = Quote::where('fk_prefix_id', $model->fk_prefix_id)->max('quote_number') + 1;
+        });
+    }
 
 }

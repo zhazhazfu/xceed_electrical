@@ -15,18 +15,18 @@ class CreatePrefixesTable extends Migration
     {
         Schema::create('prefixes', function (Blueprint $table) {
             $table->id('pk_prefix_id');
-            $table->string('prefix');
+            $table->string('prefix_name');
             $table->timestamps();
         });
 
         $prefixes = new App\prefix();
         $prefixes->pk_prefix_id = 1;
-        $prefixes->prefix = 'Q';
+        $prefixes->prefix_name = 'Q';
         $prefixes->save();
 
         $prefixes = new App\prefix();
         $prefixes->pk_prefix_id = 2;
-        $prefixes->prefix = 'PQ';
+        $prefixes->prefix_name = 'PQ';
         $prefixes->save();
     }
 

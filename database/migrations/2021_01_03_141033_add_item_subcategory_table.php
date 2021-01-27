@@ -37,6 +37,56 @@ class AddItemSubcategoryTable extends Migration
         $subcategory->save();
 
         $subcategory = new App\SubCategory();
+        $subcategory->fk_category_id = 1;
+        $subcategory->subcategory_name = 'LIGHT SWITCHES';
+        $subcategory->save();
+
+        $subcategory = new App\SubCategory();
+        $subcategory->fk_category_id = 1;
+        $subcategory->subcategory_name = 'SMOKE DETECTORS';
+        $subcategory->save();
+
+        $subcategory = new App\SubCategory();
+        $subcategory->fk_category_id = 1;
+        $subcategory->subcategory_name = 'LED BATTEN LIGHT';
+        $subcategory->save();
+
+        $subcategory = new App\SubCategory();
+        $subcategory->fk_category_id = 1;
+        $subcategory->subcategory_name = 'CEILING FANS VARIOUS WITH & WITHOUT LIGHT & REMOTE KITS';
+        $subcategory->save();
+
+        $subcategory = new App\SubCategory();
+        $subcategory->fk_category_id = 1;
+        $subcategory->subcategory_name = 'LED DOWN LIGHTS';
+        $subcategory->save();
+
+        $subcategory = new App\SubCategory();
+        $subcategory->fk_category_id = 1;
+        $subcategory->subcategory_name = 'IXL LIGHTS VARIOUS 2 HEAT & 4 HEAT';
+        $subcategory->save();
+
+        $subcategory = new App\SubCategory();
+        $subcategory->fk_category_id = 1;
+        $subcategory->subcategory_name = 'OUTDOOR LED SPOT LIGHTS';
+        $subcategory->save();
+
+        $subcategory = new App\SubCategory();
+        $subcategory->fk_category_id = 1;
+        $subcategory->subcategory_name = 'OUTDOOR SENSORS ONLY';
+        $subcategory->save();
+
+        $subcategory = new App\SubCategory();
+        $subcategory->fk_category_id = 1;
+        $subcategory->subcategory_name = 'WALL LIGHTS INDOOR & OUTDOOR - INSTALL & REPLACEMENT';
+        $subcategory->save();
+
+        $subcategory = new App\SubCategory();
+        $subcategory->fk_category_id = 1;
+        $subcategory->subcategory_name = 'LED OYSTER LIGHTS SMALL AND LARGE';
+        $subcategory->save();
+
+        $subcategory = new App\SubCategory();
         $subcategory->fk_category_id = 2;
         $subcategory->subcategory_name = 'POWER POINTS SINGLE, DOUBLE & QUAD & USB POWER POINTS';
         $subcategory->save();

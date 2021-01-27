@@ -23,7 +23,7 @@ class MaterialController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'material_description' => 'required',
+            'material_itemcode' => 'required',
             'material_cost' => 'required',
         ]);
 
@@ -51,7 +51,7 @@ class MaterialController extends Controller
     {
 
         $this->validate($request, [
-            'material_description' => 'required',
+            'material_itemcode' => 'required',
             'material_cost' => 'required',
         ]);
         
