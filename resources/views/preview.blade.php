@@ -61,7 +61,7 @@
             <br>
             <h2 class="mt-3 mb-4">Pricing</h2>
             <p>
-            <h4 class="mt-3 mb-4">Quote : {{$quote->prefix->prefix }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}</h4>
+            <h4 class="mt-3 mb-4">Quote : {{$quote->prefix->prefix_name }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}</h4>
             <h4 class="mt-3 mb-4">Customer : {{$quote->customers->customer_name}}</h4>
             </p>
            
