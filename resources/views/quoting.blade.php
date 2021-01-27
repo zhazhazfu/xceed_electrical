@@ -235,18 +235,31 @@
 
     
     
-    // function calculateTotal() {
-    //     section = document.getElementByID('priceDisplay');
-    //     priceSection = document.getElementsByID('item_price');
+    function calculateTotal() {
+        var id_values = $("select[name='item_number']").map(function(){return $(this).val();}).get();
+        console.log(id_values);
 
-    //     var i;
-    //     var total;
-    //     for (i=0; i<priceSection.length; i++) {
-    //         total = total + priceSection[i].value;
-    //     }
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            } 
+        });
 
-    //     section.value = "$" + total;
-    // }
+        $.ajax({
+            type:'POST',
+            
+            url:'{{ URL::to('/quote_pricings') }}',
+                        
+            data:{ id_values: id_values},
+                        
+            success:function(data){
+                $(".price_input").val(data.final_price);
+                $(".gst_input").val(data.final_gst);
+            },
+        });
+
+        // alert("total calculated");
+    }
     
     function getSubcategory(element) {  //to get subcategory according to user's selection
         optionSelected = element.value;
@@ -312,7 +325,9 @@
                 $iteration++;
             });
             // clear previous item description
+            calculateTotal();
             document.getElementsByName('item_description')[x].value = "Item Description";
+            document.getElementsByName('item_price')[x].value= "$0.00";
         });
     }
 
@@ -367,29 +382,31 @@
                 $iteration++;
             });
 
-            var id_values = $("select[name='item_number']").map(function(){return $(this).val();}).get();
-            console.log(id_values);
+            // var id_values = $("select[name='item_number']").map(function(){return $(this).val();}).get();
+            // console.log(id_values);
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                } 
-            });
+            // $.ajaxSetup({
+            //     headers: {
+            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //     } 
+            // });
 
-            $.ajax({
-                type:'POST',
+            // $.ajax({
+            //     type:'POST',
                 
-                url:'{{ URL::to('/quote_pricings') }}',
+            //     url:'{{ URL::to('/quote_pricings') }}',
                             
-                data:{ id_values: id_values},
+            //     data:{ id_values: id_values},
                             
-                success:function(data){
-                    $(".price_input").val(data.final_price);
-                    $(".gst_input").val(data.final_gst);
-                },
-            });
-
+            //     success:function(data){
+            //         $(".price_input").val(data.final_price);
+            //         $(".gst_input").val(data.final_gst);
+            //     },
+            // });
+            
             document.getElementsByName('item_description')[x].value = "Item Description";
+            document.getElementsByName('item_price')[x].value= "$0.00";
+            calculateTotal();
         });
     }
 
@@ -399,27 +416,28 @@
         // number = number - 1;
 
         // alert(optionSelected);
-        var id_values = $("select[name='item_number']").map(function(){return $(this).val();}).get();
-        console.log(id_values);
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            } 
-        });
+        // var id_values = $("select[name='item_number']").map(function(){return $(this).val();}).get();
+        // console.log(id_values);
 
-        $.ajax({
-            type:'POST',
+        // $.ajaxSetup({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //     } 
+        // });
+
+        // $.ajax({
+        //     type:'POST',
             
-            url:'{{ URL::to('/quote_pricings') }}',
+        //     url:'{{ URL::to('/quote_pricings') }}',
                         
-            data:{ id_values: id_values},
+        //     data:{ id_values: id_values},
                         
-            success:function(data){
-                $(".price_input").val(data.final_price);
-                $(".gst_input").val(data.final_gst);
-            },
-        });
+        //     success:function(data){
+        //         $(".price_input").val(data.final_price);
+        //         $(".gst_input").val(data.final_gst);
+        //     },
+        // });
 
         $.ajax({
             url: "getDescription/" + optionSelected,
@@ -450,8 +468,9 @@
             // alert(price);
 
             document.getElementsByName('item_description')[x].value = data.id;
-            // document.getElementsByName('priceDisplay')[x].value = price;
+            document.getElementsByName('item_price')[x].value= "$0.00";
             calculatePrice(optionSelected, x);
+            calculateTotal();
         });
     }
 
@@ -502,6 +521,7 @@
             c[9].setAttribute('data-id', count);
             
             $("#select_job").append(copy);
+            calculateTotal();
         });
     
         // remove a job from the menu
@@ -527,32 +547,35 @@
 
             finalSection = section[x];
 
-            var id_values = $("select[name='item_number']").map(function(){return $(this).val();}).get();
-            console.log(id_values);
+            // var id_values = $("select[name='item_number']").map(function(){return $(this).val();}).get();
+            // console.log(id_values);
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                } 
-            });
+            // $.ajaxSetup({
+            //     headers: {
+            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //     } 
+            // });
 
-            $.ajax({
-                type:'POST',
+            // $.ajax({
+            //     type:'POST',
                 
-                url:'{{ URL::to('/quote_pricings') }}',
+            //     url:'{{ URL::to('/quote_pricings') }}',
                             
-                data:{ id_values: id_values},
+            //     data:{ id_values: id_values},
                             
-                success:function(data){
-                    $(".price_input").val(data.final_price);
-                    $(".gst_input").val(data.final_gst);
-                },
-            });
+            //     success:function(data){
+            //         $(".price_input").val(data.final_price);
+            //         $(".gst_input").val(data.final_gst);
+            //     },
+            // });
+                // alert("aaa");
+            
 
             // alert(finalSection.getAttribute('data-id'));
             // $("#select_job").children($("#select_job_html")[number].remove());
 
             finalSection.remove();
+            calculateTotal();
         });
     });
 

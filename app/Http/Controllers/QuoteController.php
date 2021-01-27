@@ -206,7 +206,7 @@ class QuoteController extends Controller
                 {
                     $temp_mat_cost += $temp_itemHasMaterial->material->material_cost*$temp_itemHasMaterial->quantity;
                 }
-                $price = number_format(($temp_mat_cost*$grossMargin->gm_rate) + $item->item_servicecall + $item->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8),2);
+                $price = number_format(($temp_mat_cost*$grossMargin->gm_rate) + $item->item_servicecall + $item->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8)*1.1,2);
 
         return response()->json([
             'price' => $price, 
