@@ -39,11 +39,7 @@
                 {{ $businessDetails->businessdetail_email }}<br>
                 {{ $businessDetails->businessdetail_website }}
             </p>
-            @foreach ($quotes as $quote )
-            @endforeach
-            {{-- @if () --}}
-                
-            {{-- @endif --}}
+           
             <h2 class="mt-3 mb-4">Quote : {{$quote->prefix->prefix }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}</h2>  
     </div>
 
