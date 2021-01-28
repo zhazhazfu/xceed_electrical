@@ -159,15 +159,19 @@
                     <div id="select_inc_html">
                         <div class="form-row">
                             <div class="form-group">
-                                <div class="form-group col-md-8">
+                                <div class="form-group w-100">
                                     <label for="quote_inclusions">Inclusions</label>
-                                    <select class="form-control" id="inc_name" name="inc_name" required>
+                                    <br>
+                                    <select style="display: inline" class="form-control col-md-11 my-2" id="inc_selector" name="inc_selector" required>
                                         @foreach($inclusions as $quoteinc)
                                         <option value="{{ $quoteinc->pk_in_id }}">{{ $quoteinc->inclusion_Content }}</option>
                                         @endforeach
                                     </select>
-                                    <button id="duplicate_inc" class="btn btn-primary my-2">Add</button>
-                                    <button id="remove_inc" class="btn btn-danger">Remove</button>
+
+                                    <button style="display: inline" id="duplicate_inc" class="btn btn-primary float-right my-2">Add</button>
+
+                                    <textarea class="form-control" id="inc_name" name="inc_name" rows="5" required></textarea>
+                                    
                                 </div>  
                             </div>
                         </div>
@@ -180,15 +184,27 @@
                 <div id="select_exc">
                     <div id="select_exc_html">
                         <div class="form-row">
-                            <div class="form-group col-md-8 mx-2">
+                            <div class="form-group w-100">
                                 <label for="quote_exclusions">Exclusions</label>
-                                <select class="form-control" id="exc_name" name="exc_name" required>
+
+                                <br>
+                                <select style="display: inline" class="form-control col-md-11 my-2" id="exc_selector" name="exc_selector" required>
+                                    @foreach($inclusions as $quoteinc)
+                                    <option value="{{ $quoteinc->pk_in_id }}">{{ $quoteinc->inclusion_Content }}</option>
+                                    @endforeach
+                                </select>
+
+                                <button style="display: inline" id="duplicate_exc" class="btn btn-primary float-right my-2">Add</button>
+
+                                <textarea class="form-control" id="exc_name" name="exc_name" rows="5" required></textarea>
+
+                                <!-- <select class="form-control" id="exc_name" name="exc_name" required>
                                     @foreach($exclusions as $quoteexc)
                                     <option value="{{ $quoteexc->pk_ex_id }}">{{ $quoteexc->exclusion_Content }}</option>
                                     @endforeach
                                 </select>    
                                 <button id="duplicate_exc" class="btn btn-primary my-2">Add</button>
-                                <button id="remove_exc" class="btn btn-danger">Remove</button>
+                                <button id="remove_exc" class="btn btn-danger">Remove</button> -->
                             </div>
                         </div>
                     </div>
@@ -593,24 +609,24 @@
     $(document).ready(function(){  //add and remove the inclusions
         $("#duplicate_inc").click(function(e){
             e.preventDefault();
-            $("#select_inc").append($("#select_inc_html").clone(true));
-        });
-
-        $("#remove_inc").click(function(e){
-            e.preventDefault();
-            $("#select_inc").children($("#select_inc_html").remove());
+            incSel = document.getElementById("inc_selector");
+            incText = incSel[incSel.selectedIndex].text + "; ";
+            // alert(incText);
+            box = document.getElementById("inc_name");
+            // box.innerHTML = (newTxt);
+            $("#inc_name").val(box.value + incText);
         });
     });
     
     $(document).ready(function(){   //add and remove the exclusions
         $("#duplicate_exc").click(function(e){
             e.preventDefault();
-            $("#select_exc").append($("#select_exc_html").clone(true));
-        });
-
-        $("#remove_exc").click(function(e){
-            e.preventDefault();
-            $("#select_exc").children($("#select_exc_html").remove());
+            excSel = document.getElementById("exc_selector");
+            excText = excSel[excSel.selectedIndex].text + "; ";
+            // alert(excText);
+            box = document.getElementById("exc_name");
+            // box.innerHTML = (newTxt);
+            $("#exc_name").val(box.value + excText);
         });
     });
 </script>
