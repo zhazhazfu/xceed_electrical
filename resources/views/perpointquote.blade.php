@@ -128,7 +128,7 @@
             </div>
         </div>
 
-        <div class="w-100 border-top"></div>
+        {{-- <div class="w-100 border-top"></div>
         <div id="select_job">
             <h5 class="pt-3 pb-1">Material</h5>
             <div data-id="1" name="select_job_html" id="select_job_html">
@@ -141,7 +141,7 @@
                         {{ $materials -> material_description }}
                     </option>
                     @endforeach --}}
-                </select>
+                {{-- </select>
                 <div class="form-row">
                     <div class="form-group col-sm">
                         <button data-id="1" id="dublicate_job" class="btn btn-primary">Add Material</button>
@@ -151,7 +151,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}} --}}
             
         </div>
         <div class="w-100 border-top"></div>

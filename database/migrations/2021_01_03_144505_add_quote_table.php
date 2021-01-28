@@ -25,7 +25,7 @@ class AddQuoteTable extends Migration
             $table->string('quote_number');
             $table->string('inclusions');
             $table->string('exclusions');
-            $table->integer('quote_status');
+            $table->integer('quote_status')->default(1);
             $table->integer('quote_revisonnumber')->nullable();
             $table->string('quote_comment')->nullable();
             $table->timestamps();
