@@ -13,10 +13,10 @@ class Quote extends Model
             'fk_customer_id',
             'fk_user_id', //new
             'fk_term_id',
-            'fk_in_id', //new
-            'fk_ex_id', //new
             'fk_prefix_id', //new
             'quote_number',
+            'inclusions',
+            'exclusions',
             'quote_status', //new
             'quote_comment',
         ];
@@ -41,15 +41,15 @@ class Quote extends Model
         return $this->belongsTo(QuoteTerm::class,'fk_term_id');
     }
 
-    public function inclusions()
-    {
-        return $this->belongsTo(Inclusions::class, 'fk_customer_id');
-    }
+    // public function inclusions()
+    // {
+    //     return $this->belongsTo(Inclusions::class, 'fk_customer_id');
+    // }
 
-    public function exclusions()
-    {
-        return $this->belongsTo(Exclusions::class, 'fk_customer_id');
-    }
+    // public function exclusions()
+    // {
+    //     return $this->belongsTo(Exclusions::class, 'fk_customer_id');
+    // }
 
     public function prefix()
     {

@@ -13,8 +13,8 @@ class Inclusions extends Model
             'inclusion_Content'
         ];
     
-    public function quotes()
-    {
-        return $this->hasMany(Quote::class);
-    }
+    // public function quotes()
+    // {
+    //     return $this->hasMany(Quote::class);
+    // }
 }
