@@ -86,7 +86,7 @@
             </div>
             <div>
                 <a href="/{{ 'history' }}" class="mx-1 btn btn-primary"> Close </a>
-                <a href="/{{ 'preview' }}" class="btn btn-success"> Generate PDF </a>
+                <a href="{{ url('/preview/'.$quote['pk_quote_id']) }}" class="btn btn-success"> Generate PDF </a>
             </div>
             @endif
             @endforeach
