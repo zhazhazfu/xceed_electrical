@@ -19,8 +19,6 @@ class AddQuoteTable extends Migration
             $table->foreignId('fk_customer_id')->references('pk_customer_id')->on('customers');
             $table->foreignId('fk_user_id')->references('pk_user_id')->on('users');
             $table->foreignId('fk_term_id')->references('pk_term_id')->on('quoteterms');
-            // $table->foreignId('fk_in_id')->references('pk_in_id')->on('inclusions');
-            // $table->foreignId('fk_ex_id')->references('pk_ex_id')->on('exclusions');
             $table->foreignId('fk_prefix_id')->references('pk_prefix_id')->on('prefixes');
             $table->string('quote_number');
             $table->longText('inclusions');

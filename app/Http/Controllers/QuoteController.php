@@ -94,8 +94,8 @@ class QuoteController extends Controller
         }
 
         $pageHeading = 'Preview';
-        $businessDetails = BusinessDetail::first();
         $quotes = Quote::all();
+        $businessDetails = BusinessDetail::first();
         $customers = Customer::all();
         $categories = Category::all();
         $subCategories = SubCategory::all();
@@ -103,9 +103,9 @@ class QuoteController extends Controller
         $quoteterms = QuoteTerm::all();
         $discounts = Discount::all();
         $grossmargins = GrossMargin::all();
-        $prefixes = Prefix::all();
-        $inclusion = Inclusions::all();
-        return View('preview',compact('pageHeading','quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms', 'discounts', 'grossmargins','prefixes','inclusion' ));
+        $prefixes = prefix::all();
+            
+        return view('preview', compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms', 'discounts', 'grossmargins','prefixes'));
     }
 
     public function getSubcategories($id="")
