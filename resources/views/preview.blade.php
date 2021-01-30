@@ -61,12 +61,10 @@
             <br>
             <h2 class="mt-3 mb-4">Pricing</h2>
             <p>
-            <h4 class="mt-3 mb-4">Quote : {{$quote->prefix->prefix_name }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}</h4>
-            <h4 class="mt-3 mb-4">Customer : {{$quote->customers->customer_name}}</h4>
+                <h4 class="mt-3 mb-4">Quote : {{$quote->prefix->prefix_name }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}</h4>
+                <h4 class="mt-3 mb-4">Customer : {{$quote->customers->customer_name}}</h4>
             </p>
-           
-            {{-- <h5 class="mt-3 mb-4">customer name : {{$customer->customer_name}} </h5> --}}
-             
+                        
             <p> #quote description </p>
 
             <br>
@@ -78,11 +76,11 @@
             <br>
             <p class="font-weight-bold"><u> Inclusions </u></p>
             {{-- @forEach($inclusion as $inclusion)@endforeach --}}
-            <p>#data {{$quote->inclusions->inclusion_Content}}</p>
+            <p>#data {{$quote->inclusions}}</p>
 
             <p class="font-weight-bold"><u> Exclusions </u></p>
             {{-- @forEach($exclusion as $exclusion)@endforeach --}}
-            <p>#data {{$quote->exclusions->exclusion_Content}}</p>
+            <p>#data {{$quote->exclusions}}</p>
 
             <p class="font-weight-bold"><u> Terms and Conditions </u></p>
             {{-- @forEach($quoteterms as $quoteterm)@endforeach --}}
