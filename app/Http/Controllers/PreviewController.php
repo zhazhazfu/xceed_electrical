@@ -25,7 +25,6 @@ class PreviewController extends Controller
 
     public function show($id="")
     {
-        $pageHeading = 'Preview';
         $quoteid = Quote::find($id);
         $quotes = Quote::all();
         $businessDetails = BusinessDetail::first();
@@ -38,25 +37,28 @@ class PreviewController extends Controller
         $quotehasitem = QuoteHasItem::all();
         $pageid = $id;
 
-        return view('preview', compact('pageHeading', 'quoteid','quotes', 'quotehasitem', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms','prefixes', 'pageid'));
+        return view('preview', compact( 'quoteid','quotes', 'quotehasitem', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms','prefixes', 'pageid'));
     } 
 
-    public function generatePDF()
+    public function generatePDF($id)
     {
-        $pageHeading = 'Preview';
+        
+        $quoteid = Quote::find($id);
         $quotes = Quote::all();
         $businessDetails = BusinessDetail::first();
         $customers = Customer::all();
         $categories = Category::all();
         $subCategories = SubCategory::all();
-        $priceLists = PriceList::all();
+        $items = Items::all();
         $quoteterms = QuoteTerm::all();
-        $discounts = Discount::all();
-        $grossmargins = GrossMargin::all();
         $prefixes = prefix::all();
-        $inclusion = Inclusions::all();
-        $pdf =  PDF::loadView('preview',compact('pageHeading','quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'priceLists', 'quoteterms', 'discounts', 'grossmargins','prefixes','inclusion' ));
-  
+        $quotehasitem = QuoteHasItem::all();
+        $pageid = $id;
+
+        $pdf =  PDF::loadView('preview',compact('quoteid','quotes', 'quotehasitem', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms','prefixes', 'pageid' ));
+        
+        set_time_limit(10000);
         return $pdf->download('Quote.pdf');
+       
     }
 }

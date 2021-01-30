@@ -15,7 +15,7 @@
         <div class="row">
         
             <div class="col-sm-4 mt-5 pt-5">
-                <img src="{{ asset('./images/Xceed_logo_small_01-copy1.png') }}" class="img-fluid align-middle" width="350px" alt="Responsive image">
+                <img src="{{ public_path().'images/Xceed_logo_small_01-copy1.png' }}" class="img-fluid align-middle" width="350px" alt="Responsive image">
             </div>
 
             <div class="col-sm-4">
@@ -86,7 +86,7 @@
             </div>
             <div>
                 <a href="/{{ 'history' }}" class="mx-1 btn btn-primary"> Close </a>
-                <a href="{{ url('/preview/'.$quote['pk_quote_id']) }}" class="btn btn-success"> Generate PDF </a>
+                <a href="{{ url('/preview/'.$quote['pk_quote_id']."/download") }}" class="btn btn-success"> Generate PDF </a>
             </div>
             @endif
             @endforeach
