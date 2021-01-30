@@ -93,19 +93,7 @@ class QuoteController extends Controller
             $QuoteHasItem->save();
         }
 
-        $pageHeading = 'Preview';
-        $quotes = Quote::all();
-        $businessDetails = BusinessDetail::first();
-        $customers = Customer::all();
-        $categories = Category::all();
-        $subCategories = SubCategory::all();
-        $items = Items::all();
-        $quoteterms = QuoteTerm::all();
-        $discounts = Discount::all();
-        $grossmargins = GrossMargin::all();
-        $prefixes = prefix::all();
-            
-        return view('preview', compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms', 'discounts', 'grossmargins','prefixes'));
+        return redirect('/history/')->with('success', 'Quote Added');
     }
 
     public function getSubcategories($id="")
