@@ -11,6 +11,7 @@ class QuoteHasItem extends Model
     protected $fillable = [
             'fk_quote_id ', 
             'fk_item_id ',
+            'item_quantity',
             'price',
             'GST_price'
         ];

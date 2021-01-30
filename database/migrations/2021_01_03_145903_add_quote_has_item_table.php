@@ -17,6 +17,7 @@ class AddQuoteHasItemTable extends Migration
             $table->id('pk_quote_has_item_id');
             $table->foreignId('fk_quote_id')->references('pk_quote_id')->on('quotes');
             $table->foreignId('fk_item_id')->references('pk_item_id')->on('items');
+            $table->int('item_quantity')->nullable();
             $table->double('price');
             $table->double('GST_price');
             $table->timestamps();
