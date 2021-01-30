@@ -88,7 +88,7 @@ Route::resource('quoteterms', 'QuoteTermController')->middleware('auth');
 Route::get('/preview/{id}', 'PreviewController@show')->name('preview')->middleware('auth');
 // Route::post('/preview/{id}', 'PreviewController@index')->name('preview')->middleware('auth');
 // Route::get('/previewPDF', 'PreviewPDFController@generatePDF')->name('preview')->middleware('auth');
-Route::get('/preview', 'PreviewController@generatePDF')->name('preview')->middleware('auth');
+Route::get('/previewPDF/{id}', 'PreviewPDFController@generatePDF')->name('previewPDF')->middleware('auth');
 
 // Route::get('session/get','SessionController@accessSessionData');
 // Route::get('session/set','SessionController@storeSessionData');

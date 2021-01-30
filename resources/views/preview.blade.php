@@ -86,7 +86,8 @@
             </div>
             <div>
                 <a href="/{{ 'history' }}" class="mx-1 btn btn-primary"> Close </a>
-                <a href="/{{ 'preview' }}" class="btn btn-success"> Generate PDF </a>
+                <!-- <a href="/{{ 'previewPDF' }}/{{ $pageid }}" class="btn btn-success"> Generate PDF </a> -->
+                <a href="/{{ 'previewPDF' }}/{{ $pageid }}" class="btn btn-success"> Generate PDF </a>
             </div>
             @endif
             @endforeach

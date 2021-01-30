@@ -12,51 +12,70 @@ use App\PriceList;
 use App\QuoteTerm;
 use App\Discount;
 use App\GrossMargin;
+use App\preview;
+use App\prefix;
+use App\Inclusions;
+use App\Exclusions;
+use App\Items;
+use App\QuoteHasItem;
 use PDF;
+
 
 class PreviewPDFController extends Controller
 {
-    public function index()
+    public function index($id="")
         {
             $pageHeading = 'Preview';
+            $quoteid = Quote::find($id);
             $quotes = Quote::all();
             $businessDetails = BusinessDetail::first();
             $customers = Customer::all();
             $categories = Category::all();
             $subCategories = SubCategory::all();
-            $priceLists = PriceList::all();
+            $items = Items::all();
             $quoteterms = QuoteTerm::all();
-            $discounts = Discount::all();
-            $grossmargins = GrossMargin::all();
-            
+            $prefixes = prefix::all();
+            $quotehasitem = QuoteHasItem::all();
+            $pageid = $id;
     
-            return view('previewPDF', compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'priceLists', 'quoteterms', 'discounts', 'grossmargins'));
+            return view('preview', compact('pageHeading', 'quoteid','quotes', 'quotehasitem', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms','prefixes', 'pageid'));
         }
 
-        public function show($id="")
+    public function show($id="")
     {
         $pageHeading = 'Preview';
-        $category = Category::find($id);
-        $subCategories = $category->subCategories;
-        $categoryName = $category->category_name;
-  
-        return view('preview', compact('pageHeading', 'subCategories', 'categoryName'));
+        $quoteid = Quote::find($id);
+        $quotes = Quote::all();
+        $businessDetails = BusinessDetail::first();
+        $customers = Customer::all();
+        $categories = Category::all();
+        $subCategories = SubCategory::all();
+        $items = Items::all();
+        $quoteterms = QuoteTerm::all();
+        $prefixes = prefix::all();
+        $quotehasitem = QuoteHasItem::all();
+        $pageid = $id;
+
+        return view('previewPDF', compact('pageHeading', 'quoteid','quotes', 'quotehasitem', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms','prefixes', 'pageid'));
     } 
 
-    // public function generatePDF()
-    // {
-    //     $pageHeading = 'Preview';
-    //         $quotes = Quote::all();
-    //         $businessDetails = BusinessDetail::first();
-    //         $customers = Customer::all();
-    //         $categories = Category::all();
-    //         $subCategories = SubCategory::all();
-    //         $priceLists = PriceList::all();
-    //         $quoteterms = QuoteTerm::all();
-    //         $discounts = Discount::all();
-    //         $grossmargins = GrossMargin::all();
-    //         $pdf =  PDF::loadView('previewPDF',compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'priceLists', 'quoteterms', 'discounts', 'grossmargins'));
+    public function generatePDF($id="")
+    {
+        $pageHeading = 'Preview';
+        $quoteid = Quote::find($id);
+        $quotes = Quote::all();
+        $businessDetails = BusinessDetail::first();
+        $customers = Customer::all();
+        $categories = Category::all();
+        $subCategories = SubCategory::all();
+        $items = Items::all();
+        $quoteterms = QuoteTerm::all();
+        $prefixes = prefix::all();
+        $quotehasitem = QuoteHasItem::all();
+        $pageid = $id;
+        
+        $pdf = PDF::loadView('previewPDF', compact('pageHeading', 'quoteid','quotes', 'quotehasitem', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms','prefixes', 'pageid'));
   
-    //     return $pdf->download('Quote.pdf');
-    // }
+        return $pdf->download('Quote.pdf');
+    }
 }

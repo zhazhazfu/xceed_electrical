@@ -41,22 +41,24 @@ class PreviewController extends Controller
         return view('preview', compact('pageHeading', 'quoteid','quotes', 'quotehasitem', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms','prefixes', 'pageid'));
     } 
 
-    public function generatePDF()
-    {
-        $pageHeading = 'Preview';
-        $quotes = Quote::all();
-        $businessDetails = BusinessDetail::first();
-        $customers = Customer::all();
-        $categories = Category::all();
-        $subCategories = SubCategory::all();
-        $priceLists = PriceList::all();
-        $quoteterms = QuoteTerm::all();
-        $discounts = Discount::all();
-        $grossmargins = GrossMargin::all();
-        $prefixes = prefix::all();
-        $inclusion = Inclusions::all();
-        $pdf =  PDF::loadView('preview',compact('pageHeading','quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'priceLists', 'quoteterms', 'discounts', 'grossmargins','prefixes','inclusion' ));
+    // public function generatePDF($id="")
+    // {
+    //     $pageHeading = 'Preview';
+    //     $quoteid = Quote::find($id);
+    //     $quotes = Quote::all();
+    //     $businessDetails = BusinessDetail::first();
+    //     $customers = Customer::all();
+    //     $categories = Category::all();
+    //     $subCategories = SubCategory::all();
+    //     $items = Items::all();
+    //     $quoteterms = QuoteTerm::all();
+    //     $prefixes = prefix::all();
+    //     $quotehasitem = QuoteHasItem::all();
+    //     $pageid = $id;
+
+    //     $pdf =  PDF::loadView('preview', compact('pageHeading', 'quoteid','quotes', 'quotehasitem', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms','prefixes', 'pageid'));
   
-        return $pdf->download('Quote.pdf');
-    }
+    //     return $pdf->download('Quote.pdf');
+    //     // return view('preview', compact('pageHeading', 'quoteid','quotes', 'quotehasitem', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms','prefixes', 'pageid'));
+    // }
 }

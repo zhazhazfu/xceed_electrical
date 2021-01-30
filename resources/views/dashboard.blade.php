@@ -15,95 +15,50 @@
 <!-- Button trigger modal -->
 <div class=" p-3 mb-5 bg-white rounded border">
 <h3> Dashboard </h3>
-    <div class='row w-75 mx-auto'>
-        <div class="col-md-4">
+    <div class='row w-50'>
+        <div class="col-md-6">
             <div class=" p-3 mb-5 bg-white rounded border">
                 <h3 class="text-center"> Pending <h3>
-                
-                <div class="btn btn-block btn-warning rounded border">
-                    <h3> #example </h3>
-                    <p> Customer Name </p>
-                    <p> Job name </p>
-                </div>
-                <div class="btn btn-block btn-warning rounded border">
-                    <h3> #example </h3>
-                    <p> Customer Name </p>
-                    <p> Job name </p>
-                </div>
-                <div class="btn btn-block btn-warning rounded border">
-                    <h3> #example </h3>
-                    <p> Customer Name </p>
-                    <p> Job name </p>
-                </div>
-                <div class="btn btn-block btn-warning rounded border">
-                    <h3> #example </h3>
-                    <p> Customer Name </p>
-                    <p> Job name </p>
-                </div>
-                <div class="btn btn-block btn-warning rounded border">
+
+                <!-- 1 = to send, 2 = sent -->
+                @foreach($quotes as $quote)
+                    @if($quote->quote_status == '1')
+                    
+                    <a href="/{{ 'preview' }}/{{ $quote->pk_quote_id }}" class="btn btn-block btn-warning rounded border" id="quotes" value="{{ $quote->pk_quote_id }}">
+                    <h3> #{{$quote->prefix->prefix_name }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}} </h3>
+                    <p> {{$quote->customers->customer_name}} </p>   
+                    <p> {{ $quote->quote_comment }} </p>
+                    </a>
+
+                    @endif
+                @endforeach
+
+                <!-- <div class="btn btn-block btn-warning rounded border">
                     <h3> #example </h3>
                     <p> Customer Name </p>
                     <p> Job names </p>
-                </div>
+                </div> -->
 
                 
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class=" p-3 mb-5 bg-white rounded border">
                 <h3 class="text-center"> Sent <h3>
-                <div class="btn btn-block btn-success rounded border">
-                    <h3> #example </h3>
-                    <p> Customer Name </p>
-                    <p> Job name </p>
-                </div>
-                <div class="btn btn-block btn-success rounded border">
-                    <h3> #example </h3>
-                    <p> Customer Name </p>
-                    <p> Job name </p>
-                </div>
-                <div class="btn btn-block btn-success rounded border">
-                    <h3> #example </h3>
-                    <p> Customer Name </p>
-                    <p> Job name </p>
-                </div>
-                <div class="btn btn-block btn-success rounded border">
-                    <h3> #example </h3>
-                    <p> Customer Name </p>
-                    <p> Job name </p>
-                </div>
-                <div class="btn btn-block btn-success rounded border">
-                    <h3> #example </h3>
-                    <p> Customer Name </p>
-                    <p> Job name </p>
-                </div>
-                <div class="btn btn-block btn-success rounded border">
-                    <h3> #example </h3>
-                    <p> Customer Name </p>
-                    <p> Job name </p>
-                </div>
+                @foreach($quotes as $quote)
+                    @if($quote->quote_status == '2')
+                    
+                    <a href="/{{ 'preview' }}/{{ $quote->pk_quote_id }}" class="btn btn-block btn-success rounded border" id="quotes" value="{{ $quote->pk_quote_id }}">
+                    <h3> #{{$quote->prefix->prefix_name }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}} </h3>
+                    <p> {{$quote->customers->customer_name}} </p>   
+                    <p> {{ $quote->quote_comment }} </p>
+                    </a>
+
+                    @endif
+                @endforeach
             </div>
         </div>
-        <div class="col-md-4">
-            <div class=" p-3 mb-5 bg-white rounded border">
-                <h3 class="text-center"> To Do <h3>
-                <div class="btn btn-block btn-danger rounded border">
-                    <h3> #example </h3>
-                    <p> Customer Name </p>
-                    <p> Job name </p>
-                </div>
-                <div class="btn btn-block btn-danger rounded border">
-                    <h3> #example </h3>
-                    <p> Customer Name </p>
-                    <p> Job name </p>
-                </div>
-                <div class="btn btn-block btn-danger rounded border">
-                    <h3> #example </h3>
-                    <p> Customer Name </p>
-                    <p> Job name </p>
-                </div>
-            </div>
-        </div>
+        
     </div>
     </div>
 
