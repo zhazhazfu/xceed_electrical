@@ -85,7 +85,7 @@
                 <p>Jayson Conceicao </p>
             </div>
             <div>
-                <a href="/{{ 'dashboard' }}" class="mx-1 btn btn-primary"> Close </a>
+                <a href="/{{ 'history' }}" class="mx-1 btn btn-primary"> Close </a>
                 <a href="/{{ 'preview' }}" class="btn btn-success"> Generate PDF </a>
             </div>
             @endif
