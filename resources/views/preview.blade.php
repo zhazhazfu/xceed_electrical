@@ -58,7 +58,7 @@
 
                 <br>
                 @foreach ($quotehasitem as $quotehasitem)
-                @if ($quotehasitem->quote_id == $pageid)
+                @if ($quotehasitem->fk_quote_id == $pageid)
                     <p class="font-weight-bold"> Sub Total Amount : <p>${{$quotehasitem->price}}</p>
                     <p class="font-weight-bold"> Total Amount : <p>${{$quotehasitem->GST_price}}</p> 
                 @endif
