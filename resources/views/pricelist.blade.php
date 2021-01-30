@@ -8,12 +8,14 @@
     .btn-outline-xceed {
         color: #004271;
         border-color: #004271;
+        transition: all .2s ease-in-out;
     }
 
     .btn-outline-xceed:hover {
         color: #fff;
         background: linear-gradient(to left, #004271, #94c94a);
         border-color: #004271;
+        transform: scale(1.05);
     }
 
     .tint {

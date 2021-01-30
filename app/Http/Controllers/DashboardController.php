@@ -9,6 +9,8 @@ use App\GrossMargin;
 use App\CompanyCost;
 use App\EmployeeCost;
 use App\Customer;
+use App\Quote;
+
 class DashboardController extends Controller
 {
     public function index()
@@ -19,6 +21,7 @@ class DashboardController extends Controller
         $employeeCosts = EmployeeCost::all();
         $companyCosts = CompanyCost::all();
         $customers = Customer::all();
+        $quotes = Quote::all();
         $result = DB::table('companycosts')->where('companycost_archived', '0')
             ->select(
                 DB::raw('companycost_name as companycost_name'),
@@ -40,6 +43,7 @@ class DashboardController extends Controller
             'employeeCosts'=> $employeeCosts,
             'companyCosts'=> $companyCosts,
             'customers'=>$customers,
+            'quotes'=>$quotes,
             'companycost_name'=>json_encode($array)]);
     }
 }
