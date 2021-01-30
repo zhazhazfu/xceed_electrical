@@ -80,6 +80,8 @@ Route::patch('/history/{id}/update', 'HistoryController@update')->middleware('au
 
 
 Route::get('/draftlist', 'DraftlistController@index')->name('draftlist')->middleware('auth');
+Route::get('/draftlist/edit/{id}', 'DraftlistController@edit')->name('draftlist_edit')->middleware('auth');
+Route::post('/save_draft', 'DraftlistController@update')->name('draftlist_update')->middleware('auth');
 
 Route::get('/quoteterms', 'QuoteTermController@index')->name('quoteterms')->middleware('auth');
 Route::get('/quoteterms', 'QuoteTermController@edit')->name('quoteterms')->middleware('auth');
@@ -141,3 +143,5 @@ Route::get('/getSubcategories/{id}', 'QuoteController@getSubCategories')->name('
 Route::get('/getItems/{id}', 'QuoteController@getItems')->name('getItems')->middleware('auth');
 Route::get('/getDescription/{id}', 'QuoteController@getDescription')->name('getDescription')->middleware('auth');
 Route::get('/calculatePrice/{id}', 'QuoteController@calculatePrice')->name('calculatePrice')->middleware('auth');
+
+Route::post('/quoteStatus', 'QuoteController@quotestatus')->name('quotestatus')->middleware('auth');

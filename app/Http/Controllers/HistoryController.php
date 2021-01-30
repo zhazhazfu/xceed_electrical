@@ -8,12 +8,12 @@ use App\Quote;
 class HistoryController extends Controller
 {
     public function index(Request $request)
-        {   
-            $pageHeading = 'History';
-            $quotes = Quote::all();
-            
-            return view('history', compact('pageHeading', 'quotes'));
-        }
+    {   
+        $pageHeading = 'History';
+        $quotes = Quote::all();
+        
+        return view('history', compact('pageHeading', 'quotes'));
+    }
 
     public function edit($quote_id)
     {

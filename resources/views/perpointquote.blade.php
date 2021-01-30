@@ -110,7 +110,7 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-2">
-                            <input data-id="1" class="form-control" id="quantity" name="quantity" placeholder="Quantity" onchange="getQuantity(this)">
+                            <input data-id="1" class="form-control" id="quantity" name="quantity[]" placeholder="Quantity" onchange="getQuantity(this)">
                         </div>
                         <div class="form-group col-md-4" id="description">
                             <input data-id="1" type="text" class="form-control" name="item_price" id="item_price" placeholder="$0.00" readonly>
@@ -154,6 +154,13 @@
         </div> --}} --}}
             
         </div>
+        <?php
+                            $temp_perpoint_cost = 0;
+                            foreach ($itemhasmaterial->material as $temp_material)
+                            {
+                                $temp_perpoint_cost += $temp_material->material->material_cost*$temp_material->quantity;
+                            }
+                        ?>
         <div class="w-100 border-top"></div>
         <div class="col-sm-12 pb-2">
             <h5 class="pt-3 pb-1">Grand Total</h5>
