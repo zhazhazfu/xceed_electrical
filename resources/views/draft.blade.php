@@ -4,8 +4,77 @@
 
 @section('content')
 
+<!-- total company expenses -->
+@php
+$total = 0;
+@endphp
+@foreach($companyCosts as $companyCost)
+@if($companyCost->companycost_archived == '0')
+@php
+$total += $companyCost->companycost_yearly;
+@endphp
+@endif
+@endforeach
+
+
+<!-- total employee costs -->
+@php
+$total_employee = 0;
+$total_cost_less_super=0;
+@endphp
+@foreach($employeeCosts as $employeeCost)
+@if($employeeCost->employee_archived == '0' && $employeeCost->employee_type == 'Employee')
+@php
+$total_employee += $employeeCost->employee_workercomp + $employeeCost->employee_hoursperweek*
+$employeeCost->employee_basehourly * $employeeCost->employee_weeksperyear*0.095 +
+$employeeCost->employee_phone +$employeeCost->employee_otherweeklycost +
+$employeeCost->employee_vehiclecost + $employeeCost->employee_hoursperweek*
+$employeeCost->employee_basehourly * $employeeCost->employee_weeksperyear;
+$total_cost_less_super+=$employeeCost->employee_workercomp +
+$employeeCost->employee_hoursperweek* $employeeCost->employee_basehourly *
+$employeeCost->employee_weeksperyear*0.095 + $employeeCost->employee_phone
++$employeeCost->employee_otherweeklycost + $employeeCost->employee_vehiclecost +
+$employeeCost->employee_hoursperweek* $employeeCost->employee_basehourly *
+$employeeCost->employee_weeksperyear - $employeeCost->employee_hoursperweek*
+$employeeCost->employee_basehourly * $employeeCost->employee_weeksperyear*0.095;
+@endphp
+@endif
+@endforeach
+
+
+<!-- total sub-contractor costs -->
+@php
+$total_subcontractor = 0;
+$total_cost_less_super=0;
+@endphp
+@foreach($employeeCosts as $employeeCost)
+@if($employeeCost->employee_archived == '0' && $employeeCost->employee_type == 'Sub-Contractor')
+@php
+$total_subcontractor += $employeeCost->employee_cash + $employeeCost->employee_workercomp +
+$employeeCost->employee_hoursperweek*
+$employeeCost->employee_basehourly * $employeeCost->employee_weeksperyear*0.095 +
+$employeeCost->employee_phone +$employeeCost->employee_otherweeklycost +
+$employeeCost->employee_vehiclecost + $employeeCost->employee_hoursperweek*
+$employeeCost->employee_basehourly * $employeeCost->employee_weeksperyear;
+$total_cost_less_super+=$employeeCost->employee_workercomp +
+$employeeCost->employee_hoursperweek* $employeeCost->employee_basehourly *
+$employeeCost->employee_weeksperyear*0.095 + $employeeCost->employee_phone
++$employeeCost->employee_otherweeklycost + $employeeCost->employee_vehiclecost +
+$employeeCost->employee_hoursperweek* $employeeCost->employee_basehourly *
+$employeeCost->employee_weeksperyear - $employeeCost->employee_hoursperweek*
+$employeeCost->employee_basehourly * $employeeCost->employee_weeksperyear*0.095;
+@endphp
+@endif
+@endforeach
+
+<!-- total running cost -->
+@php
+$total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
+@endphp
+
+
 <div class="container rounded border pl-5 pr-5 pb-5">
-    <h2 class="mt-3 mb-4">Create Quote</h2>
+    <h2 class="mt-3 mb-4">Edit Draft</h2>
     <div class="row">
         <div class="col-sm-6 pb-4">
             <p>
@@ -24,8 +93,9 @@
         </div>
         <!-- Forces next column to break new line -->
         <div class="w-100 border-top"></div>
-        <form method="post" action={{url('quoting')}}>
+        <form method="post" action={{url('save_draft')}}>
             {{ csrf_field() }}
+            <input type="hidden" name="quote_id" value="{{$quote->pk_quote_id}}">
             <div class="col-sm-6 pb-2">
                 <h5 class="pt-3 pb-1">Customer Details</h5>
                 <div class="form-row">
@@ -35,7 +105,7 @@
                         <div class="input-group mb-2">
                             <select id="customer_name" name="customer_name" class="form-control" required>
                                 @foreach($customers as $customer)
-                                <option value="{{ $customer->pk_customer_id }}">{{ $customer->customer_name }}</option>
+                                <option @if($quote->customers->pk_customer_id == $customer->pk_customer_id) selected @endif value="{{ $customer->pk_customer_id }}">{{ $customer->customer_name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -51,18 +121,18 @@
                             <label for="quote_prefix">Quote prefix</label>
                             <label class="sr-only" for="quote_prefix">Quote prefix</label>
                             @foreach($prefixes as $prefix)
-                            <option value="{{ $prefix->pk_prefix_id }}">{{ $prefix->prefix_name}}</option>
+                            <option @if($quote->prefix->pk_prefix_id == $prefix->pk_prefix_id) selected @endif value="{{ $prefix->pk_prefix_id }}">{{ $prefix->prefix_name}}</option>
                             @endforeach
                         </select>
                             {{-- @foreach (App\Quote::all() as $quotes )  --}}
-                        @foreach ($quotes as $quote ) 
+                       
                             <label for="quoteNumber"></label>
-                            <input type="hidden" class="form-control" name="quote_number" id="quote_number" value="{{ $quote->prefix->prefix_name }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}" readonly>
+                            <input type="hidden" class="form-control" name="quote_number" id="quote_number" value="{{$quote->quote_number}}" readonly>
                            
-                        @endforeach
+                      
 
                         {{-- <label for="quoteNumber"></label>
-                        <input type="hidden" class="form-control" name="quote_number" id="quote_number" value="{{$quote->prefix->prefix }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}" readonly>   --}}
+                        <input type="hidden" class="form-control" name="quote_number" id="quote_number" value="{{$quote->quote_number}}" readonly>   --}}
                     </div>
                     <div class="form-group col-md-4">
                         <label for="quoteDate">Date</label>
@@ -71,9 +141,9 @@
                     <div class="form-group col-md-4">
                         <label for="quoteDate">Quote status</label>
                         <select class="form-control" id="quote_status" name="quote_status" required="">
-                                <option value="1">Sent</option>
-                                <option value="2">To Do</option>
-                                <option value="3">Pending</option>
+                                <option @if($quote->quote_status == 1) selected @endif value="1">Sent</option>
+                                <option @if($quote->quote_status == 2) selected @endif value="2">To Do</option>
+                                <option @if($quote->quote_status == 3) selected @endif value="3">Pending</option>
                                                     
                         </select>
                     </div>
@@ -82,52 +152,125 @@
         
             <div class="w-100 border-top"></div>
             <div id="select_job">
-                <h5 class="pt-3 pb-1">Job</h5>
-                <div data-id="1" name="select_job_html" id="select_job_html">
-                    <div class="col-sm-12 pb-2">
-                        <div class="form-row">
-                            <div class="form-group col-md-3">
-                                <label for="selectCategory">Category</label>
-                                <select data-id="1" class="form-control" id="selectCategory" onchange="getSubcategory(this)">
-                                    <option value="" selected disabled>Please select a category</option>
-                                    @foreach($categories as $category)
-                                    @if($category->category_archived == '0')
-                                    <option value="{{ $category->pk_category_id }}">{{ $category->category_name }}</option>
-                                    @endif
-                                    @endforeach
-                                </select>
+                <h5 class="pt-3 pb-1">Added Jobs</h5>
+                @php
+                    $final_price = 0;
+                    $final_gst = 0;
+                    $counter = 0;
+                @endphp
+                @foreach ($quote->quotehasitem as $key => $job )
+                    
+                    @php $counter ++; @endphp
+                    <div data-id="{{$key+1}}" name="old_select_job_html" id="old_select_job_html">
+                        <div class="col-sm-12 pb-2">
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
+                                    <label for="selectCategory">Category</label>
+                                    <select data-id="{{$key+1}}" class="form-control" id="selectCategory" onchange="getSubcategory(this)">
+                                        <option value="" selected disabled>Please select a category</option>
+                                        @foreach($categories as $category)
+                                        @if($category->category_archived == '0')
+                                        <option value="{{ $category->pk_category_id }}">{{ $category->category_name }}</option>
+                                        @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-7">
+                                    <label for="selectCategory">Sub-Category</label>
+                                    <select data-id="{{$key+1}}" class="form-control" id="subcategorySelect" name="subcategorySelect" onchange="getItem(this)">
+                                        <option value="" selected disabled>Please select a subcategory</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="selectItemNumber">Item Code</label>
+                                    <select data-id="{{$key+1}}"  class="form-control" id="item_number" name="item_number[]" onchange="getDescription(this)">
+                                        <option value="{{$job->items->pk_item_id}}" selected >{{$job->items->item_number}}</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-group col-md-7">
-                                <label for="selectCategory">Sub-Category</label>
-                                <select data-id="1" class="form-control" id="subcategorySelect" name="subcategorySelect" onchange="getItem(this)">
-                                    <option value="" selected disabled>Please select a subcategory</option>
-                                </select>
+                            <div class="form-row">
+                                <div class="form-group col-md-8" id="description">
+                                    <input data-id="{{$key+1}}" type="text" class="form-control" name="item_description" id="item_description" placeholder="Item Description" value="{{$job->items->item_description}}" readonly>
+                                </div>
+                                <?php 
+                                   $temp_mat_cost = 0;
+                                    foreach ($job->items->itemHasMaterials as $temp_itemHasMaterial)
+                                    {
+                                        $temp_mat_cost += $temp_itemHasMaterial->material->material_cost*$temp_itemHasMaterial->quantity;
+                                    }
+                                    $final_price += number_format(($temp_mat_cost*$grossMargin->gm_rate) + $job->items->item_servicecall + $job->items->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8),2);  
+
+                                    $tmp_gst_price = number_format((($temp_mat_cost*$grossMargin->gm_rate) + $job->items->item_servicecall + $job->items->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2);
+                                    $final_gst += $tmp_gst_price;  
+
+
+                                ?>
+                                <div class="form-group col-md-4" id="description">
+                                    <input data-id="{{$key+1}}" type="text" class="form-control" name="item_price" id="item_price" value="{{$tmp_gst_price}}" placeholder="$0.00" readonly>
+                                </div>
                             </div>
-                            <div class="form-group col-md-2">
-                                <label for="selectItemNumber">Item Code</label>
-                                <select data-id="1" class="form-control" id="item_number" name="item_number[]" onchange="getDescription(this)">
-                                    <option value="" selected disabled>Please select an item</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-8" id="description">
-                                <input data-id="1" type="text" class="form-control" name="item_description" id="item_description" placeholder="Item Description" readonly>
-                            </div>
-                            <div class="form-group col-md-4" id="description">
-                                <input data-id="1" type="text" class="form-control" name="item_price" id="item_price" placeholder="$0.00" readonly>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-sm">
-                                <button data-id="1" id="dublicate_job" class="btn btn-primary">Add Job</button>
-                            </div>
-                            <div class="form-group col-sm float-right">
-                                <button data-id="1" id="remove_job" class="btn btn-danger float-right">Remove Job</button>
-                            </div>
+                           <!--  <div class="form-row">
+                                <div class="form-group col-sm">
+                                    <button data-id="{{$key+1}}" id="dublicate_job" class="btn btn-primary">Add Job</button>
+                                </div>
+                                <div class="form-group col-sm float-right">
+                                    <button data-id="{{$key+1}}" id="remove_job" class="btn btn-danger float-right">Remove Job</button>
+                                </div>
+                            </div> -->
                         </div>
                     </div>
-                </div>
+                @endforeach
+
+            </div>
+                <input type="hidden" name="counter" value="{{$counter}}">
+                <div class="w-100 border-top"></div>
+                    <div id="select_job">
+                        <h5 class="pt-3 pb-1">New Job</h5>
+                    <div data-id="{{$counter}}" name="select_job_html" id="select_job_html">
+                            <div class="col-sm-12 pb-2">
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <label for="selectCategory">Category</label>
+                                        <select data-id="{{$counter}}" class="form-control" id="selectCategory" onchange="getSubcategory(this)">
+                                            <option value="" selected disabled>Please select a category</option>
+                                            @foreach($categories as $category)
+                                            @if($category->category_archived == '0')
+                                            <option value="{{ $category->pk_category_id }}">{{ $category->category_name }}</option>
+                                            @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-7">
+                                        <label for="selectCategory">Sub-Category</label>
+                                        <select data-id="{{$counter}}" class="form-control" id="subcategorySelect" name="subcategorySelect" onchange="getItem(this)">
+                                            <option value="" selected disabled>Please select a subcategory</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="selectItemNumber">Item Code</label>
+                                        <select data-id="{{$counter}}" class="form-control" id="item_number" name="item_number[]" onchange="getDescription(this)">
+                                            <option value="" selected disabled>Please select an item</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-8" id="description">
+                                        <input data-id="{{$counter}}" type="text" class="form-control" name="item_description" id="item_description" placeholder="Item Description" readonly>
+                                    </div>
+                                    <div class="form-group col-md-4" id="description">
+                                        <input data-id="{{$counter}}" type="text" class="form-control" name="item_price" id="item_price" placeholder="$0.00" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-sm">
+                                        <button data-id="{{$counter}}" id="dublicate_job" class="btn btn-primary">Add Job</button>
+                                    </div>
+                                    <div class="form-group col-sm float-right">
+                                        <button data-id="{{$counter}}" id="remove_job" class="btn btn-danger float-right">Remove Job</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
             </div>
 
             <div class="w-100 border-top"></div>
@@ -143,7 +286,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">$</div>
                             </div>
-                            <input type="text" class="form-control price_input" id="inlineFormInputGroup" name="price"
+                            <input type="text" class="form-control price_input" id="inlineFormInputGroup" value="{{$final_price}}" name="price"
                                 placeholder="" readonly>
                         </div>
                     </div>
@@ -154,7 +297,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">$</div>
                             </div>
-                            <input type="text" class="form-control gst_input" id="inlineFormInputGroup" name="gst_price"
+                            <input type="text" class="form-control gst_input" id="inlineFormInputGroup" value="{{$final_gst}}" name="gst_price"
                                 placeholder="" readonly>
                         </div>
                     </div>
@@ -179,7 +322,7 @@
 
                                     <button style="display: inline" id="duplicate_inc" class="btn btn-primary float-right my-2">Add</button>
 
-                                    <textarea class="form-control" id="inc_name" name="inc_name" rows="5" required></textarea>
+                                    <textarea class="form-control" id="inc_name" name="inc_name" rows="5"  required>{{$quote->inclusions}}</textarea>
                                     
                                 </div>  
                             </div>
@@ -205,7 +348,7 @@
 
                                 <button style="display: inline" id="duplicate_exc" class="btn btn-primary float-right my-2">Add</button>
 
-                                <textarea class="form-control" id="exc_name" name="exc_name" rows="5" required></textarea>
+                                <textarea class="form-control" id="exc_name" name="exc_name" rows="5" required>{{$quote->exclusions}}</textarea>
 
                                 <!-- <select class="form-control" id="exc_name" name="exc_name" required>
                                     @foreach($exclusions as $quoteexc)
@@ -229,7 +372,7 @@
                     <div class="form-group col-md-8">
                         <select class="form-control" id="term_name" name="term_name" required>
                             @foreach($quoteterms as $quoteterm)
-                            <option value="{{ $quoteterm->pk_term_id }}">{{ $quoteterm->term_name }}</option>
+                            <option @if($quote->quoteterms->pk_term_id == $quoteterm->pk_term_id) selected @endif value="{{ $quoteterm->pk_term_id }}">{{ $quoteterm->term_name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -243,7 +386,7 @@
                     <div class="form-group">
                     </div>
                     <div class="form-group col-md-8">
-                        <input text="text" class="form-control" id="quote_comment" name="quote_comment" required>
+                        <input text="text" class="form-control" id="quote_comment" name="quote_comment" value="{{$quote->quote_comment}}" required>
                     </div>
                 </div>
             </div>
@@ -252,8 +395,7 @@
             <div class="col-sm-12">
                 <div class="form-row float-right">
                     <button type="button" class="btn btn-secondary m-2">Cancel</button>
-                    <button type="button" class="btn btn-secondary m-2">Save</button>
-                    <button type="submit" class="btn btn-primary m-2">Generate Quote</button>
+                    <button type="submit" class="btn btn-primary m-2">save Quote</button>
                 </div>
             </div>
         </form>
@@ -269,7 +411,7 @@
         var id = $(this).children(":selected").attr("id");
     });
 
-    var count = 1; //counter for data-id
+    var count = {{$counter}}; //counter for data-id
     
     function calculateTotal() {
         var id_values = $("select[name='item_number[]']").map(function(){return $(this).val();}).get();
@@ -303,7 +445,7 @@
         // number = number - 1;
         
         $.ajax({
-            url: "getSubcategories/" + optionSelected,
+            url: "/getSubcategories/" + optionSelected,
             context: document.body
         }).done(function(data) {
             // alert(data);
@@ -375,7 +517,7 @@
         // $('#item_number[]').find('option').not(':first').remove();
 
         $.ajax({
-            url: "getItems/" + optionSelected,
+            url: "/getItems/" + optionSelected,
             context: document.body
         }).done(function(data) {
             $iteration = 0;
@@ -442,7 +584,7 @@
             
             document.getElementsByName('item_description')[x].value = "Item Description";
             document.getElementsByName('item_price')[x].value= "$0.00";
-            calculateTotal();
+           // calculateTotal();
         });
     }
 
@@ -476,7 +618,7 @@
         // });
 
         $.ajax({
-            url: "getDescription/" + optionSelected,
+            url: "/getDescription/" + optionSelected,
             context: document.body
 
         }).done(function(data) {
@@ -513,7 +655,7 @@
     function calculatePrice(id,counter) {
         // alert("calculating price...");
         $.ajax({
-            url: "calculatePrice/" + id,
+            url: "/calculatePrice/" + id,
             context: document.body
         }).done(function(data) {
             console.log("price = " + data.price);
@@ -526,38 +668,41 @@
         });
     };
 
-    $(document).ready(function(){   //add and remove the jobs
+    $(document).ready(function(){ 
+     var check = 0;  //add and remove the jobs
         $("#dublicate_job").click(function(e){
             e.preventDefault();
             // iterate the counter
-            count++;
-            //alert("new count = " + count);
-
-            // get the section
-            var copy = $("#select_job_html").clone(true);
-
-            //reach the children of the section (it's a bit nested)
-            var c = copy.children().children().children().children();
-
-            // this code showed the tags of each child, e.g. "DIV, SELECT, DIV..."
-            // var txt = "";
-            // var i;
-            // for (i = 0; i < d.length; i++) {
-            //     txt = txt + d[i].tagName + ", ";
-            // }
-
-            // sets the data-id attribute for each selectable element (form controls and such)
-            copy[0].setAttribute('data-id', count);
-            c[1].setAttribute('data-id', count);
-            c[3].setAttribute('data-id', count);
-            c[5].setAttribute('data-id', count);
-            c[6].setAttribute('data-id', count);
-            c[7].setAttribute('data-id', count);
-            c[8].setAttribute('data-id', count);
-            c[9].setAttribute('data-id', count);
             
-            $("#select_job").append(copy);
-            calculateTotal();
+                count++;
+                //alert("new count = " + count);
+
+                // get the section
+                var copy = $("#select_job_html").clone(true);
+
+                //reach the children of the section (it's a bit nested)
+                var c = copy.children().children().children().children();
+
+                // this code showed the tags of each child, e.g. "DIV, SELECT, DIV..."
+                // var txt = "";
+                // var i;
+                // for (i = 0; i < d.length; i++) {
+                //     txt = txt + d[i].tagName + ", ";
+                // }
+
+                // sets the data-id attribute for each selectable element (form controls and such)
+                copy[0].setAttribute('data-id', count);
+                c[1].setAttribute('data-id', count);
+                c[3].setAttribute('data-id', count);
+                c[5].setAttribute('data-id', count);
+                c[6].setAttribute('data-id', count);
+                c[7].setAttribute('data-id', count);
+                c[8].setAttribute('data-id', count);
+                c[9].setAttribute('data-id', count);
+                
+                $("#select_job").append(copy);
+                calculateTotal();
+            
         });
     
         // remove a job from the menu

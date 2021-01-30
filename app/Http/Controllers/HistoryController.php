@@ -22,8 +22,11 @@ class HistoryController extends Controller
     public function index()
     {
         $pageHeading = 'History';
-        $tmp_perpoint = Perpointquote::get();
-        $tmp_quotes = Quote::get();
+        /*$tmp_perpoint = Perpointquote::get();
+        $tmp_quotes = Quote::get();*/
+        $tmp_perpoint = Perpointquote::where('perpoint_status','!=',3)->get();
+        $tmp_quotes = Quote::where('quote_status','!=',3)->get();
+
 
         foreach($tmp_perpoint as $key => $data)
         {

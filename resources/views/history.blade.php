@@ -28,8 +28,9 @@
                       <th scope="col">Quote Number</th>
                       <th scope="col">Quote Date</th>
                       <th scope="col">Client Name</th>
-                      <th scope="col">Description</th>
+                      <th scope="col">Comment</th>
                       <th scope="col">Type</th>
+                      <th scope="col">Status</th>
                   </tr>
               </thead>
               <tbody>
@@ -38,11 +39,19 @@
                             <td>{{ $quote->prefix->prefix_name }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}</td>
                             <td>{{$quote->created_at}}</td>
                             <td>{{$quote->customers->customer_name}}</td>
-                            <td>{{$quote->quote_comment}}</td>
+                            <td><input type="text" class="form-control ordercomment{{$quote->pk_quote_id}}" id="comment" value="{{$quote->quote_comment}}" ></td>
                             <td>{{$quote->type}}</td>
+                            <td class="col-2">
+                                <select class="btn btn-lg  custom-select orderStatus{{$quote->pk_quote_id}}" id="inputGroupSelect01">
+                                    
+                                    <option <?php if($quote->quote_status == "2") echo 'selected'; ?> value="2">todo</option>
+                                    <option <?php if($quote->quote_status == "1") echo 'selected'; ?> value="1">sent</option>
+                                </select>
+                            </td>
                             <td>
                             <button type="button" class="btn btn-primary badge-pill" style="width:80px;">View</button>
                             <button type="button" class="btn btn-danger badge-pill"style="width:80px;">Delete</button>
+                            <button class="btn btn-success badge-pill statusChange" value="{{$quote->pk_quote_id}}">Save</button>
                             </td>
                         </tr>
                   @endforeach
@@ -53,3 +62,45 @@
 
 </html>
 @endsection
+
+@push('js')
+<script type="text/javascript">
+                    
+    $(document).ready(function(){ 
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            } });
+                        $(".statusChange").click(function(e){
+                            e.preventDefault();
+                             var id = $(this).val();  
+                             var value = $('.orderStatus'+id).val();
+                             var comment = $('.ordercomment'+id).val(); 
+                             console.log(value); 
+                             var container = $('.tableDiv');
+                           
+                    
+                            $.ajax({
+                    
+                               type:'POST',
+                    
+                               url:'{{ URL::to('/quoteStatus') }}',
+                               
+                    
+                               data:{ value: value,id: id,comment: comment},
+                                
+                               success:function(data){
+                                  alert("Quote Updated");
+                               },
+                              
+                                error:function(data){alert("try again");}
+                            });
+                      }); 
+
+                }); 
+
+</script>
+                        
+                    
+
+@endpush

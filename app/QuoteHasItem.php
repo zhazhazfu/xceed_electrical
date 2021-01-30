@@ -17,11 +17,11 @@ class QuoteHasItem extends Model
 
     public function quotes()
     {
-        return $this->belongsTo(Quote::class);
+        return $this->belongsTo(Quote::class,'fk_quote_id');
     }
 
     public function items()
     {
-        return $this->belongsTo(Items::class);
+        return $this->belongsTo(Items::class,'fk_item_id');
     }
 }

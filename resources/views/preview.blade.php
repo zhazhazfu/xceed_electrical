@@ -78,11 +78,11 @@
             <br>
             <p class="font-weight-bold"><u> Inclusions </u></p>
             {{-- @forEach($inclusion as $inclusion)@endforeach --}}
-            <p>#data {{$quote->inclusions->inclusion_Content}}</p>
+            <p>#data {{$quote->inclusions}}</p>
 
             <p class="font-weight-bold"><u> Exclusions </u></p>
             {{-- @forEach($exclusion as $exclusion)@endforeach --}}
-            <p>#data {{$quote->exclusions->exclusion_Content}}</p>
+            <p>#data {{$quote->exclusions}}</p>
 
             <p class="font-weight-bold"><u> Terms and Conditions </u></p>
             {{-- @forEach($quoteterms as $quoteterm)@endforeach --}}

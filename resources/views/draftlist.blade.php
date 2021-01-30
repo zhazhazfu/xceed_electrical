@@ -13,54 +13,33 @@
 <body>
 <h3> Draft list</h3>
 <div class="table-responsive-sm">
-<table class="table table-hover">
-<thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Quote ID</th>
-      <th scope="col">Quote Date</th>
-      <th scope="col">Client Name</th>
-      <th scope="col">Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-
-      <th scope="row">1</th>
-      <td>1846453</td>
-      <td>12/12/2020</td>
-      <td>James Anderson</td>
-      <td>Lightning</td>
-      <td >
-      <button type="button" class="btn btn-primary badge-pill" style="width:80px;">Edit</button>
-      <button type="button" class="btn btn-danger badge-pill"style="width:80px;">Delete</button>
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>1846454</td>
-      <td>13/12/2020</td>
-      <td>Johnny Thornton</td>
-      <td>CCTV</td>
-      <td >
-      <button type="button" class="btn btn-primary badge-pill" style="width:80px;">Edit</button>
-      <button type="button" class="btn btn-danger badge-pill"style="width:80px;">Delete</button>
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>1846455</td>
-      <td>13/12/2020</td>
-      <td>Sammy John</td>
-      <td>Alarms</td>
-      <td >
-      <button type="button" class="btn btn-primary badge-pill" style="width:80px;">Edit</button>
-      <button type="button" class="btn btn-danger badge-pill"style="width:80px;">Delete</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-</div>
+          <table id="active_table" class="table table-hover" class="table-responsive">
+              <thead>
+                  <tr>
+                      <th scope="col">Quote Number</th>
+                      <th scope="col">Quote Date</th>
+                      <th scope="col">Client Name</th>
+                      <th scope="col">Comment</th>
+                      <th scope="col">Type</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  @foreach($quotes as $quote)
+                        <tr>
+                            <td>{{ $quote->prefix->prefix_name }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}</td>
+                            <td>{{$quote->created_at}}</td>
+                            <td>{{$quote->customers->customer_name}}</td>
+                            <td>{{$quote->quote_comment}}</td>
+                            <td>{{$quote->type}}</td>
+                            <td>
+                            <a href="{{url('/draftlist/edit/'.$quote->pk_quote_id )}}" class="btn btn-primary badge-pill" style="width:80px;">edit</a>
+                            <button type="button" class="btn btn-danger badge-pill"style="width:80px;">Delete</button>
+                            </td>
+                        </tr>
+                  @endforeach
+              </tbody>
+          </table>
+      </div>
 
 
 </body>

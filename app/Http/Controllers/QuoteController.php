@@ -76,10 +76,11 @@ class QuoteController extends Controller
         $quote->fk_customer_id = $request->get('customer_name');
         $quote->fk_user_id = Auth::user()->pk_user_id;
         $quote->fk_term_id = $request->get('term_name'); 
-        $quote->fk_in_id = $request->get('inc_name');
-        $quote->fk_ex_id = $request->get('exc_name');
+        $quote->inclusions = $request->get('inc_name');
+        $quote->exclusions = $request->get('exc_name');
         $quote->fk_prefix_id = $request->get('quote_prefix');
         $quote->quote_number = $request->get('quote_number');
+        $quote->quote_status = $request->get('quote_status');
         $quote->quote_revisonnumber = 1;
         $quote->quote_comment = $request->get('quote_comment');
         $quote->save();
@@ -108,6 +109,16 @@ class QuoteController extends Controller
         return View('preview',compact('pageHeading','quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms', 'discounts', 'grossmargins','prefixes','inclusion' ));
     }
 
+    public function quotestatus(Request $request)
+    {
+        $quote = Quote::where('pk_quote_id',$request->get('id'))->first();
+        $quote->quote_status = $request->value;
+        $quote->quote_comment = $request->comment;
+        $quote->save();
+
+        
+        return response()->json(true);
+    }
     public function getSubcategories($id="")
     {
         $sCatNames = array();
