@@ -78,7 +78,7 @@ class QuoteController extends Controller
         $quote->fk_term_id = $request->get('term_name'); 
         $quote->inclusions = $request->get('inc_name');
         $quote->exclusions = $request->get('exc_name');
-        $quote->fk_prefix_id = 1;
+        $quote->fk_prefix_id = $request->get('quote_prefix');
         $quote->quote_number = $request->get('quote_number');
         $quote->quote_revisonnumber = 1;
         $quote->quote_comment = $request->get('quote_comment');
