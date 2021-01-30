@@ -56,8 +56,6 @@ class PreviewController extends Controller
         $pageid = $id;
 
         $pdf =  PDF::loadView('preview',compact('quoteid','quotes', 'quotehasitem', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms','prefixes', 'pageid' ));
-        
-        set_time_limit(10000);
         return $pdf->download('Quote.pdf');
        
     }
