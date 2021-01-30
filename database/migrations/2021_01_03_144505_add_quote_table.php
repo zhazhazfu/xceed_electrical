@@ -23,8 +23,8 @@ class AddQuoteTable extends Migration
             // $table->foreignId('fk_ex_id')->references('pk_ex_id')->on('exclusions');
             $table->foreignId('fk_prefix_id')->references('pk_prefix_id')->on('prefixes');
             $table->string('quote_number');
-            $table->string('inclusions');
-            $table->string('exclusions');
+            $table->longText('inclusions');
+            $table->longText('exclusions');
             $table->integer('quote_status')->default(1);
             $table->integer('quote_revisonnumber')->nullable();
             $table->string('quote_comment')->nullable();
