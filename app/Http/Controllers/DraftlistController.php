@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use App\Perpointquote;
 use App\Quote;
 use App\BusinessDetail;
@@ -20,7 +19,6 @@ use App\EmployeeCost;
 use App\Discount;
 use App\GrossMargin;
 Use App\prefix;
-use App\ItemHasMaterials;
 use App\QuoteHasItem;
 class DraftlistController extends Controller
 {
@@ -28,24 +26,9 @@ class DraftlistController extends Controller
     {
         //
         $pageHeading = 'Draft list';
+        $quotes = Quote::all();
 
-        $tmp_perpoint = Perpointquote::where('perpoint_status',3)->get();
-        $tmp_quotes = Quote::where('quote_status',3)->get();
-
-        foreach($tmp_perpoint as $key => $data)
-                    {
-                        $data->type = 'per point quote';
-                       
-                    }
-        foreach($tmp_quotes as $key => $data)
-                    {
-                        $data->type = 'fixed quote';
-                        
-                    }
-        $quotes = $tmp_quotes->merge($tmp_perpoint);
-
-        return view('draftlist',[
-            'pageHeading' => $pageHeading])->with(['quotes'=>$quotes]);
+        return view('draftlist',compact('pageHeading','quotes'));
     }
 
     public function edit(Request $request, $id)
