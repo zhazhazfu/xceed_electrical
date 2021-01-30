@@ -49,9 +49,18 @@
                 </p>
                             
                 <p> #quote description </p>
+                @foreach ($quotehasitem as $quotehasitem)
+                @if ($quotehasitem->fk_quote_id == $pageid)
+                    {{-- <p class="font-weight-bold"> item : <p>${{$quotehasitem->items}}</p> --}}
+                    <p class="font-weight-bold"> item : <p>${{$quotehasitem->items->item_number}}</p>
+                    <p class="font-weight-bold"> item : <p>${{$quotehasitem->items->item_description}}</p>
+                    <p class="font-weight-bold"> item : <p>${{$quotehasitem->items}}</p>
+                @endif
+            
+               
 
                 <br>
-                @foreach ($quotehasitem as $quotehasitem)
+                {{-- @foreach ($quotehasitem as $quotehasitem) --}}
                 @if ($quotehasitem->fk_quote_id == $pageid)
                     <p class="font-weight-bold"> Sub Total Amount : <p>${{$quotehasitem->price}}</p>
                     <p class="font-weight-bold"> Total Amount : <p>${{$quotehasitem->GST_price}}</p> 
@@ -78,7 +87,7 @@
                 <p>Thanks & Regards,<br></p>
                 <p>Jayson Conceicao </p>
             </div>
-            @endif
+            @endif 
             @endforeach
         </div>
     </div>
