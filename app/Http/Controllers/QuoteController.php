@@ -76,8 +76,8 @@ class QuoteController extends Controller
         $quote->fk_customer_id = $request->get('customer_name');
         $quote->fk_user_id = Auth::user()->pk_user_id;
         $quote->fk_term_id = $request->get('term_name'); 
-        $quote->fk_in_id = $request->get('inc_name');
-        $quote->fk_ex_id = $request->get('exc_name');
+        $quote->inclusions = $request->get('inc_name');
+        $quote->exclusions = $request->get('exc_name');
         $quote->fk_prefix_id = $request->get('quote_prefix');
         $quote->quote_number = $request->get('quote_number');
         $quote->quote_revisonnumber = 1;
