@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Perpointquote;
+use App\Quote;
 use App\BusinessDetail;
 use App\Customer;
 use App\Category;
@@ -17,18 +17,16 @@ use App\EmployeeCost;
 use App\Discount;
 use App\GrossMargin;
 Use App\prefix;
-use App\ItemHasMaterials;
 use App\QuoteHasItem;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Arr;
 
 class PerpointController extends Controller
 {
     public function index()
         {
-            $pageHeading = 'Per Point Quoting';
-            $perpointquotes = Perpointquote::all();
+            $pageHeading = 'Quoting';
+            $quotes = Quote::all();
             $businessDetails = BusinessDetail::first();
             $customers = Customer::all();
             $categories = Category::all();
@@ -43,18 +41,8 @@ class PerpointController extends Controller
             $companyCosts = CompanyCost::all();
             $employeeCosts = EmployeeCost::all();
     
-            return view('perpointquote', compact('pageHeading', 'perpointquotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms', 'discounts', 'grossmargins', 'exclusions', 'inclusions', 'companyCosts', 'employeeCosts', 'prefixes'));
+            return view('perpointquote', compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms', 'discounts', 'grossmargins', 'exclusions', 'inclusions', 'companyCosts', 'employeeCosts', 'prefixes'));
         }
-
-    // public function show($id="")
-    // {
-    //     $pageHeading = 'Quoting';
-    //     $category = Category::find($id);
-    //     $subCategories = $category->subCategories;
-    //     $categoryName = $category->category_name;
-  
-    //     return view('quoting', compact('pageHeading', 'subCategories', 'categoryName'));
-    // }
 
     public function store(Request $request) 
     {
@@ -71,7 +59,7 @@ class PerpointController extends Controller
         ]);
         
         $business = BusinessDetail::where('businessdetail_email','info@xceedelectrical.com.au')->first();
-        $quote = new Perpointquote;
+        $quote = new Quote;
         $quote->fk_businessdetail_id = $business->pk_businessdetail_id;
         $quote->fk_customer_id = $request->get('customer_name');
         $quote->fk_user_id = Auth::user()->pk_user_id;
@@ -86,8 +74,9 @@ class PerpointController extends Controller
 
         foreach ($request->get('item_number') as $key => $value) {
             $QuoteHasItem = new QuoteHasItem();
-            $QuoteHasItem->fk_quote_id = $quote->pk_perpoint_id;
+            $QuoteHasItem->fk_quote_id = $quote->pk_quote_id;
             $QuoteHasItem->fk_item_id = $value;
+            $QuoteHasItem->item_quantity = $request->get('item_quantity');
             $QuoteHasItem->price = $request->get('price');
             $QuoteHasItem->GST_price = $request->get('gst_price');
             $QuoteHasItem->save();
@@ -118,7 +107,10 @@ class PerpointController extends Controller
         $iNames = Arr::pluck($result, 'item_number');
         $iIDs = Arr::pluck($result, 'pk_item_id');
 
-        
+        return response()->json([
+            'id' => $iIDs,
+            'name' => $iNames, 
+        ]);
     }
 
     public function getDescription($id="")
@@ -131,7 +123,6 @@ class PerpointController extends Controller
             'id' => $resultName, 
         ]);
     }
-
 
     public function calculatePrice($id="")
     {
@@ -207,66 +198,7 @@ class PerpointController extends Controller
         return response()->json(['price' => $price]);
     }
 
-    // public function total_pricings(Request $request)
-    // {
-    //     $companyCosts = CompanyCost::all();
-    //     $employeeCosts = EmployeeCost::all();
-    //     //--------------------------total company expenses-----------------------------------
-    //     $total = 0;
-    //     foreach ($companyCosts as $companyCost) {
-    //         if($companyCost->companycost_archived == '0')
-    //         {
-    //             $total += $companyCost->companycost_yearly;
-    //         }
-    //     }
-    //     //--------------------------------------------------------------
-    //     //--------------------------total employee costs-----------------------------------
-    //     $total_employee = 0;
-    //     $total_cost_less_super=0;
-    //     foreach ($employeeCosts as $employeeCost) {
-    //         if($employeeCost->employee_archived == '0' && $employeeCost->employee_type == 'Employee')
-    //         {
-    //             $total_employee += $employeeCost->employee_workercomp + $employeeCost->employee_hoursperweek*
-    //             $employeeCost->employee_basehourly * $employeeCost->employee_weeksperyear*0.095 +
-    //             $employeeCost->employee_phone +$employeeCost->employee_otherweeklycost +
-    //             $employeeCost->employee_vehiclecost + $employeeCost->employee_hoursperweek*
-    //             $employeeCost->employee_basehourly * $employeeCost->employee_weeksperyear;
-
-    //             $total_cost_less_super+=$employeeCost->employee_workercomp +
-    //             $employeeCost->employee_hoursperweek* $employeeCost->employee_basehourly *
-    //             $employeeCost->employee_weeksperyear*0.095 + $employeeCost->employee_phone
-    //             +$employeeCost->employee_otherweeklycost + $employeeCost->employee_vehiclecost +
-    //             $employeeCost->employee_hoursperweek* $employeeCost->employee_basehourly *
-    //             $employeeCost->employee_weeksperyear - $employeeCost->employee_hoursperweek*
-    //             $employeeCost->employee_basehourly * $employeeCost->employee_weeksperyear*0.095;
-    //         }
-    //     }
-    //     //--------------------------------------------------------------
-    //     //--------------------------total sub-contractor costs-----------------------------------
-    //     $total_subcontractor = 0;
-    //     $total_cost_less_super=0;
-    //     foreach ($employeeCosts as $employeeCost) {
-    //         if($employeeCost->employee_archived == '0' && $employeeCost->employee_type == 'Sub-Contractor')
-    //         {
-    //             $total_subcontractor += $employeeCost->employee_cash + $employeeCost->employee_workercomp +
-    //             $employeeCost->employee_hoursperweek*
-    //             $employeeCost->employee_basehourly * $employeeCost->employee_weeksperyear*0.095 +
-    //             $employeeCost->employee_phone +$employeeCost->employee_otherweeklycost +
-    //             $employeeCost->employee_vehiclecost + $employeeCost->employee_hoursperweek*
-    //             $employeeCost->employee_basehourly * $employeeCost->employee_weeksperyear;
-
-    //             $total_cost_less_super+=$employeeCost->employee_workercomp +
-    //             $employeeCost->employee_hoursperweek* $employeeCost->employee_basehourly *
-    //             $employeeCost->employee_weeksperyear*0.095 + $employeeCost->employee_phone
-    //             +$employeeCost->employee_otherweeklycost + $employeeCost->employee_vehiclecost +
-    //             $employeeCost->employee_hoursperweek* $employeeCost->employee_basehourly *
-    //             $employeeCost->employee_weeksperyear - $employeeCost->employee_hoursperweek*
-    //             $employeeCost->employee_basehourly * $employeeCost->employee_weeksperyear*0.095;
-    //         }
-    //     }
-    //             $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
-    // }
-
+    
     public function quote_pricings(Request $request)
     {
             

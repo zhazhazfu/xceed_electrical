@@ -43,12 +43,12 @@ Route::get('/suppliers', 'SupplierController@edit')->name('suppliers')->middlewa
 Route::resource('suppliers', 'SupplierController')->middleware('auth');
 
 Route::get('/quoting', 'QuoteController@index')->name('quoting')->middleware('auth');
-Route::get('/quoting', 'QuoteController@edit')->name('quoting')->middleware('auth');
 Route::resource('quoting', 'QuoteController')->middleware('auth');
 
 Route::post('/quote_pricings', 'QuoteController@quote_pricings')->name('quote_pricings')->middleware('auth');
 
 Route::get('/perpointquote', 'PerpointController@index')->name('perpointquote')->middleware('auth');
+Route::resource('perpointquote', 'PerpointController')->middleware('auth');
 
 Route::get('/quotesetting', 'QuotesettingController@index')->name('quotesetting')->middleware('auth');
 Route::get('/quotesetting', 'QuotesettingController@edit')->name('quotesetting')->middleware('auth');
