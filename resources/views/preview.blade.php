@@ -1,14 +1,8 @@
 @extends('layouts.previewapp')
 
- @section('title', 'Preview') 
 
  @section('content') 
 <!-- --------------- -->
-<head>
-    <title>Preview</title>
-</head>
-
-<h1> Preview </h1>
 <html>
     <div class="container rounded border pl-5 pr-5 pb-5 ">
         
