@@ -86,9 +86,9 @@ Route::post('/preview', 'PreviewController@index')->name('preview')->middleware(
 // Route::get('/previewPDF', 'PreviewPDFController@generatePDF')->name('preview')->middleware('auth');
 Route::get('/preview', 'PreviewController@generatePDF')->name('preview')->middleware('auth');
 
-Route::get('session/get','SessionController@accessSessionData');
-Route::get('session/set','SessionController@storeSessionData');
-Route::get('session/remove','SessionController@deleteSessionData');
+// Route::get('session/get','SessionController@accessSessionData');
+// Route::get('session/set','SessionController@storeSessionData');
+// Route::get('session/remove','SessionController@deleteSessionData');
 
 Route::get('/grossmargin', 'GrossMarginController@index')->name('grossmargin')->middleware('auth');
 Route::get('/grossmargin', 'GrossMarginController@edit')->name('grossmargin')->middleware('auth');
