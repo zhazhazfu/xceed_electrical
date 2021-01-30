@@ -15,7 +15,7 @@
         <div class="row">
         
             <div class="col-sm-4 mt-5 pt-5">
-                <img src="images/Xceed_logo_small_01-copy1.png" class="img-fluid align-middle" width="350px" alt="Responsive image">
+                <img src="{{ asset('./images/Xceed_logo_small_01-copy1.png') }}" class="img-fluid align-middle" width="350px" alt="Responsive image">
             </div>
 
             <div class="col-sm-4">
