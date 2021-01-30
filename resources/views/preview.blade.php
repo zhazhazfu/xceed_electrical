@@ -78,10 +78,6 @@
                 <p>Thanks & Regards,<br></p>
                 <p>Jayson Conceicao </p>
             </div>
-            <div>
-                <a href="/{{ 'history' }}" class="mx-1 btn btn-primary"> Close </a>
-                <a href="{{ url('/preview/'.$quote['pk_quote_id']."/download") }}" class="btn btn-success"> Generate PDF </a>
-            </div>
             @endif
             @endforeach
         </div>
