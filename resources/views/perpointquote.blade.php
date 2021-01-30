@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Quoting')
+@section('title', 'PerPointQuoting')
 
 @section('content')
 
@@ -25,7 +25,8 @@
         <!-- Forces next column to break new line -->
         <div class="w-100 border-top"></div>
         <div class="col-sm-6 pb-2">
-            <form>
+            <form method="post" action={{url('perpointquote')}}>
+                {{ csrf_field() }}
                 <h5 class="pt-3 pb-1">Customer Details</h5>
                 <div class="form-row">
                     <div class="form-group col-md-12">
@@ -63,8 +64,23 @@
             <h5 class="pt-3 pb-1">Quote Details</h5>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="quoteNumber">Quote Number</label>
-                    <input type="text" class="form-control" id="quoteNumber">
+                    <label for="input">Quote Prefix</label>
+                        <select class="form-control" id="quote_prefix" name="quote_prefix" required>
+                            <label for="quote_prefix">Quote prefix</label>
+                            <label class="sr-only" for="quote_prefix">Quote prefix</label>
+                            @foreach($prefixes as $prefix)
+                            <option value="{{ $prefix->pk_prefix_id }}">{{ $prefix->prefix_name}}</option>
+                            @endforeach
+                        </select>
+                            {{--@foreach (App\Perpointquote::all() as $quotes )  --}}
+                        @foreach ($perpointquotes as $pquote ) 
+                            <label for="quoteNumber"></label>
+                            <input type="hidden" class="form-control" name="quote_number" id="quote_number" value="{{ $pquote->prefix->prefix_name }}-{{str_pad($pquote->quote_number, 4, '0', STR_PAD_LEFT)}}" readonly>
+                           
+                        @endforeach
+
+                        {{--<label for="quoteNumber"></label>
+                        <input type="hidden" class="form-control" name="quote_number" id="quote_number" value="{{$quote->prefix->prefix }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}" readonly>   --}}
                 </div>
                 <div class="form-group col-md-6">
                     <label for="quoteDate">Date</label>
@@ -118,10 +134,10 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-sm">
-                            <button data-id="1" id="dublicate_job" class="btn btn-primary">Add Job</button>
+                            <button data-id="1" id="dublicate_job" class="btn btn-primary">Add Item</button>
                         </div>
                         <div class="form-group col-sm float-right">
-                            <button data-id="1" id="remove_job" class="btn btn-danger float-right">Remove Job</button>
+                            <button data-id="1" id="remove_job" class="btn btn-danger float-right">Remove Item</button>
                         </div>
                     </div>
                 </div>
@@ -151,7 +167,7 @@
                     </div>
                 </div>
             </div>
-        </div> --}} --}}
+        </div> --}}
             
         </div>
         <div class="w-100 border-top"></div>
@@ -192,15 +208,19 @@
                     <div id="select_inc_html">
                         <div class="form-row">
                             <div class="form-group">
-                                <div class="form-group col-md-8">
+                                <div class="form-group w-100">
                                     <label for="quote_inclusions">Inclusions</label>
-                                    <select class="form-control" id="inc_name" name="inc_name" required>
+                                    <br>
+                                    <select style="display: inline" class="form-control col-md-11 my-2" id="inc_selector" name="inc_selector" required>
                                         @foreach($inclusions as $quoteinc)
                                         <option value="{{ $quoteinc->pk_in_id }}">{{ $quoteinc->inclusion_Content }}</option>
                                         @endforeach
                                     </select>
-                                    <button id="duplicate_inc" class="btn btn-primary my-2">Add</button>
-                                    <button id="remove_inc" class="btn btn-danger">Remove</button>
+
+                                    <button style="display: inline" id="duplicate_inc" class="btn btn-primary float-right my-2">Add</button>
+
+                                    <textarea class="form-control" id="inc_name" name="inc_name" rows="5" required></textarea>
+                                    
                                 </div>  
                             </div>
                         </div>
@@ -213,15 +233,27 @@
                 <div id="select_exc">
                     <div id="select_exc_html">
                         <div class="form-row">
-                            <div class="form-group col-md-8 mx-2">
+                            <div class="form-group w-100">
                                 <label for="quote_exclusions">Exclusions</label>
-                                <select class="form-control" id="exc_name" name="exc_name" required>
+
+                                <br>
+                                <select style="display: inline" class="form-control col-md-11 my-2" id="exc_selector" name="exc_selector" required>
+                                    @foreach($inclusions as $quoteinc)
+                                    <option value="{{ $quoteinc->pk_in_id }}">{{ $quoteinc->inclusion_Content }}</option>
+                                    @endforeach
+                                </select>
+
+                                <button style="display: inline" id="duplicate_exc" class="btn btn-primary float-right my-2">Add</button>
+
+                                <textarea class="form-control" id="exc_name" name="exc_name" rows="5" required></textarea>
+
+                                <!-- <select class="form-control" id="exc_name" name="exc_name" required>
                                     @foreach($exclusions as $quoteexc)
                                     <option value="{{ $quoteexc->pk_ex_id }}">{{ $quoteexc->exclusion_Content }}</option>
                                     @endforeach
                                 </select>    
                                 <button id="duplicate_exc" class="btn btn-primary my-2">Add</button>
-                                <button id="remove_exc" class="btn btn-danger">Remove</button>
+                                <button id="remove_exc" class="btn btn-danger">Remove</button> -->
                             </div>
                         </div>
                     </div>
@@ -243,6 +275,18 @@
                     </div>
                 </div>
             </div>
+
+            <div class="w-100 border-top"></div>
+            <div class="col-sm-12 pb-2">
+                <h5 class="pt-3 pb-1">Quote Comment</h5>
+                <div class="form-row">
+                    <div class="form-group">
+                    </div>
+                    <div class="form-group col-md-8">
+                        <input text="text" class="form-control" id="quote_comment" name="quote_comment" required>
+                    </div>
+                </div>
+            </div>
         
             <div class="w-100 border-top"></div>
             <div class="col-sm-12">
@@ -256,8 +300,6 @@
     </div>
 </div>
 
-
-
 @push('js')
 <script type="text/javascript">
     
@@ -266,11 +308,9 @@
     });
 
     var count = 1; //counter for data-id
-
-    
     
     function calculateTotal() {
-        var id_values = $("select[name='item_number']").map(function(){return $(this).val();}).get();
+        var id_values = $("select[name='item_number[]']").map(function(){return $(this).val();}).get();
         console.log(id_values);
 
         $.ajaxSetup({
@@ -326,9 +366,9 @@
 
 
             selectOption = document.getElementsByName('subcategorySelect')[x];
-            selectItems = document.getElementsByName('item_number')[x];
+            selectItems = document.getElementsByName('item_number[]')[x];
 
-            // $('#item_number').find('option').not(':first').remove();
+            // $('#item_number[]').find('option').not(':first').remove();
             // $('#subcategorySelect').find('option').not(':first').remove();
             
             // code to remove the previous selections
@@ -370,7 +410,7 @@
         number = element.getAttribute("data-id");
         // number = number - 1;
         // alert(number);
-        // $('#item_number').find('option').not(':first').remove();
+        // $('#item_number[]').find('option').not(':first').remove();
 
         $.ajax({
             url: "getItems/" + optionSelected,
@@ -378,7 +418,7 @@
         }).done(function(data) {
             $iteration = 0;
 
-            // section = document.getElementsByName('item_number');
+            // section = document.getElementsByName('item_number[]');
             //     console.log(section);
             
             var i;
@@ -393,7 +433,7 @@
                 }
             }
 
-            selectItems = document.getElementsByName('item_number')[x];
+            selectItems = document.getElementsByName('item_number[]')[x];
 
             var countCheck = 0;
             while (selectItems.firstChild) {
@@ -416,7 +456,7 @@
                 $iteration++;
             });
 
-            // var id_values = $("select[name='item_number']").map(function(){return $(this).val();}).get();
+            // var id_values = $("select[name='item_number[]']").map(function(){return $(this).val();}).get();
             // console.log(id_values);
 
             // $.ajaxSetup({
@@ -451,7 +491,7 @@
 
         // alert(optionSelected);
 
-        // var id_values = $("select[name='item_number']").map(function(){return $(this).val();}).get();
+        // var id_values = $("select[name='item_number[]']").map(function(){return $(this).val();}).get();
         // console.log(id_values);
 
         // $.ajaxSetup({
@@ -581,7 +621,7 @@
 
             finalSection = section[x];
 
-            // var id_values = $("select[name='item_number']").map(function(){return $(this).val();}).get();
+            // var id_values = $("select[name='item_number[]']").map(function(){return $(this).val();}).get();
             // console.log(id_values);
 
             // $.ajaxSetup({
@@ -616,24 +656,24 @@
     $(document).ready(function(){  //add and remove the inclusions
         $("#duplicate_inc").click(function(e){
             e.preventDefault();
-            $("#select_inc").append($("#select_inc_html").clone(true));
-        });
-
-        $("#remove_inc").click(function(e){
-            e.preventDefault();
-            $("#select_inc").children($("#select_inc_html").remove());
+            incSel = document.getElementById("inc_selector");
+            incText = incSel[incSel.selectedIndex].text + "; ";
+            // alert(incText);
+            box = document.getElementById("inc_name");
+            // box.innerHTML = (newTxt);
+            $("#inc_name").val(box.value + incText);
         });
     });
     
     $(document).ready(function(){   //add and remove the exclusions
         $("#duplicate_exc").click(function(e){
             e.preventDefault();
-            $("#select_exc").append($("#select_exc_html").clone(true));
-        });
-
-        $("#remove_exc").click(function(e){
-            e.preventDefault();
-            $("#select_exc").children($("#select_exc_html").remove());
+            excSel = document.getElementById("exc_selector");
+            excText = excSel[excSel.selectedIndex].text + "; ";
+            // alert(excText);
+            box = document.getElementById("exc_name");
+            // box.innerHTML = (newTxt);
+            $("#exc_name").val(box.value + excText);
         });
     });
 </script>
@@ -646,6 +686,3 @@
     document.querySelector("#today2").valueAsDate = new Date();
 </script>
 @stop
-
-
-        
