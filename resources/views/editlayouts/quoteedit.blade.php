@@ -30,8 +30,9 @@
                 <div class="form-row">
                     <div class="form-group col-sm">
                         <label for="input">Quote Status</label>
+                         @foreach ($quotes as $quotes)@endforeach
                         <input type="text" class="form-control" id="quote_status" name="quote_status"
-                            value="{{$quotes->quote_status}}">
+                            value="{{$quotes->quote_status}}"> 
                     </div>
                 </div>
                 <div class="form-row">
