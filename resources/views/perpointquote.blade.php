@@ -130,30 +130,15 @@
                 <div class="form-row">
                     <div class="form-group">
                     </div>
-                </div>
-            </div>
-        </div>
-            
-        </div>
-        <?php
-            $temp_perpoint_cost = 0;
-            foreach ($itemhasmaterial->material as $temp_material)
-            {
-                $temp_perpoint_cost += $temp_material->material->material_cost*$temp_material->quantity;
-            }
-        ?>
-        <div class="w-100 border-top"></div>
-        <div class="col-sm-12 pb-2">
-            <h5 class="pt-3 pb-1">Grand Total</h5>
-            <div class="form-row">
-                <div class="form-group">
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="input">Price</label>
-                    <label class="sr-only" for="inlineFormInputGroup">2</label>
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">$</div>
+                    <div class="form-group col-md-2">
+                        <label for="input">Price</label>
+                        <label class="sr-only" for="inlineFormInputGroup">2</label>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">$</div>
+                            </div>
+                            <input type="text" class="form-control price_input" id="inlineFormInputGroup" name="price"
+                                placeholder="" readonly>
                         </div>
                     </div>
                     <div class="form-group col-md-2">
