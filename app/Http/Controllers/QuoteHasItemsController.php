@@ -47,7 +47,7 @@ class QuoteHasItemsController extends Controller
         $quotesid = Quote::find($quote_id);
         $quotes = Quote::all();
 
-        return view('editlayouts.pricelistedit', compact('quotesid', 'quotes', 'pageHeading'));
+        return view('editlayouts.quoteedit', compact('quotesid', 'quotes', 'pageHeading'));
     }
 
     public function update(Request $request, $quote_id)
@@ -63,7 +63,7 @@ class QuoteHasItemsController extends Controller
         $quotes->quote_comment = $request->get('quote_comment');
         $quotes->save();
 
-        return redirect('/histort/'.$quote_id)->with('success', 'Product updated');
+        return redirect('/history/'.$quote_id)->with('success', 'Product updated');
     }
 
 
