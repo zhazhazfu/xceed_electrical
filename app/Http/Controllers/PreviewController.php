@@ -38,7 +38,7 @@ class PreviewController extends Controller
         $quotehasitem = QuoteHasItem::all();
         $pageid = $id;
 
-        return view('preview', compact('pageHeading', 'quoteid','quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms','prefixes', 'pageid'));
+        return view('preview', compact('pageHeading', 'quoteid','quotes', 'quotehasitem', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms','prefixes', 'pageid'));
     } 
 
     public function generatePDF()

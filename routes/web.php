@@ -74,9 +74,9 @@ Route::get('/materials', 'MaterialController@index')->name('materials')->middlew
 Route::get('/materials', 'MaterialController@edit')->name('materials')->middleware('auth');
 Route::resource('materials', 'MaterialController')->middleware('auth');
 
-Route::get('/history', 'QuoteHasItemsController@index')->name('history')->middleware('auth');
-Route::get('/history/{id}/edit', 'QuoteHasItemsController@edit')->middleware('auth');
-Route::patch('/history/{id}/update', 'QuoteHasItemsController@update')->middleware('auth');
+Route::get('/history', 'HistoryController@index')->name('history')->middleware('auth');
+Route::get('/history/{id}/edit', 'HistoryController@edit')->middleware('auth');
+Route::patch('/history/{id}/update', 'HistoryController@update')->middleware('auth');
 
 
 Route::get('/draftlist', 'DraftlistController@index')->name('draftlist')->middleware('auth');

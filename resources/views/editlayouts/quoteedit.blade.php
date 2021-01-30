@@ -24,15 +24,22 @@
     <div class="row">
         <div class="col-sm">
             <h3>Edit Quote</h3>
-            <form method="post" action="{{action('QuoteHasItemsController@update', $quotesid)}}">
+            <form method="post" action="{{action('HistoryController@update', $quotesid)}}">
                 {{csrf_field()}}
                 <input type="hidden" name="_method" value="PATCH">
                 <div class="form-row">
                     <div class="form-group col-sm">
                         <label for="input">Quote Status</label>
                          @foreach ($quotes as $quotes)@endforeach
-                        <input type="text" class="form-control" id="quote_status" name="quote_status"
-                            value="{{$quotes->quote_status}}"> 
+                        <select type="text" class="form-control" id="quote_status" name="quote_status"> 
+                            @if ($quotes->quote_status == 1)
+                            <option value="{{$quotes->quote_status}}" selected> {{$quotes->quote_status}} </option>
+                            <option value="2"> 2 </option>
+                            @else
+                            <option value="1"> 1 </option>
+                            <option value="{{$quotes->quote_status}}" selected> {{$quotes->quote_status}} </option>
+                            @endif
+                        </select>
                     </div>
                 </div>
                 <div class="form-row">

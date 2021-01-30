@@ -55,12 +55,11 @@
                 </p>
                             
                 <p> #quote description </p>
-
+                
                 <br>
 
-                <p class="font-weight-bold"> Sub Total Amount : <p>#data</p> </p>
-                <p class="font-weight-bold"> GST : <p>#data</p> </p>
-                <p class="font-weight-bold"> Total Amount : <p>#data</p> </p> 
+                <p class="font-weight-bold"> Sub Total Amount : <p>{{$quote->quotehasitem->price}}</p>
+                <p class="font-weight-bold"> Total Amount : <p>{{$quote->quotehasitem->GST_price}}</p> 
 
                 <br>
                 <p class="font-weight-bold"><u> Inclusions </u></p>

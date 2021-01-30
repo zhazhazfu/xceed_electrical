@@ -19,6 +19,7 @@ class Quote extends Model
             'exclusions',
             'quote_status', //new
             'quote_comment',
+            'quote_archived',
         ];
 
     public function businessDetails()

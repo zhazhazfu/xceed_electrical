@@ -29,6 +29,7 @@
                       <th scope="col">Quote Date</th>
                       <th scope="col">Client Name</th>
                       <th scope="col">Description</th>
+                      <th scope="col">Status</th>
                   </tr>
               </thead>
               <tbody>
@@ -39,9 +40,19 @@
                             <td>{{$quote->customers->customer_name}}</td>
                             <td>{{$quote->quote_comment}}</td>
                             <td>
+                                @switch($quote->quote_status)
+                                    @case(1)
+                                        <span>To sent</span>
+                                        @break
+                                    @case(2)
+                                        <span>Sent</span>
+                                        @break
+                                    @default
+                                @endswitch
+                            </td>
+                            <td>
                             <a href="{{ url('/preview/'.$quote['pk_quote_id']) }}" class="btn btn-primary badge-pill">View</a>
                             <a href="{{ url('/history/'.$quote['pk_quote_id'].'/edit') }}" class="btn btn-primary badge-pill">Edit</a>
-                            <button type="button" class="btn btn-danger badge-pill"style="width:80px;">Delete</button>
                             </td>
                         </tr>
                   @endforeach
