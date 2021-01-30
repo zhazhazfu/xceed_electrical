@@ -25,7 +25,6 @@ class PreviewController extends Controller
 
     public function show($id="")
     {
-        $pageHeading = 'Preview';
         $quoteid = Quote::find($id);
         $quotes = Quote::all();
         $businessDetails = BusinessDetail::first();
@@ -38,27 +37,26 @@ class PreviewController extends Controller
         $quotehasitem = QuoteHasItem::all();
         $pageid = $id;
 
-        return view('preview', compact('pageHeading', 'quoteid','quotes', 'quotehasitem', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms','prefixes', 'pageid'));
+        return view('preview', compact( 'quoteid','quotes', 'quotehasitem', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms','prefixes', 'pageid'));
     } 
 
-    // public function generatePDF($id="")
-    // {
-    //     $pageHeading = 'Preview';
-    //     $quoteid = Quote::find($id);
-    //     $quotes = Quote::all();
-    //     $businessDetails = BusinessDetail::first();
-    //     $customers = Customer::all();
-    //     $categories = Category::all();
-    //     $subCategories = SubCategory::all();
-    //     $items = Items::all();
-    //     $quoteterms = QuoteTerm::all();
-    //     $prefixes = prefix::all();
-    //     $quotehasitem = QuoteHasItem::all();
-    //     $pageid = $id;
+    public function generatePDF($id)
+    {
+        
+        $quoteid = Quote::find($id);
+        $quotes = Quote::all();
+        $businessDetails = BusinessDetail::first();
+        $customers = Customer::all();
+        $categories = Category::all();
+        $subCategories = SubCategory::all();
+        $items = Items::all();
+        $quoteterms = QuoteTerm::all();
+        $prefixes = prefix::all();
+        $quotehasitem = QuoteHasItem::all();
+        $pageid = $id;
 
-    //     $pdf =  PDF::loadView('preview', compact('pageHeading', 'quoteid','quotes', 'quotehasitem', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms','prefixes', 'pageid'));
-  
-    //     return $pdf->download('Quote.pdf');
-    //     // return view('preview', compact('pageHeading', 'quoteid','quotes', 'quotehasitem', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms','prefixes', 'pageid'));
-    // }
+        $pdf =  PDF::loadView('preview',compact('quoteid','quotes', 'quotehasitem', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms','prefixes', 'pageid' ));
+        return $pdf->download('Quote.pdf');
+       
+    }
 }

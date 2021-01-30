@@ -1,21 +1,15 @@
 @extends('layouts.previewapp')
 
- @section('title', 'Preview') 
 
  @section('content') 
 <!-- --------------- -->
-<head>
-    <title>Preview</title>
-</head>
-
-<h1> Preview </h1>
 <html>
     <div class="container rounded border pl-5 pr-5 pb-5 ">
         
         <div class="row">
         
             <div class="col-sm-4 mt-5 pt-5">
-                <img src="{{ asset('./images/Xceed_logo_small_01-copy1.png') }}" class="img-fluid align-middle" width="350px" alt="Responsive image">
+                <img src="{{ public_path().'/storage/Xceed_logo_small_01-copy1.png' }}" class="img-fluid align-middle" width="350px" alt="Responsive image">
             </div>
 
             <div class="col-sm-4">
@@ -58,7 +52,7 @@
 
                 <br>
                 @foreach ($quotehasitem as $quotehasitem)
-                @if ($quotehasitem->fk_item_id == $pageid)
+                @if ($quotehasitem->fk_quote_id == $pageid)
                     <p class="font-weight-bold"> Sub Total Amount : <p>${{$quotehasitem->price}}</p>
                     <p class="font-weight-bold"> Total Amount : <p>${{$quotehasitem->GST_price}}</p> 
                 @endif
@@ -83,11 +77,6 @@
                 <br>
                 <p>Thanks & Regards,<br></p>
                 <p>Jayson Conceicao </p>
-            </div>
-            <div>
-                <a href="/{{ 'history' }}" class="mx-1 btn btn-primary"> Close </a>
-                <!-- <a href="/{{ 'previewPDF' }}/{{ $pageid }}" class="btn btn-success"> Generate PDF </a> -->
-                <a href="/{{ 'previewPDF' }}/{{ $pageid }}" class="btn btn-success"> Generate PDF </a>
             </div>
             @endif
             @endforeach
