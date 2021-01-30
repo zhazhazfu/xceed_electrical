@@ -55,11 +55,16 @@
                 </p>
                             
                 <p> #quote description </p>
-                
-                <br>
 
-                <p class="font-weight-bold"> Sub Total Amount : <p>{{$quote->quotehasitem->price}}</p>
-                <p class="font-weight-bold"> Total Amount : <p>{{$quote->quotehasitem->GST_price}}</p> 
+                <br>
+                @foreach ($quotehasitem as $quotehasitem)
+                @if ($quotehasitem->fk_item_id == $pageid)
+                    <p class="font-weight-bold"> Sub Total Amount : <p>${{$quotehasitem->price}}</p>
+                    <p class="font-weight-bold"> Total Amount : <p>${{$quotehasitem->GST_price}}</p> 
+                @endif
+                   
+                @endforeach
+               
 
                 <br>
                 <p class="font-weight-bold"><u> Inclusions </u></p>
