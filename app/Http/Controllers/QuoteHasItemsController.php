@@ -16,6 +16,7 @@ use App\Inclusions;
 use App\Exclusions;
 use App\ItemHasMaterials;
 use App\Items;
+use App\QuoteHasItem;
 use PDF;
 
 class QuoteHasItemsController extends Controller
@@ -36,34 +37,35 @@ class QuoteHasItemsController extends Controller
             $prefixes = prefix::all();
             $inclusion = Inclusions::all();
             $exclusion = Exclusions::all();
-
-            //$tmp_quotes = Quote::get();
-            // foreach($tmp_perpoint as $key => $data)
-            // {
-            //     $data->type = 'Per Point Quote';
-            //     $data->desc = Category::where('pk_category_id',SubCategory::where('pk_subcategory_id',Items::where('pk_item_id', QuoteHasItem::where('fk_quote_id',Perpointquote::first()->pk_quote_id)->first()->fk_item_id)->first()->fk_subcategory_id )->first()->fk_category_id)->first()->category_name;
-            // }
-            // foreach($tmp_quotes as $key => $data)
-            // {
-            //     $data->type = 'Fixed Quote';
-            //     $data->desc = Category::where('pk_category_id',SubCategory::where('pk_subcategory_id',Items::where('pk_item_id', QuoteHasItem::where('fk_quote_id',Quote::first()->pk_quote_id)->first()->fk_item_id)->first()->fk_subcategory_id )->first()->fk_category_id)->first()->category_name;
-            // }
-            // $quotes = $tmp_quotes->merge($tmp_perpoint);
-    
-            //return view('history',['pageHeading' => $pageHeading])->with(['quotes'=>$quotes]);
             
             return view('history', compact('pageHeading', 'quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'itemhasmaterials', 'quoteterms', 'discounts', 'grossmargins','prefixes','inclusion','exclusion'));
         }
 
-        public function show($id="")
+    public function edit($quote_id)
     {
-        // $pageHeading = 'Preview';
-        // $category = Category::find($id);
-        // $subCategories = $category->subCategories;
-        // $categoryName = $category->category_name;
+        $pageHeading = 'Quote Status and Comment';
+        $quotesid = Quote::find($quote_id);
+        $quotes = Quote::all();
 
-  
-        return view('history', compact('pageHeading', 'subCategories', 'categoryName'));
-    } 
+        return view('editlayouts.pricelistedit', compact('quotesid', 'quotes', 'pageHeading'));
+    }
+
+    public function update(Request $request, $quote_id)
+    {
+
+        $this->validate($request,[
+            'quote_status' => 'required',
+            'quote_comment' => 'required',
+        ]);
+
+        $quotes = Quote::find($quote_id);
+        $quotes->quote_status = $request->get('quote_status');
+        $quotes->quote_comment = $request->get('quote_comment');
+        $quotes->save();
+
+        return redirect('/histort/'.$quote_id)->with('success', 'Product updated');
+    }
+
+
 }
 
