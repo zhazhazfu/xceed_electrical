@@ -7,11 +7,11 @@
 
 <html>
   <body>
+  <div class=" p-3 mb-5 bg-white rounded border">
       <div class="row mb-4">
           <div class="col-sm-7">
               <p class="h2">History</p>
           </div>
-          <div class=" p-3 mb-5 bg-white rounded border">
           <div class="col-sm-5">
               <input type="text" class="form-control float-left" id="active_input" onkeyup="searchHistory()"
                   placeholder="Search from history">
@@ -21,7 +21,7 @@
       <div class="table-responsive-md">
           {{-- <table id="active_table" class="table table-hover" class="table-responsive"> --}}
           <table id="active_table" class="display table table-hover table-sm mt-1">
-              <thead class="thead-dark ">
+              <thead class="thead-dark">
                   <tr>
                       <th scope="col">Quote Number</th>
                       <th scope="col">Quote Date</th>
@@ -69,9 +69,10 @@
               </tbody>
               
           </table>
+          
       </div>
   </body>
-
+<div>
 </html>
 @endsection
 
