@@ -29,7 +29,6 @@
                     @if ($pageid == $quote->pk_quote_id)
                     <h2 class="mt-3 mb-4">Quote : {{$quote->prefix->prefix_name }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}</h2>  
             </div>
-
             <div>
                 <h1 class="display-3">QUOTATION</h1>  
             </div>
