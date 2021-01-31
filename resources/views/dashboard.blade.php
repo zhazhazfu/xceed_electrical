@@ -30,6 +30,16 @@
         filter: brightness(120%);
     }
 
+    .btn-danger {
+        background: linear-gradient(to right, #ad4d40, #70241f);
+        transition: all .2s ease-in-out;
+    }
+
+    .btn-danger:hover {
+        transform: scale(1.05);
+        filter: brightness(120%);
+    }
+
     .btn-success {
         background: linear-gradient(to right, #72cf7b, #3b9457);
         transition: all .2s ease-in-out;
@@ -90,6 +100,23 @@
 
         <div class="col-9">
             <div class="row w-100">
+                <div class="col">
+                    <div class=" p-3 mb-5 bg-white rounded border">
+                        <h3 class="text-center"> To Do <h3>
+
+                        <!-- 1 = sent, 2 = to send -->
+                        @foreach($quotes as $quote)
+                            @if($quote->quote_status == '3')
+                            <a href="/{{ 'preview' }}/{{ $quote->pk_quote_id }}" class="btn btn-block btn-danger rounded border" id="quotes" value="{{ $quote->pk_quote_id }}">
+                            <h3> #{{$quote->prefix->prefix_name }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}} </h3>
+                            <p> {{$quote->customers->customer_name}} </p>   
+                            <p> {{ $quote->quote_comment }} </p>
+                            </a>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+
                 <div class="col">
                     <div class=" p-3 mb-5 bg-white rounded border">
                         <h3 class="text-center"> Pending <h3>
