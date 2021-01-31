@@ -34,7 +34,6 @@
                 <h1 class="display-3">QUOTATION</h1>  
             </div>
             <div class= "container rounded border pt-5 pl-5 pr-5 pb-5" >
-                <h3 class = "text-center"> #QuoteName #ClientOrderNumber </h3>
                 <p> Please find enclosed our proposal and estimate for the works to be completed. </p>
                 <p>Xceed Electrical is a well-established electrical contracting business. Xceed Electrical has successfully completed many Commercial and Domestic Projects. Our mission is to provide reliable, high quality service, delivered on each and every job. We believe that these are the most important aspects of our customers and should be the cornerstone of our business - a commitment backed-up by the team.</p>
                 <p>This estimate enclosed here is good for 30 days.  We will schedule your installation date and finalize the figures after you accept our proposal.  We look forward to working with you.</p>
@@ -48,24 +47,25 @@
                     <h4 class="mt-3 mb-4">Customer : {{$quote->customers->customer_name}}</h4>
                 </p>
                             
-                <p> #quote description </p>
+                <p class="font-weight-bold">Items</p>
                 @foreach ($quotehasitem as $quotehasitem)
                     @foreach ( $items as $item)
                         @if ($quotehasitem->fk_quote_id == $pageid)
                             @if ($item->pk_quote_id == $quote->fk_item_id)
                                 <p class="font-weight-bold"> Item Number : <p>${{$item->item_number}}</p>
                                 <p class="font-weight-bold"> Item Description: <p>{{$item->item_description}}</p>
-                            @endif
-                            <br>
-                            @if ($quotehasitem->fk_quote_id == $pageid)
-                                <p class="font-weight-bold"> Sub Total Amount : <p>${{$quotehasitem->price}}</p>
-                                <p class="font-weight-bold"> Total Amount : <p>${{$quotehasitem->GST_price}}</p> 
+                                <p class="font-weight-bold"> Item Price: <p>{{$quotehasitem->item_price}}</p>
                             @endif
                         @endif
+                        <br>
                     @endforeach
                 @endforeach
-               
 
+                @if ($quotehasitem->fk_quote_id == $pageid)
+                    <p class="font-weight-bold"> Sub Total Amount : <p>${{$quotehasitem->price}}</p>
+                    <p class="font-weight-bold"> Total Amount : <p>${{$quotehasitem->GST_price}}</p> 
+                @endif
+               
                 <br>
                 <p class="font-weight-bold"><u> Inclusions </u></p>
                 {{-- @forEach($inclusion as $inclusion)@endforeach --}}
