@@ -4,6 +4,7 @@
 
 @section('content')
 <!-- --------------- -->
+
 <html>
   <body>
       <div class="row mb-4">
@@ -31,12 +32,12 @@
                 </thead>
               <tbody>
                   @foreach($quotes as $quote)
-                        <tr>
-                            <td>{{$quote->prefix->prefix_name}}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}</td>
-                            <td>{{$quote->created_at}}</td>
-                            <td>{{$quote->customers->customer_name}}</td>
+                        <tr width="100%">
+                            <td><h4>{{$quote->prefix->prefix_name}}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}</h4></td>
+                            <td width="15%">{{$quote->created_at}}</td>
+                            <td width="15%">{{$quote->customers->customer_name}}</td>
                             {{-- <td>{{$quote->quote_comment}}</td>  --}}
-                            {{-- <td>@switch($quote->quote_status)
+                            {{-- <td width="25%">@switch($quote->quote_status)
                                     @case(1)
                                         <span>To sent</span>
                                         @break
@@ -46,19 +47,19 @@
                                     @default
                                 @endswitch
                             </td> --}}
-                            <td><input type="text" class="form-control col-md-12 ordercomment{{$quote->pk_quote_id}}" id="comment" value="{{$quote->quote_comment}}" ></td>
+                            <td width="35%"><input type="text" class="w-100 form-control ordercomment{{$quote->pk_quote_id}}" id="comment" value="{{$quote->quote_comment}}" ></td>
                             {{-- <td> {{$quote->type}}</td> --}}
-                            <td > 
-                                <select class="orderStatus{{$quote->pk_quote_id}}" id="inputGroupSelect01">
-                                    <option <?php if($quote->quote_status == "2") echo 'selected'; ?> value="2">To do</option>
+                            <td width="10%"> 
+                                <select class="form-control w-100 select orderStatus{{$quote->pk_quote_id}}" id="inputGroupSelect01">
+                                    <option <?php if($quote->quote_status == "2") echo 'selected'; ?> value="2">To Do</option>
                                     <option <?php if($quote->quote_status == "1") echo 'selected'; ?> value="1">Sent</option>
                                 </select>
                             </td>
-                            <td>
-                                <a href="{{ url('/preview/'.$quote['pk_quote_id']) }}" class="btn btn-primary badge-pill">View</a>
-                                <a href="{{ url('/history/'.$quote['pk_quote_id'].'/edit') }}" class="btn btn-primary badge-pill">Edit</a>
-                                <a href="{{ url('/preview/'.$quote['pk_quote_id']."/download") }}" class="btn btn-success badge-pill"> Generate PDF </a>
-                                <button class="btn btn-success badge-pill statusChange" value="{{$quote->pk_quote_id}}">Save</button>
+                            <td class="float-right">
+                                <a href="{{ url('/preview/'.$quote['pk_quote_id']) }}" class="btn btn-primary">View</a>
+                                <a href="{{ url('/history/'.$quote['pk_quote_id'].'/edit') }}" class="btn btn-primary">Edit</a>
+                                <a href="{{ url('/preview/'.$quote['pk_quote_id']."/download") }}" class="btn btn-success"> Generate PDF </a>
+                                <button class="btn btn-success statusChange" value="{{$quote->pk_quote_id}}">Save</button>
                            </td>
                         </tr>
                   @endforeach
