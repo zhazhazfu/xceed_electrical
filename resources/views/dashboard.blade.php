@@ -64,75 +64,68 @@
 <div class=" p-3 mb-5 bg-white rounded border">
 <h3> Dashboard </h3>
     <div class='row w-100'>
-        <div class="col-md-9">
-        <div class="row">
-            <div style="" class="col-sm">
-                <div class=" p-3 mb-5 bg-white rounded border">
-                    <h3 class="text-center"> Pending <h3>
-
-                    <!-- 1 = sent, 2 = to send -->
-                    @foreach($quotes as $quote)
-                        @if($quote->quote_status == '2')
-                        
-                        <a href="/{{ 'preview' }}/{{ $quote->pk_quote_id }}" class="btn btn-block btn-warning rounded border" id="quotes" value="{{ $quote->pk_quote_id }}">
-                        <h3> #{{$quote->prefix->prefix_name }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}} </h3>
-                        <p> {{$quote->customers->customer_name}} </p>   
-                        <p> {{ $quote->quote_comment }} </p>
-                        </a>
-
-                        @endif
-                    @endforeach
-
-                    <!-- <div class="btn btn-block btn-warning rounded border">
-                        <h3> #example </h3>
-                        <p> Customer Name </p>
-                        <p> Job names </p>
-                    </div> -->
-
-                    
-                </div>
-            </div>
-
-            <div style="" class="col-sm">
-                <div class=" p-3 mb-5 bg-white rounded border">
-                    <h3 class="text-center"> Sent <h3>
-                    @foreach($quotes as $quote)
-                        @if($quote->quote_status == '1')
-                        
-                        <a href="/{{ 'preview' }}/{{ $quote->pk_quote_id }}" class="btn btn-block btn-success rounded border" id="quotes" value="{{ $quote->pk_quote_id }}">
-                        <h3> #{{$quote->prefix->prefix_name }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}} </h3>
-                        <p> {{$quote->customers->customer_name}} </p>   
-                        <p> {{ $quote->quote_comment }} </p>
-                        </a>
-
-                        @endif
-                    @endforeach
-                </div>
-            </div>
-        </div>
-        </div>
-        <div class="col-md-3">
-            <div class=" float-right p-3 mb-5">
+        
+        <div class="col-3">
+            <div class="p-3 mb-5">
                 <a href="{{ 'quoting' }}" class=" h-100 w-100 p-4 m-2 btn btn-outline-xceed">
-                    <h3 class="float-right"> New Quote </h3>
+                    <h3 class="float-left"> New Quote </h3>
                 </a>
                 <a href="{{ 'history' }}" class=" h-100 w-100 p-4 m-2 btn btn-outline-xceed">
-                    <h3 class="float-right"> Quote History </h3>
+                    <h3 class="float-left"> Quote History </h3>
                 </a>
                 <a href="{{ 'pricelist' }}" class=" h-100 w-100 p-4 m-2 btn btn-outline-xceed">
-                    <h3 class="float-right"> Price Lists </h3>
+                    <h3 class="float-left"> Price Lists </h3>
                 </a>
                 <a href="{{ 'customers' }}" class=" h-100 w-100 p-4 m-2 btn btn-outline-xceed">
-                    <h3 class="float-right"> Manage Customers </h3>
+                    <h3 class="float-left"> Manage Customers </h3>
                 </a>
                 <a href="{{ 'materials' }}" class=" h-100 w-100 p-4 m-2 btn btn-outline-xceed">
-                    <h3 class="float-right"> Manage Materials </h3>
+                    <h3 class="float-left"> Manage Materials </h3>
                 </a>
                 <a href="{{ 'suppliers' }}" class=" h-100 w-100 p-4 m-2 btn btn-outline-xceed">
-                    <h3 class="float-right"> Manage Suppliers </h3>
+                    <h3 class="float-left"> Manage Suppliers </h3>
                 </a>
+            </div>
+        </div>    
+
+        <div class="col-9">
+            <div class="row w-100">
+                <div class="col">
+                    <div class=" p-3 mb-5 bg-white rounded border">
+                        <h3 class="text-center"> Pending <h3>
+
+                        <!-- 1 = sent, 2 = to send -->
+                        @foreach($quotes as $quote)
+                            @if($quote->quote_status == '2')
+                            <a href="/{{ 'preview' }}/{{ $quote->pk_quote_id }}" class="btn btn-block btn-warning rounded border" id="quotes" value="{{ $quote->pk_quote_id }}">
+                            <h3> #{{$quote->prefix->prefix_name }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}} </h3>
+                            <p> {{$quote->customers->customer_name}} </p>   
+                            <p> {{ $quote->quote_comment }} </p>
+                            </a>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class=" p-3 mb-5 bg-white rounded border">
+                        <h3 class="text-center"> Sent <h3>
+                        @foreach($quotes as $quote)
+                            @if($quote->quote_status == '1')
+                            
+                            <a href="/{{ 'preview' }}/{{ $quote->pk_quote_id }}" class="btn btn-block btn-success rounded border" id="quotes" value="{{ $quote->pk_quote_id }}">
+                            <h3> #{{$quote->prefix->prefix_name }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}} </h3>
+                            <p> {{$quote->customers->customer_name}} </p>   
+                            <p> {{ $quote->quote_comment }} </p>
+                            </a>
+
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+            </div>
         </div>
-        
+
     </div>
     </div>
 

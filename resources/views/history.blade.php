@@ -33,7 +33,7 @@
               <tbody>
                   @foreach($quotes as $quote)
                         <tr width="100%">
-                            <td><h4>{{$quote->prefix->prefix_name}}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}</h4></td>
+                            <td><h5>{{$quote->prefix->prefix_name}}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}</h5></td>
                             <td width="15%">{{$quote->created_at}}</td>
                             <td width="15%">{{$quote->customers->customer_name}}</td>
                             {{-- <td>{{$quote->quote_comment}}</td>  --}}
