@@ -51,8 +51,10 @@
                             {{-- <td> {{$quote->type}}</td> --}}
                             <td width="10%"> 
                                 <select class="form-control w-100 select orderStatus{{$quote->pk_quote_id}}" id="inputGroupSelect01">
-                                    <option <?php if($quote->quote_status == "2") echo 'selected'; ?> value="2">To Do</option>
-                                    <option <?php if($quote->quote_status == "1") echo 'selected'; ?> value="1">Sent</option>
+                                    <option <?php if($quote->quote_status == "1") echo 'selected'; ?> value="1">To Do</option>
+                                    <option <?php if($quote->quote_status == "2") echo 'selected'; ?> value="2">Pending</option>
+                                    <option <?php if($quote->quote_status == "3") echo 'selected'; ?> value="3">Sent</option>
+                                    
                                 </select>
                             </td>
                             <td class="float-right">
