@@ -66,6 +66,7 @@ class QuoteController extends Controller
             'term_name' => 'required',
             'inc_name' => 'required',
             'exc_name' => 'required',
+            'item_price' =>'required',
             'price' => 'required',
             'gst_price' => 'required'
         ]);
@@ -81,7 +82,7 @@ class QuoteController extends Controller
         $quote->fk_prefix_id = $request->get('quote_prefix');
         $quote->quote_number = $request->get('quote_number');
         $quote->quote_status = $request->get('quote_status');
-        $quote->quote_status = 1; 
+        $quote->quote_status = 2;
         $quote->quote_revisonnumber = 1;
         $quote->quote_comment = $request->get('quote_comment');
         $quote->save();
@@ -90,6 +91,7 @@ class QuoteController extends Controller
             $QuoteHasItem = new QuoteHasItem();
             $QuoteHasItem->fk_quote_id = $quote->pk_quote_id;
             $QuoteHasItem->fk_item_id = $value;
+            $QuoteHasItem->item_price =$request->get('item_price');
             $QuoteHasItem->price = $request->get('price');
             $QuoteHasItem->GST_price = $request->get('gst_price');
             $QuoteHasItem->save();
