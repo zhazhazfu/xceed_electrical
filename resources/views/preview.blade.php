@@ -3,6 +3,117 @@
 
  @section('content') 
 <!-- --------------- -->
+
+<style>
+    
+    .container {
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .rounded {
+        border-radius: 0.25rem !important;
+    }
+
+    .pt-5,
+    .py-5,
+    .pr-5,
+    .pl-5,
+    .pb-5,
+    .px-5 {
+        padding-left: 2rem !important;
+    }
+
+    .mt-5,
+    .my-5 {
+        margin-top: 3rem !important;
+    }
+
+    .mb-4,
+    .my-4 {
+        margin-bottom: 1.5rem !important;
+    }
+
+    .row {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col,
+    .col-auto, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm,
+    .col-sm-auto, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md,
+    .col-md-auto, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg,
+    .col-lg-auto, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl,
+    .col-xl-auto {
+        position: relative;
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .col-md-4 {
+        -ms-flex: 0 0 33.333333%;
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+    } 
+
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .align-middle {
+        vertical-align: middle !important;
+    }
+
+    .text-right {
+        text-align: right !important;
+    }
+
+    p {
+        margin-top: 0;
+        margin-bottom: 1rem;
+    }
+    
+    .text-center {
+        text-align: center !important;
+    }
+    
+    .page-break {
+        page-break-after: always;
+    }
+
+    .table {
+        width: 100%;
+        margin-bottom: 1rem;
+        color: #212529;
+    }
+
+    .table-sm th,
+    .table-sm td {
+        padding: 0.3rem;
+    }
+    
+    .table .thead-dark th {
+        color: #fff;
+        background-color: #343a40;
+        border-color: #454d55;
+    }
+
+    .font-weight-bold {
+        font-weight: 700 !important;
+    }
+</style>
+
+
+
 <html>
     <div class="container rounded border pl-5 pr-5 pb-5 ">
         
@@ -16,28 +127,31 @@
             </div>
 
             <div class="col-sm-4 text-right">
-                    <p>
-                        <h4>{{ $businessDetails->businessdetail_name }}</h4>
-                        {{ $businessDetails->businessdetail_addressline1 }}<br>
-                        {{ $businessDetails->businessdetail_addressline2 }}<br>
-                        {{ $businessDetails->businessdetail_phone }}<br>
-                        {{ $businessDetails->businessdetail_fax }}<br>
-                        {{ $businessDetails->businessdetail_email }}<br>
-                        {{ $businessDetails->businessdetail_website }}
-                    </p>
-                    @foreach ($quotes as $quote )
-                    @if ($pageid == $quote->pk_quote_id)
-                    <h2 class="mt-3 mb-4">Quote : {{$quote->prefix->prefix_name }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}</h2>  
+                <p>
+                    <h4>{{ $businessDetails->businessdetail_name }}</h4>
+                    {{ $businessDetails->businessdetail_addressline1 }}<br>
+                    {{ $businessDetails->businessdetail_addressline2 }}<br>
+                    {{ $businessDetails->businessdetail_phone }}<br>
+                    {{ $businessDetails->businessdetail_fax }}<br>
+                    {{ $businessDetails->businessdetail_email }}<br>
+                    {{ $businessDetails->businessdetail_website }}
+                </p>
+                <br>
+                @foreach ($quotes as $quote )
+                @if ($pageid == $quote->pk_quote_id)
+                <h5>Quote Date: {{ $quote->created_at }}</h5>  
+                <h4>Quote: {{$quote->prefix->prefix_name }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}</h4>  
             </div>
-            <div>
-                <h1 class="display-3">QUOTATION</h1>  
-            </div>
-            <div class= "container rounded border pt-5 pl-5 pr-5 pb-5" >
+        </div>
+        <div class="row">
+            <div class= "pt-5 pl-5 pr-5 pb-5" >
+                <h1>QUOTATION</h1> 
                 <p> Please find enclosed our proposal and estimate for the works to be completed. </p>
                 <p>Xceed Electrical is a well-established electrical contracting business. Xceed Electrical has successfully completed many Commercial and Domestic Projects. Our mission is to provide reliable, high quality service, delivered on each and every job. We believe that these are the most important aspects of our customers and should be the cornerstone of our business - a commitment backed-up by the team.</p>
                 <p>This estimate enclosed here is good for 30 days.  We will schedule your installation date and finalize the figures after you accept our proposal.  We look forward to working with you.</p>
             </div>
-
+        </div>
+            <div class="page-break"></div>
             <div>
                 <br>
                 <h3 class="mt-3 mb-4">Pricing</h3>
@@ -46,60 +160,62 @@
                     <h4 class="mt-3 mb-4">Customer : {{$quote->customers->customer_name}}</h4>
                 </p>
                             
-                <h3 class="font-weight-bold">Items :</h3>
                 <table class="display table table-hover table-sm ">
-                <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Item Number</th>
-                    <th scope="col">Item Description:</th>
-                    <th scope="col">Item Price:</th>
-                </tr>
-               </thead>
-                @foreach ($quotehasitem as $quotehasitem)
-                    @foreach ( $items as $item)
-                        @if ($quotehasitem->fk_quote_id == $pageid)
-                            @if ($item->pk_quote_id == $quote->fk_item_id)
-                            <tbody>
-                                <tr>
-                                    <td>${{$item->item_number}}</td>
-                                    <td>{{$item->item_description}}</td>
-                                    <td>{{$quotehasitem->item_price}}</td>
-                                </tr>
-                        
-                        
-                                {{-- <p class="font-weight-bold"> Item Number : <p>${{$item->item_number}}</p>
-                                <p class="font-weight-bold"> Item Description: <p>{{$item->item_description}}</p>
-                                <p class="font-weight-bold"> Item Price: <p>{{$quotehasitem->item_price}}</p> --}}
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Item Number</th>
+                            <th scope="col">Item Description:</th>
+                            <th scope="col">Item Price:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach ($quotehasitem as $quotehasitem)
+                        @foreach ( $items as $item)
+                            @if ($quotehasitem->fk_quote_id == $pageid)
+                                @if ($item->pk_quote_id == $quote->fk_item_id)
+                                
+                                    <tr>
+                                        <td>{{$item->item_number}}</td>
+                                        <td>{{$item->item_description}}</td>
+                                        <td>{{$quotehasitem->item_price}}</td>
+                                    </tr>
+                            
+                            
+                                    {{-- <p class="font-weight-bold"> Item Number : <p>${{$item->item_number}}</p>
+                                    <p class="font-weight-bold"> Item Description: <p>{{$item->item_description}}</p>
+                                    <p class="font-weight-bold"> Item Price: <p>{{$quotehasitem->item_price}}</p> --}}
+                                @endif
                             @endif
-                        @endif
+                        @endforeach
                     @endforeach
-                @endforeach
-                </tbody>
-             </table>
+                    </tbody>
+                </table>
 
                 @if ($quotehasitem->fk_quote_id == $pageid)
                     <p class="font-weight-bold"> Sub Total Amount : <p>${{$quotehasitem->price}}</p>
                     <p class="font-weight-bold"> Total Amount : <p>${{$quotehasitem->GST_price}}</p> 
                 @endif
+                <div class="page-break"></div>
                
                 <br>
                 <p class="font-weight-bold"><u> Inclusions </u></p>
-                {{-- @forEach($inclusion as $inclusion)@endforeach --}}
-                <p>#data {{$quote->inclusions}}</p>
+                <p>{{$quote->inclusions}}</p>
 
                 <p class="font-weight-bold"><u> Exclusions </u></p>
-                {{-- @forEach($exclusion as $exclusion)@endforeach --}}
-                <p>#data {{$quote->exclusions}}</p>
-
+                <p>{{$quote->exclusions}}</p>
                 <p>If you have any questions or queries in regard to the above quotation please contact myself on 0415 240 296 or contact the office on 02 9726 4869. All works should be given two weeks' notice prior to commencing works.
                 <br>
                 <p>Thanks & Regards,<br></p>
                 <p>Jayson Conceicao </p>
-                
-                <br><br>
+
+                <div class="page-break"></div>
+                <br>
+                <br>
                 <p class="font-weight-bold"><u> Terms and Conditions </u></p>
-                {{-- @forEach($quoteterms as $quoteterm)@endforeach --}}
                 <p>{{$quote->quoteterms->term_body}}</p>
+
+                @endif 
+                @endforeach
 
                 <p class="font-weight-bold"><u> Consequential Losses </u></p>
                 <p>Notwithstanding any other provision of this contract the liability of the contractor, its servants or agents arising out in any connected with this contract, any indemnity given therein, the relationship established by it or any conduct under or purportedly under it whether arising in contract tort (including negligence) or otherwise, shall in any event be limited to:</p>
@@ -116,6 +232,7 @@
                 <p>7 DAYS FROM DATE OF INVIOCE.<p>
                 <p>If progress payments are not made in the required time frame works will seized at the cost of Electrical contractor.</p>
                 <p>The above works will be carried out under the building and construction security payments act of 1999.</p>
+                <div class="page-break"></div>
 
                 <p>This Quotation is Subject to the Following Terms and Conditions: </p>
                  <p>- The Client Accepts the Quotation as per listed items Provided</p>
@@ -141,8 +258,6 @@
                 <p>BSB:  112 879</p>
                 <p>Account Number:  423 829 911</p>
             </div>
-            @endif 
-            @endforeach
         </div>
     </div>
 </html>
