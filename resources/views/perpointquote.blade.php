@@ -4,6 +4,31 @@
 
 @section('content')
 
+@if (Auth::user() && Auth::user()->role != 'admin')
+<div class="mx-auto mt-5" style="width: 200px;">
+    <h2>
+        Access denied
+    </h2>
+</div>
+
+@elseif (Auth::user() && Auth::user()->role == 'admin')
+    <div>
+        @if(count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+        @if(\Session::has('success'))
+        <div class="alert alert-success">
+            <p>{{ \Session::get('success') }}</p>
+        </div>
+        @endif
+    </div>
+
 <div class="container rounded border pl-5 pr-5 pb-5">
     <h2 class="mt-3 mb-4">Create Quote</h2>
     <div class="row">
@@ -253,6 +278,7 @@
         </form>
     </div>
 </div>
+@endif
 
 
 
