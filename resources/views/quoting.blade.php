@@ -167,11 +167,8 @@
                                         <option value="{{ $quoteinc->pk_in_id }}">{{ $quoteinc->inclusion_Content }}</option>
                                         @endforeach
                                     </select>
-
                                     <button style="display: inline" id="duplicate_inc" class="btn btn-primary float-right my-2">Add</button>
-
                                     <textarea class="form-control" id="inc_name" name="inc_name" rows="5" required></textarea>
-                                    
                                 </div>  
                             </div>
                         </div>
@@ -193,11 +190,8 @@
                                     <option value="{{ $quoteinc->pk_in_id }}">{{ $quoteinc->inclusion_Content }}</option>
                                     @endforeach
                                 </select>
-
                                 <button style="display: inline" id="duplicate_exc" class="btn btn-primary float-right my-2">Add</button>
-
                                 <textarea class="form-control" id="exc_name" name="exc_name" rows="5" required></textarea>
-
                                 <!-- <select class="form-control" id="exc_name" name="exc_name" required>
                                     @foreach($exclusions as $quoteexc)
                                     <option value="{{ $quoteexc->pk_ex_id }}">{{ $quoteexc->exclusion_Content }}</option>
@@ -243,14 +237,13 @@
             <div class="col-sm-12">
                 <div class="form-row float-right">
                     <button type="button" class="btn btn-secondary m-2">Cancel</button>
-                    <button type="button" class="btn btn-secondary m-2">Save</button>
-                    <button type="submit" class="btn btn-primary m-2">Generate Quote</button>
+                    <button type="button" class="btn btn-secondary m-2" onclick="change_status">Save</button>
+                    <button type="submit" class="btn btn-primary m-2" onclick="change_status">Generate Quote</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
-
 
 
 @push('js')
@@ -512,7 +505,7 @@
             section = document.getElementsByName('item_price');
             
             // alert(data.price);
-            section[counter].value = "$" + data.price;
+            section[counter].value = data.price;
             // return(data);
         });
     };
