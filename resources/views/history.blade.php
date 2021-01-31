@@ -11,6 +11,7 @@
           <div class="col-sm-7">
               <p class="h2">History</p>
           </div>
+          <div class=" p-3 mb-5 bg-white rounded border">
           <div class="col-sm-5">
               <input type="text" class="form-control float-left" id="active_input" onkeyup="searchHistory()"
                   placeholder="Search from history">
