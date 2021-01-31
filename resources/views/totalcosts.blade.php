@@ -15,7 +15,7 @@
     <h2 class="mb-4 float-left">Total Business & Employee Costs</h2>
     <div class='table-responsive'>
         <table class="table table-hover table-sm mt-1">
-            <thead>
+            <thead class="thead-dark">
                 <tr>
                     <th scope="col">Category</th>
                     <th scope="col">Hourly Cost</th>

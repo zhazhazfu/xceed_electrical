@@ -5,22 +5,23 @@
 @section('content')
 <!-- --------------- -->
 <html>
-
+<div class=" p-3 mb-5 bg-white rounded border">
 <head>
     <title>Draft list fix</title>
 </head>
 
 <body>
 <h3> Draft list</h3>
-<div class="table-responsive-sm">
-          <table id="active_table" class="table table-hover" class="table-responsive">
-              <thead>
+<div class="table-responsive">
+          <table id="active_table" class="table table-hover table-sm">
+              <thead class="thead-dark">
                   <tr>
                       <th scope="col">Quote Number</th>
                       <th scope="col">Quote Date</th>
                       <th scope="col">Client Name</th>
                       <th scope="col">Comment</th>
-                      <th scope="col">Type</th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
                   </tr>
               </thead>
               <tbody>
@@ -43,6 +44,7 @@
 
 
 </body>
+</div>
 
 </html>
 @endsection
