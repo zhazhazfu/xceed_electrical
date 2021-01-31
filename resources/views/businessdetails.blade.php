@@ -55,8 +55,8 @@
                     <td>{{ $businessDetail->businessdetail_fax }}</td>
                     <td>{{ $businessDetail->businessdetail_email }}</td>
                     <td>{{ $businessDetail->businessdetail_website }}</td>
-                    <td><a
-                            href="{{action('BusinessDetailController@edit', $businessDetail['pk_businessdetail_id'])}}">Edit</a>
+                    <td>
+                    <a href="{{action('BusinessDetailController@edit', $businessDetail['pk_businessdetail_id'])}}">Edit</a>
                     </td>
                 </tr>
                 @endforeach

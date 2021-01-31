@@ -47,13 +47,29 @@
                 </p>
                             
                 <p class="font-weight-bold">Items</p>
+                <table class="display table table-hover table-sm mt-1">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Item Number</th>
+                    <th scope="col">Item Description:</th>
+                    <th scope="col">Item Price:</th>
+                </tr>
+               </thead>
                 @foreach ($quotehasitem as $quotehasitem)
                     @foreach ( $items as $item)
                         @if ($quotehasitem->fk_quote_id == $pageid)
                             @if ($item->pk_quote_id == $quote->fk_item_id)
-                                <p class="font-weight-bold"> Item Number : <p>${{$item->item_number}}</p>
+                            <tbody>
+                                <tr>
+                                    <td>${{$item->item_number}}</td>
+                                    <td>{{$item->item_description}}</td>
+                                    <td>{{$quotehasitem->item_price}}</td>
+                                </tr>
+                        </tbody>
+                        </table>
+                                {{-- <p class="font-weight-bold"> Item Number : <p>${{$item->item_number}}</p>
                                 <p class="font-weight-bold"> Item Description: <p>{{$item->item_description}}</p>
-                                <p class="font-weight-bold"> Item Price: <p>{{$quotehasitem->item_price}}</p>
+                                <p class="font-weight-bold"> Item Price: <p>{{$quotehasitem->item_price}}</p> --}}
                             @endif
                         @endif
                         <br>
