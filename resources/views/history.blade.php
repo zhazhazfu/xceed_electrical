@@ -71,8 +71,8 @@
           </table>
           
       </div>
+      </div>
   </body>
-<div>
 </html>
 @endsection
 
