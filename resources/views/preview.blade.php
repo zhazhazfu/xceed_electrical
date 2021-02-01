@@ -96,6 +96,10 @@
         color: #212529;
     }
 
+    .h3 {
+        line-height: 80%;
+    }
+
     .table-sm th,
     .table-sm td {
         padding: 0.3rem;
@@ -139,12 +143,12 @@
                 <br>
                 @foreach ($quotes as $quote )
                 @if ($pageid == $quote->pk_quote_id)
-                <h5>Quote Date: {{ $quote->created_at }}</h5>  
+                <h3>Quote Date: {{ $quote->created_at }}</h3>  
                 <h4>Quote: {{$quote->prefix->prefix_name }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}</h4>  
             </div>
         </div>
         <div class="row">
-            <div class= "pt-5 pl-5 pr-5 pb-5" >
+            <div style="border:1px solid black; padding: 50px 20px 50px 50px; border-radius: 25px;">
                 <h1>QUOTATION</h1> 
                 <p> Please find enclosed our proposal and estimate for the works to be completed. </p>
                 <p>Xceed Electrical is a well-established electrical contracting business. Xceed Electrical has successfully completed many Commercial and Domestic Projects. Our mission is to provide reliable, high quality service, delivered on each and every job. We believe that these are the most important aspects of our customers and should be the cornerstone of our business - a commitment backed-up by the team.</p>
@@ -154,7 +158,7 @@
             <div class="page-break"></div>
             <div>
                 <br>
-                <h3 class="mt-3 mb-4">Pricing</h3>
+                <h2 class="mt-3 mb-4">Pricing</h2>
                 <p>
                     <h4 class="mt-3 mb-4">Quote : {{$quote->prefix->prefix_name }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}</h4>
                     <h4 class="mt-3 mb-4">Customer : {{$quote->customers->customer_name}}</h4>
@@ -206,7 +210,7 @@
                 <p>If you have any questions or queries in regard to the above quotation please contact myself on 0415 240 296 or contact the office on 02 9726 4869. All works should be given two weeks' notice prior to commencing works.
                 <br>
                 <p>Thanks & Regards,<br></p>
-                <p>Jayson Conceicao </p>
+                <h3>Jayson Conceicao </h3>
 
                 <div class="page-break"></div>
                 <br>
@@ -231,7 +235,7 @@
                 <p class="font-weight-bold"><u>Terms of Payment</u></p>
                 <p>7 DAYS FROM DATE OF INVIOCE.<p>
                 <p>If progress payments are not made in the required time frame works will seized at the cost of Electrical contractor.</p>
-                <p>The above works will be carried out under the building and construction security payments act of 1999.</p>
+                <p>The above works will be carried out under the Building and Construction Security Payments Act of 1999.</p>
                 <div class="page-break"></div>
 
                 <p>This Quotation is Subject to the Following Terms and Conditions: </p>
@@ -244,15 +248,15 @@
 
                 <p class="font-weight-bold"><u>Agreed & Accepted:</u></p>
                 <p>Customer/ Company Name:</p>
-                <p>______________________ </p>
+                <p>_______________________________________________________________________________ </p>
                 <p>Name:</p>
-                <p>______________________ </p>
+                <p>_______________________________________________________________________________ </p>
                 <p>Title:</p>
-                <p>______________________ </p>
+                <p>_______________________________________________________________________________ </p>
                 <p>Date: </p>
-                <p>______________________ </p>
+                <p>_______________________________________________________________________________ </p>
                  
-                <p>Banking Details: ( PLEASE REFERNCE YOUR QUOTE NUMBER TO THE DEPOSIT MADE )</p>
+                <p class="font-weight-bold"><u>Banking Details: ( PLEASE REFERNCE YOUR QUOTE NUMBER TO THE DEPOSIT MADE )</u></p>
                 <p>St George Bank</p>
                 <p>Account name : Xceed Electrical Pty Ltd</p>
                 <p>BSB:  112 879</p>
