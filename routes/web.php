@@ -134,10 +134,18 @@ Route::get('/login', 'MainController@index')->name('login');
 Route::post('/main/checklogin', 'MainController@checklogin');
 Route::get('/main/successlogin', 'MainController@successlogin')->middleware('auth');
 Route::get('/emailfornewpassword', 'EmailfornewpasswordController@index')->name('emailfornewpassword');
-Route::get('/resetpassword', 'ResetpasswordController@index')->name('resetpassword');
+Route::post('/resetpassword', 'ResetpasswordController@index')->name('resetpassword');
 Route::get('/main/logout', 'MainController@logout');
 
 Route::get('/getSubcategories/{id}', 'QuoteController@getSubCategories')->name('getSubcategories')->middleware('auth');
 Route::get('/getItems/{id}', 'QuoteController@getItems')->name('getItems')->middleware('auth');
 Route::get('/getDescription/{id}', 'QuoteController@getDescription')->name('getDescription')->middleware('auth');
 Route::get('/calculatePrice/{id}', 'QuoteController@calculatePrice')->name('calculatePrice')->middleware('auth');
+
+
+Auth::routes();
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
