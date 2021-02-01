@@ -175,8 +175,8 @@
                     <tbody>
                     @foreach ($quotehasitem as $quotehasitem)
                         @foreach ( $items as $item)
-                            @if ($quotehasitem->fk_quote_id == $pageid)
-                                @if ($item->pk_quote_id == $quote->fk_item_id)
+                            @if ($quotehasitem->fk_quote_id == $pageid && $item->pk_item_id == $quotehasitem->fk_item_id)
+                                {{-- @if ($item->pk_item_id == $quotehasitem->fk_item_id) --}}
                                 
                                     <tr>
                                         <td>{{$item->item_number}}</td>
@@ -188,13 +188,12 @@
                                     {{-- <p class="font-weight-bold"> Item Number : <p>${{$item->item_number}}</p>
                                     <p class="font-weight-bold"> Item Description: <p>{{$item->item_description}}</p>
                                     <p class="font-weight-bold"> Item Price: <p>{{$quotehasitem->item_price}}</p> --}}
-                                @endif
+                                {{-- @endif --}}
                             @endif
                         @endforeach
                     @endforeach
                     </tbody>
                 </table>
-
                 @if ($quotehasitem->fk_quote_id == $pageid)
                     <p class="font-weight-bold"> Sub Total Amount : <p>${{$quotehasitem->price}}</p>
                     <p class="font-weight-bold"> Total Amount : <p>${{$quotehasitem->GST_price}}</p> 
