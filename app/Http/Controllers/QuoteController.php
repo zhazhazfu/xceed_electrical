@@ -75,6 +75,7 @@ class QuoteController extends Controller
             'term_name' => 'required',
             'inc_name' => 'required',
             'exc_name' => 'required',
+            'item_price' =>'required',
             'price' => 'required',
             'gst_price' => 'required'
             ]);
@@ -101,6 +102,7 @@ class QuoteController extends Controller
             $QuoteHasItem = new QuoteHasItem();
             $QuoteHasItem->fk_quote_id = $quote->pk_quote_id;
             $QuoteHasItem->fk_item_id = $value;
+            $QuoteHasItem->item_price =$request->get('item_price');
             $QuoteHasItem->price = $request->get('price');
             $QuoteHasItem->GST_price = $request->get('gst_price');
             $QuoteHasItem->save();

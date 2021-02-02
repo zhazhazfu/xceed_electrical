@@ -167,7 +167,6 @@
                                         <option value="{{ $quoteinc->pk_in_id }}">{{ $quoteinc->inclusion_Content }}</option>
                                         @endforeach
                                     </select>
-
                                     <button style="display: inline" id="duplicate_inc" class="btn btn-primary float-right my-2">Add</button>
 
                                     <textarea class="form-control" id="inc_name" name="inc_name" rows="5" ></textarea>
@@ -193,7 +192,6 @@
                                     <option value="{{ $quoteinc->pk_in_id }}">{{ $quoteinc->inclusion_Content }}</option>
                                     @endforeach
                                 </select>
-
                                 <button style="display: inline" id="duplicate_exc" class="btn btn-primary float-right my-2">Add</button>
 
                                 <textarea class="form-control" id="exc_name" name="exc_name" rows="5" ></textarea>
@@ -250,7 +248,6 @@
         </form>
     </div>
 </div>
-
 
 
 @push('js')

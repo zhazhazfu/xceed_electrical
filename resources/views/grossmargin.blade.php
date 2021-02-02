@@ -165,7 +165,7 @@
 
     <div class='table-responsive'>
         <table class="table table-hover table-sm">
-            <thead>
+            <thead class="thead-dark">
                 <tr>
                     <th scope="col">Hourly running cost</th>
                     <th scope="col">Gross margin percentage</th>

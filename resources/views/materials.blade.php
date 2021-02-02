@@ -117,7 +117,7 @@
         </div>
         <div class='table-responsive'>
             <table id="active_table" class="display table table-hover table-sm">
-                <thead>
+                <thead class="thead-dark">
                     <tr>
                         <th scope="col" onclick="sortActive(0)">Item Code</th>
                         <th scope="col" onclick="sortActive(1)">Description</th>

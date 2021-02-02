@@ -84,7 +84,7 @@
 
         <div class='table-responsive'>
             <table id="active_table" class="display table table-hover table-sm">
-                <thead>
+                <thead class="thead-dark">
                     <tr>
                         <th scope="col">Exclusion Name</th>
                         <th scope="col">Description</th>

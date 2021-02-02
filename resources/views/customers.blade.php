@@ -121,7 +121,7 @@
         </div>
         <div class='table-responsive'>
             <table id="active_table" class="display table table-hover table-sm mt-1">
-                <thead>
+                <thead class="thead-dark">
                     <tr>
                         <th scope="col" onclick="sortActive(0)">Name</th>
                         <th scope="col" onclick="sortActive(1)">Company</th>
@@ -166,7 +166,7 @@
 
         <div class='table-responsive'>
             <table id="archived_table" class="display table table-hover table-sm mt-1">
-                <thead>
+                <thead class="thead-dark">
                     <tr>
                         <th scope="col" onclick="sortArchived(0)">Name</th>
                         <th scope="col" onclick="sortArchived(1)">Company</th>
