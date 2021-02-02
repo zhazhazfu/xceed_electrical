@@ -169,7 +169,7 @@
                         <tr>
                             <th scope="col">Item Number</th>
                             <th scope="col">Item Description:</th>
-                            <th scope="col">Item Price:</th>
+                            <!-- <th scope="col">Item Price:</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -181,13 +181,9 @@
                                     <tr>
                                         <td>{{$item->item_number}}</td>
                                         <td>{{$item->item_description}}</td>
-                                        <td>{{$quotehasitem->item_price}}</td>
+                                        <!-- <td><p name="item_price">{{$quotehasitem->item_price}}</p></td> -->
                                     </tr>
                             
-                            
-                                    {{-- <p class="font-weight-bold"> Item Number : <p>${{$item->item_number}}</p>
-                                    <p class="font-weight-bold"> Item Description: <p>{{$item->item_description}}</p>
-                                    <p class="font-weight-bold"> Item Price: <p>{{$quotehasitem->item_price}}</p> --}}
                                 {{-- @endif --}}
                             @endif
                         @endforeach
@@ -264,4 +260,37 @@
         </div>
     </div>
 </html>
+
+<script> 
+
+// counter = 0; 
+
+// function calculatePrice(id, counter) {
+//         $.ajax({
+//             url: "calculatePrice/" + id,
+//             context: document.body
+//         }).done(function(data) {
+//             section = document.getElementsByName('item_price');
+//             section[counter].value = "Item Price: " + data.price;
+//             counter++;
+//         });
+
+// };
+
+// // document.getElementsByName('item_price')[0].innerHTML = "aaaaaaaaaa";
+// document.getElementById('item_price').innerHTML = "aaaaaaaaaa";
+
+// document.onload = aaaaa();
+
+// function aaaaa() {
+//     var i;
+//     section = document.getElementsByName('item_price');
+//     section[0].innerHTML = "aaaa";
+//     for (i=0; i<section.length; i++) {
+//         // calculatePrice(0,i);
+//     }
+// }
+
+</script>
+
 @endsection
