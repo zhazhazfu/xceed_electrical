@@ -30,14 +30,16 @@ class HistoryController extends Controller
         $this->validate($request,[
             'quote_status' => 'required',
             'quote_comment' => 'required',
+            'quote_archived' => 'required',
         ]);
 
         $quotes = Quote::find($quote_id);
         $quotes->quote_status = $request->get('quote_status');
         $quotes->quote_comment = $request->get('quote_comment');
+        $quotes->quote_archived = $request->get('quote_archived');
         $quotes->save();
 
-        return redirect('/history/'.$quotes['pk_quote_id'].'/edit')->with('success', 'Product updated');
+        return redirect('/history')->with('success', 'Product updated');
     }
 
 
