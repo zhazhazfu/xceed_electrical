@@ -57,12 +57,12 @@
                     </thead>
                 <tbody>
                     @foreach($quotes as $quote)
-                    @if ($quote->quote_archived == '0')
+                        @if ($quote->quote_archived == '0')
                             <tr width="100%">
-                                <td><h5>{{$quote->prefix->prefix_name}}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}</h5></td>
-                                <td width="15%">{{$quote->created_at}}</td>
-                                <td width="15%">{{$quote->customers->customer_name}}</td>
-                                <td width="35%"><input type="text" class="w-100 form-control ordercomment{{$quote->pk_quote_id}}" id="comment" value="{{$quote->quote_comment}}" ></td>
+                                <td width="7%"><h5>{{$quote->prefix->prefix_name}}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}</h5></td>
+                                <td width="8%">{{$quote->created_at}}</td>
+                                <td width="10%">{{$quote->customers->customer_name}}</td>
+                                <td width="50%"><input type="text" class="w-100 form-control ordercomment{{$quote->pk_quote_id}}" id="comment" value="{{$quote->quote_comment}}" ></td>
                                 <td width="10%"> 
                                     <select class="form-control w-100 select orderStatus{{$quote->pk_quote_id}}" id="inputGroupSelect01">
                                         <option <?php if($quote->quote_status == "1") echo 'selected'; ?> value="1">To Do</option>
@@ -77,7 +77,7 @@
                                     <button class="btn btn-success statusChange" value="{{$quote->pk_quote_id}}">Save</button>
                                 </td>
                             </tr>
-                            @endif
+                        @endif
                     @endforeach
                 </tbody>
             </table>
@@ -111,16 +111,15 @@
                     @foreach($quotes as $quote)
                         @if ($quote->quote_archived == '1')
                         <tr width="100%">
-                            <td><h5>{{$quote->prefix->prefix_name}}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}</h5></td>
-                            <td width="15%">{{$quote->created_at}}</td>
-                            <td width="15%">{{$quote->customers->customer_name}}</td>
-                            <td width="35%"><input type="text" class="w-100 form-control ordercomment{{$quote->pk_quote_id}}" id="comment" value="{{$quote->quote_comment}}" ></td>
+                            <td width="7%"><h5>{{$quote->prefix->prefix_name}}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}}</h5></td>
+                            <td width="8%">{{$quote->created_at}}</td>
+                            <td width="10%">{{$quote->customers->customer_name}}</td>
+                            <td width="50%"><input type="text" class="w-100 form-control ordercomment{{$quote->pk_quote_id}}" id="comment" value="{{$quote->quote_comment}}" ></td>
                             <td width="10%"> 
                                 <select class="form-control w-100 select orderStatus{{$quote->pk_quote_id}}" id="inputGroupSelect01">
                                     <option <?php if($quote->quote_status == "1") echo 'selected'; ?> value="1">To Do</option>
                                     <option <?php if($quote->quote_status == "2") echo 'selected'; ?> value="2">Pending</option>
                                     <option <?php if($quote->quote_status == "3") echo 'selected'; ?> value="3">Sent</option>
-                                    
                                 </select>
                             </td>
                             <td class="float-right">

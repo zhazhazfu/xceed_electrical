@@ -83,7 +83,6 @@ class QuoteController extends Controller
         $quote->quote_number = $request->get('quote_number');
         $quote->quote_status = $request->get('quote_status');
         $quote->quote_status = 2;
-        $quote->quote_revisonnumber = 1;
         $quote->quote_comment = $request->get('quote_comment');
         $quote->save();
 
