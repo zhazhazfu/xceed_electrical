@@ -162,7 +162,7 @@
                                 <div class="form-group w-100">
                                     <label for="quote_inclusions">Inclusions</label>
                                     <br>
-                                    <select style="display: inline" class="form-control col-md-11 my-2" id="inc_selector" name="inc_selector" required>
+                                    <select style="display: inline" class="form-control col-md-11 my-2" id="inc_selector" name="inc_selector" >
                                         @foreach($inclusions as $quoteinc)
                                         <option value="{{ $quoteinc->pk_in_id }}">{{ $quoteinc->inclusion_Content }}</option>
                                         @endforeach
@@ -170,7 +170,7 @@
 
                                     <button style="display: inline" id="duplicate_inc" class="btn btn-primary float-right my-2">Add</button>
 
-                                    <textarea class="form-control" id="inc_name" name="inc_name" rows="5" required></textarea>
+                                    <textarea class="form-control" id="inc_name" name="inc_name" rows="5" ></textarea>
                                     
                                 </div>  
                             </div>
@@ -188,7 +188,7 @@
                                 <label for="quote_exclusions">Exclusions</label>
 
                                 <br>
-                                <select style="display: inline" class="form-control col-md-11 my-2" id="exc_selector" name="exc_selector" required>
+                                <select style="display: inline" class="form-control col-md-11 my-2" id="exc_selector" name="exc_selector" >
                                     @foreach($inclusions as $quoteinc)
                                     <option value="{{ $quoteinc->pk_in_id }}">{{ $quoteinc->inclusion_Content }}</option>
                                     @endforeach
@@ -196,7 +196,7 @@
 
                                 <button style="display: inline" id="duplicate_exc" class="btn btn-primary float-right my-2">Add</button>
 
-                                <textarea class="form-control" id="exc_name" name="exc_name" rows="5" required></textarea>
+                                <textarea class="form-control" id="exc_name" name="exc_name" rows="5" ></textarea>
 
                                 <!-- <select class="form-control" id="exc_name" name="exc_name" required>
                                     @foreach($exclusions as $quoteexc)
@@ -218,7 +218,7 @@
                     <div class="form-group">
                     </div>
                     <div class="form-group col-md-8">
-                        <select class="form-control" id="term_name" name="term_name" required>
+                        <select class="form-control" id="term_name" name="term_name" >
                             @foreach($quoteterms as $quoteterm)
                             <option value="{{ $quoteterm->pk_term_id }}">{{ $quoteterm->term_name }}</option>
                             @endforeach
@@ -234,7 +234,7 @@
                     <div class="form-group">
                     </div>
                     <div class="form-group col-md-8">
-                        <input text="text" class="form-control" id="quote_comment" name="quote_comment" required>
+                        <input text="text" class="form-control" id="quote_comment" name="quote_comment" >
                     </div>
                 </div>
             </div>
@@ -243,8 +243,8 @@
             <div class="col-sm-12">
                 <div class="form-row float-right">
                     <button type="button" class="btn btn-secondary m-2">Cancel</button>
-                    <button type="button" class="btn btn-secondary m-2">Save</button>
-                    <button type="submit" class="btn btn-primary m-2">Generate Quote</button>
+                    <button type="submit" name="save" value="3" class="btn btn-secondary m-2">Save</button>
+                    <button type="submit" name="generate" value="1" class="btn btn-primary m-2">Generate Quote</button>
                 </div>
             </div>
         </form>
@@ -264,6 +264,7 @@
     
     function calculateTotal() {
         var id_values = $("select[name='item_number[]']").map(function(){return $(this).val();}).get();
+        var customer_id = $("select[name='customer_name']").val();
         console.log(id_values);
 
         $.ajaxSetup({
@@ -277,9 +278,10 @@
             
             url:'{{ URL::to('/quote_pricings') }}',
                         
-            data:{ id_values: id_values},
+            data:{ id_values: id_values, customer_id:customer_id},
                         
             success:function(data){
+                console.log(data.final_price);
                 $(".price_input").val(data.final_price);
                 $(".gst_input").val(data.final_gst);
             },
@@ -512,7 +514,7 @@
             section = document.getElementsByName('item_price');
             
             // alert(data.price);
-            section[counter].value = "$" + data.price;
+            section[counter].value = data.price;
             // return(data);
         });
     };

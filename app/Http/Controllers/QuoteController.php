@@ -59,7 +59,16 @@ class QuoteController extends Controller
     public function store(Request $request) 
     {
         
-        $this->validate($request, [
+        if ($request->has('save')) {
+
+            $status = 1;
+
+        }
+        else
+        {
+            $status = 2;
+
+             $this->validate($request, [
             'customer_name' => 'required',
             'quote_prefix' => 'required',
             'item_number' => 'required',
@@ -68,7 +77,10 @@ class QuoteController extends Controller
             'exc_name' => 'required',
             'price' => 'required',
             'gst_price' => 'required'
-        ]);
+            ]);
+        }
+
+       
         
         $business = BusinessDetail::where('businessdetail_email','info@xceedelectrical.com.au')->first();
         $quote = new Quote;
@@ -80,7 +92,7 @@ class QuoteController extends Controller
         $quote->exclusions = $request->get('exc_name');
         $quote->fk_prefix_id = $request->get('quote_prefix');
         $quote->quote_number = $request->get('quote_number');
-        $quote->quote_status = $request->get('quote_status');
+        $quote->quote_status = $status;
         $quote->quote_revisonnumber = 1;
         $quote->quote_comment = $request->get('quote_comment');
         $quote->save();
@@ -287,6 +299,16 @@ class QuoteController extends Controller
         $final_gst = 0;
         $companyCosts = CompanyCost::all();
         $employeeCosts = EmployeeCost::all();
+        $customer = Customer::where('pk_customer_id', $request->customer_id)->first();
+        if ($customer->discount) {
+            $discount_rate = $customer->discount->discount_rate;
+            $percent_to_apply = 100 - $discount_rate;
+        }
+        else
+        {
+            $percent_to_apply = 100;
+        }
+        
         //--------------------------total company expenses-----------------------------------
         $total = 0;
         foreach ($companyCosts as $companyCost) {
@@ -352,11 +374,33 @@ class QuoteController extends Controller
                 {
                     $temp_mat_cost += $temp_itemHasMaterial->material->material_cost*$temp_itemHasMaterial->quantity;
                 }
-                $final_price += number_format(($temp_mat_cost*$grossMargin->gm_rate) + $item->item_servicecall + $item->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8),2);  
+                $tmp_price = number_format(($temp_mat_cost*$grossMargin->gm_rate) + $item->item_servicecall + $item->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8),2);
+                $tmp_price = $tmp_price / 100;
+                $tmp_price = $tmp_price * $percent_to_apply;
+                if ($request->qtys) {
+                    $final_price +=  $tmp_price * $request->qtys[$key];
+                }
+                else
+                {
+                    $final_price += $tmp_price;
+                } 
+                
 
-                $final_gst += number_format((($temp_mat_cost*$grossMargin->gm_rate) + $item->item_servicecall + $item->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2);                  
+                $tmp_price = number_format((($temp_mat_cost*$grossMargin->gm_rate) + $item->item_servicecall + $item->item_estimatedtime * $total_business_hourly_cost * ($grossMargin->gm_rate /365/8))*1.1,2);
+                $tmp_price = $tmp_price / 100;
+                $tmp_price = $tmp_price * $percent_to_apply;
+                if ($request->qtys) {      
+                $final_gst +=  $tmp_price * $request->qtys[$key]; 
+                }
+                else
+                {
+                    $final_gst +=  $tmp_price; 
+                }           
             }
         }
+
+        $final_price = number_format($final_price,2);
+        $final_gst = number_format($final_gst,2);
         return response()->json(compact('final_price' , 'final_gst'));
     }
 }

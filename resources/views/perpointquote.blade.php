@@ -106,10 +106,10 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-4" id="description">
-                                <input data-id="1" type="text" class="form-control" name="item_price" id="item_price" placeholder="$0.00" readonly>
+                                <input data-id="1" type="number" class="form-control" name="item_price" id="item_price" placeholder="$0.00" readonly>
                             </div>
                             <div class="form-group col-md-2">
-                                <input data-id="1" class="form-control" id="item_quantity" name="item_quantity" placeholder="Quantity of item" onchange="getQuantity(this)">
+                                <input data-id="1" type="text" class="form-control" id="item_quantity" name="item_quantity[]" placeholder="Quantity of item"  onkeyup="getQuantity(this)">
                             </div>
                         </div>
                         <div class="form-row">
@@ -118,6 +118,9 @@
                             </div>
                             <div class="form-group col-sm float-right">
                                 <button data-id="1" id="remove_job" class="btn btn-danger float-right">Remove Job</button>
+                            </div>
+                            <div class="form-group col-sm float-right">
+                                <input data-id="1" type="hidden" class="form-control" name="fix_item_price" id="fix_item_price" placeholder="$0.00" readonly>
                             </div>
                         </div>
                     </div>
@@ -165,7 +168,7 @@
                                 <div class="form-group w-100">
                                     <label for="quote_inclusions">Inclusions</label>
                                     <br>
-                                    <select style="display: inline" class="form-control col-md-11 my-2" id="inc_selector" name="inc_selector" required>
+                                    <select style="display: inline" class="form-control col-md-11 my-2" id="inc_selector" name="inc_selector" >
                                         @foreach($inclusions as $quoteinc)
                                         <option value="{{ $quoteinc->pk_in_id }}">{{ $quoteinc->inclusion_Content }}</option>
                                         @endforeach
@@ -173,7 +176,7 @@
 
                                     <button style="display: inline" id="duplicate_inc" class="btn btn-primary float-right my-2">Add</button>
 
-                                    <textarea class="form-control" id="inc_name" name="inc_name" rows="5" required></textarea>
+                                    <textarea class="form-control" id="inc_name" name="inc_name" rows="5" ></textarea>
                                     
                                 </div>  
                             </div>
@@ -191,7 +194,7 @@
                                 <label for="quote_exclusions">Exclusions</label>
 
                                 <br>
-                                <select style="display: inline" class="form-control col-md-11 my-2" id="exc_selector" name="exc_selector" required>
+                                <select style="display: inline" class="form-control col-md-11 my-2" id="exc_selector" name="exc_selector" >
                                     @foreach($inclusions as $quoteinc)
                                     <option value="{{ $quoteinc->pk_in_id }}">{{ $quoteinc->inclusion_Content }}</option>
                                     @endforeach
@@ -199,7 +202,7 @@
 
                                 <button style="display: inline" id="duplicate_exc" class="btn btn-primary float-right my-2">Add</button>
 
-                                <textarea class="form-control" id="exc_name" name="exc_name" rows="5" required></textarea>
+                                <textarea class="form-control" id="exc_name" name="exc_name" rows="5" ></textarea>
 
                                 <!-- <select class="form-control" id="exc_name" name="exc_name" required>
                                     @foreach($exclusions as $quoteexc)
@@ -237,7 +240,7 @@
                     <div class="form-group">
                     </div>
                     <div class="form-group col-md-8">
-                        <input text="text" class="form-control" id="quote_comment" name="quote_comment" required>
+                        <input text="text" class="form-control" id="quote_comment" name="quote_comment" >
                     </div>
                 </div>
             </div>
@@ -254,7 +257,13 @@
     </div>
 </div>
 
-
+<!-- Sets todays date as the quote date -->
+<script>
+    let today = new Date().toISOString().substr(0, 10);
+    document.querySelector("#today").value = today;
+    document.querySelector("#today2").valueAsDate = new Date();
+</script>
+@stop
 
 @push('js')
 <script type="text/javascript">
@@ -267,7 +276,9 @@
     
     function calculateTotal() {
         var id_values = $("select[name='item_number[]']").map(function(){return $(this).val();}).get();
-        console.log(id_values);
+        var qtys = $("input[name='item_quantity[]']").map(function(){return $(this).val();}).get();
+        var customer_id = $("select[name='customer_name']").val();
+        console.log(qtys);
 
         $.ajaxSetup({
             headers: {
@@ -280,7 +291,7 @@
             
             url:'{{ URL::to('/quote_pricings') }}',
                         
-            data:{ id_values: id_values},
+            data:{ id_values: id_values, qtys: qtys, customer_id:customer_id},
                         
             success:function(data){
                 $(".price_input").val(data.final_price);
@@ -418,6 +429,39 @@
         });
     }
 
+    function getQuantity(element) { 
+        console.log('working');
+         optionSelected = element.value;
+
+       console.log(parseInt(optionSelected)<1);
+        if(parseInt(optionSelected)>0)
+        {
+            number = element.getAttribute("data-id");
+            section = document.getElementsByName('item_price');
+
+            var i;
+                var x;
+                // for loop to determine which one gets begone-d
+                for (i=0; i<section.length; i++) {
+                    sectionID = section[i].getAttribute('data-id');
+                    // alert(sectionID);
+                    if (sectionID == number) {
+                        // alert('match found: ' + sectionID);
+                        x = i;
+                    }
+                }
+                
+                var value = parseFloat(document.getElementsByName('fix_item_price')[x].value) * parseFloat(optionSelected);
+                value = value.toFixed(2)
+                console.log(document.getElementsByName('item_price')[x].value);
+                document.getElementsByName('item_price')[x].value= value;
+                calculateTotal();
+        }
+
+
+
+    }
+
     function getDescription(element) { //to get description according to item number
         optionSelected = element.value;
         number = element.getAttribute("data-id");
@@ -459,10 +503,12 @@
         }).done(function(data) {
             console.log("price = " + data.price);
             // alert("price = " + data.price);
+            section2 = document.getElementsByName('fix_item_price');
             section = document.getElementsByName('item_price');
             
             // alert(data.price);
-            section[counter].value = "$" + data.price;
+            section[counter].value = data.price;
+            section2[counter].value = data.price;
             // return(data);
         });
     };
@@ -488,6 +534,7 @@
             c[7].setAttribute('data-id', count);
             c[8].setAttribute('data-id', count);
             c[9].setAttribute('data-id', count);
+            c[10].setAttribute('data-id', count);
             
             $("#select_job").append(copy);
             calculateTotal();
@@ -540,10 +587,3 @@
 </script>
 @endpush
 
-<!-- Sets todays date as the quote date -->
-<script>
-    let today = new Date().toISOString().substr(0, 10);
-    document.querySelector("#today").value = today;
-    document.querySelector("#today2").valueAsDate = new Date();
-</script>
-@stop

@@ -88,7 +88,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
             </p>
         </div>
         <div class="col-sm-6">
-            <img src="images/Xceed_logo_small_01-copy1.png" class="img-fluid float-right" width="350px"
+            <img src="/images/Xceed_logo_small_01-copy1.png" class="img-fluid float-right" width="350px"
                 alt="Responsive image">
         </div>
         <!-- Forces next column to break new line -->
@@ -138,15 +138,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                         <label for="quoteDate">Date</label>
                         <input type="date" class="form-control" id="today" value="" readonly>
                     </div>
-                    <div class="form-group col-md-4">
-                        <label for="quoteDate">Quote status</label>
-                        <select class="form-control" id="quote_status" name="quote_status" required="">
-                                <option @if($quote->quote_status == 1) selected @endif value="1">Sent</option>
-                                <option @if($quote->quote_status == 2) selected @endif value="2">To Do</option>
-                                <option @if($quote->quote_status == 3) selected @endif value="3">Pending</option>
-                                                    
-                        </select>
-                    </div>
+                    
                 </div>
             </div>
         
@@ -314,7 +306,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                 <div class="form-group w-100">
                                     <label for="quote_inclusions">Inclusions</label>
                                     <br>
-                                    <select style="display: inline" class="form-control col-md-11 my-2" id="inc_selector" name="inc_selector" required>
+                                    <select style="display: inline" class="form-control col-md-11 my-2" id="inc_selector" name="inc_selector" >
                                         @foreach($inclusions as $quoteinc)
                                         <option value="{{ $quoteinc->pk_in_id }}">{{ $quoteinc->inclusion_Content }}</option>
                                         @endforeach
@@ -322,7 +314,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
 
                                     <button style="display: inline" id="duplicate_inc" class="btn btn-primary float-right my-2">Add</button>
 
-                                    <textarea class="form-control" id="inc_name" name="inc_name" rows="5"  required>{{$quote->inclusions}}</textarea>
+                                    <textarea class="form-control" id="inc_name" name="inc_name" rows="5"  >{{$quote->inclusions}}</textarea>
                                     
                                 </div>  
                             </div>
@@ -340,7 +332,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                 <label for="quote_exclusions">Exclusions</label>
 
                                 <br>
-                                <select style="display: inline" class="form-control col-md-11 my-2" id="exc_selector" name="exc_selector" required>
+                                <select style="display: inline" class="form-control col-md-11 my-2" id="exc_selector" name="exc_selector" >
                                     @foreach($inclusions as $quoteinc)
                                     <option value="{{ $quoteinc->pk_in_id }}">{{ $quoteinc->inclusion_Content }}</option>
                                     @endforeach
@@ -348,7 +340,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
 
                                 <button style="display: inline" id="duplicate_exc" class="btn btn-primary float-right my-2">Add</button>
 
-                                <textarea class="form-control" id="exc_name" name="exc_name" rows="5" required>{{$quote->exclusions}}</textarea>
+                                <textarea class="form-control" id="exc_name" name="exc_name" rows="5" >{{$quote->exclusions}}</textarea>
 
                                 <!-- <select class="form-control" id="exc_name" name="exc_name" required>
                                     @foreach($exclusions as $quoteexc)
@@ -370,7 +362,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                     <div class="form-group">
                     </div>
                     <div class="form-group col-md-8">
-                        <select class="form-control" id="term_name" name="term_name" required>
+                        <select class="form-control" id="term_name" name="term_name" >
                             @foreach($quoteterms as $quoteterm)
                             <option @if($quote->quoteterms->pk_term_id == $quoteterm->pk_term_id) selected @endif value="{{ $quoteterm->pk_term_id }}">{{ $quoteterm->term_name }}</option>
                             @endforeach
@@ -386,7 +378,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                     <div class="form-group">
                     </div>
                     <div class="form-group col-md-8">
-                        <input text="text" class="form-control" id="quote_comment" name="quote_comment" value="{{$quote->quote_comment}}" required>
+                        <input text="text" class="form-control" id="quote_comment" name="quote_comment" value="{{$quote->quote_comment}}" >
                     </div>
                 </div>
             </div>
@@ -395,7 +387,8 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
             <div class="col-sm-12">
                 <div class="form-row float-right">
                     <button type="button" class="btn btn-secondary m-2">Cancel</button>
-                    <button type="submit" class="btn btn-primary m-2">save Quote</button>
+                    <button type="submit" name="save" value="3" class="btn btn-secondary m-2">Save</button>
+                    <button type="submit" name="generate" value="1" class="btn btn-primary m-2">Generate Quote</button>
                 </div>
             </div>
         </form>

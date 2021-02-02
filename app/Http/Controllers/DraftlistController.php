@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Perpointquote;
+/*use App\Perpointquote;*/
 use App\Quote;
 use App\BusinessDetail;
 use App\Customer;
@@ -26,7 +26,23 @@ class DraftlistController extends Controller
     {
         //
         $pageHeading = 'Draft list';
-        $quotes = Quote::all();
+
+       /* $tmp_perpoint = Perpointquote::where('perpoint_status',1)->get();*/
+        $tmp_quotes = Quote::where('quote_status',1)->get();
+
+        /*foreach($tmp_perpoint as $key => $data)
+                    {
+                        $data->type = 'per point quote';
+                       
+                    }*/
+        foreach($tmp_quotes as $key => $data)
+                    {
+                        $data->type = 'fixed quote';
+                        
+                    }
+        //$quotes = $tmp_quotes->merge($tmp_perpoint);
+        $quotes = $tmp_quotes;
+
 
         return view('draftlist',compact('pageHeading','quotes'));
     }
@@ -57,8 +73,16 @@ class DraftlistController extends Controller
     public function update(Request $request)
     {
 
+        if ($request->has('save')) {
 
-        $this->validate($request, [
+            $status = 1;
+
+        }
+        else
+        {
+            $status = 2;
+
+             $this->validate($request, [
             'customer_name' => 'required',
             'quote_prefix' => 'required',
             'item_number' => 'required',
@@ -67,7 +91,10 @@ class DraftlistController extends Controller
             'exc_name' => 'required',
             'price' => 'required',
             'gst_price' => 'required'
-        ]);
+            ]);
+        }
+        
+       
         
         $quote = Quote::where('pk_quote_id',$request->get('quote_id'))->first();
         $quote->fk_customer_id = $request->get('customer_name');
@@ -77,7 +104,7 @@ class DraftlistController extends Controller
         $quote->exclusions = $request->get('exc_name');
         $quote->fk_prefix_id = $request->get('quote_prefix');
         $quote->quote_number = $request->get('quote_number');
-        $quote->quote_status = $request->get('quote_status');
+        $quote->quote_status = $status;
         $quote->quote_revisonnumber = 1;
         $quote->quote_comment = $request->get('quote_comment');
         $quote->save();
@@ -109,6 +136,8 @@ class DraftlistController extends Controller
         $grossmargins = GrossMargin::all();
         $prefixes = Prefix::all();
         $inclusion = Inclusions::all();
-        return View('preview',compact('pageHeading','quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms', 'discounts', 'grossmargins','prefixes','inclusion' ));
+        $quotehasitem = QuoteHasItem::all();
+        $pageid = $quote->pk_quote_id;
+        return View('preview',compact('pageHeading','quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms', 'discounts', 'grossmargins','prefixes','inclusion' ,'pageid','quotehasitem'));
     }
 }

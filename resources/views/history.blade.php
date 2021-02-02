@@ -43,24 +43,24 @@
                             <td>{{$quote->quote_comment}}</td>
                             <td>
                                 @switch($quote->quote_status)
-                                    @case(1)
-                                        <span>To sent</span>
+                                    @case(3)
+                                        <span>sent</span>
                                         @break
                                     @case(2)
-                                        <span>Sent</span>
+                                        <span>To Do</span>
                                         @break
                                     @default
                                 @endswitch
                             </td>
                             <td><input type="text" class="form-control ordercomment{{$quote->pk_quote_id}}" id="comment" value="{{$quote->quote_comment}}" ></td>
                             <td>{{$quote->type}}</td>
-                            <td class="col-2">
+                            <!-- <td class="col-2">
                                 <select class="btn btn-lg  custom-select orderStatus{{$quote->pk_quote_id}}" id="inputGroupSelect01">
                                     
                                     <option <?php if($quote->quote_status == "2") echo 'selected'; ?> value="2">todo</option>
                                     <option <?php if($quote->quote_status == "1") echo 'selected'; ?> value="1">sent</option>
                                 </select>
-                            </td>
+                            </td> -->
                             <td>
                                 <a href="{{ url('/preview/'.$quote['pk_quote_id']) }}" class="btn btn-primary badge-pill">View</a>
                                 <a href="{{ url('/history/'.$quote['pk_quote_id'].'/edit') }}" class="btn btn-primary badge-pill">Edit</a>

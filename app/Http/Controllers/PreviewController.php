@@ -44,6 +44,8 @@ class PreviewController extends Controller
     {
         
         $quoteid = Quote::find($id);
+        $quoteid->quote_status = 3;
+        $quoteid->save();
         $quotes = Quote::all();
         $businessDetails = BusinessDetail::first();
         $customers = Customer::all();
