@@ -122,21 +122,22 @@ class DraftlistController extends Controller
 	            $QuoteHasItem->save();
         	}
         }
+        return redirect('/history/')->with('success', 'Quote Added');
 
-        $pageHeading = 'Preview';
-        $businessDetails = BusinessDetail::first();
-        $quotes = Quote::all();
-        $customers = Customer::all();
-        $categories = Category::all();
-        $subCategories = SubCategory::all();
-        $items = Items::all();
-        $quoteterms = QuoteTerm::all();
-        $discounts = Discount::all();
-        $grossmargins = GrossMargin::all();
-        $prefixes = Prefix::all();
-        $inclusion = Inclusions::all();
-        $quotehasitem = QuoteHasItem::all();
-        $pageid = $quote->pk_quote_id;
-        return View('preview',compact('pageHeading','quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms', 'discounts', 'grossmargins','prefixes','inclusion' ,'pageid','quotehasitem'));
+        // $pageHeading = 'Preview';
+        // $businessDetails = BusinessDetail::first();
+        // $quotes = Quote::all();
+        // $customers = Customer::all();
+        // $categories = Category::all();
+        // $subCategories = SubCategory::all();
+        // $items = Items::all();
+        // $quoteterms = QuoteTerm::all();
+        // $discounts = Discount::all();
+        // $grossmargins = GrossMargin::all();
+        // $prefixes = Prefix::all();
+        // $inclusion = Inclusions::all();
+        // $quotehasitem = QuoteHasItem::all();
+        // $pageid = $quote->pk_quote_id;
+        // return View('preview',compact('pageHeading','quotes', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms', 'discounts', 'grossmargins','prefixes','inclusion' ,'pageid','quotehasitem'));
     }
 }
