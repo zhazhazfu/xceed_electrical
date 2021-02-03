@@ -81,7 +81,6 @@ class QuoteController extends Controller
             ]);
         }
 
-       
         
         $business = BusinessDetail::where('businessdetail_email','info@xceedelectrical.com.au')->first();
         $quote = new Quote;

@@ -47,16 +47,28 @@ class PerpointController extends Controller
     public function store(Request $request) 
     {
         
-        $this->validate($request, [
+        if ($request->has('save')) {
+
+            $status = 1;
+
+        }
+        else
+        {
+            $status = 2;
+
+             $this->validate($request, [
             'customer_name' => 'required',
             'quote_prefix' => 'required',
             'item_number' => 'required',
             'term_name' => 'required',
             'inc_name' => 'required',
             'exc_name' => 'required',
+            'item_price' =>'required',
+            'item_quantity' => 'required',
             'price' => 'required',
             'gst_price' => 'required'
-        ]);
+            ]);
+        }
         
         $business = BusinessDetail::where('businessdetail_email','info@xceedelectrical.com.au')->first();
         $quote = new Quote;
@@ -68,7 +80,7 @@ class PerpointController extends Controller
         $quote->exclusions = $request->get('exc_name');
         $quote->fk_prefix_id = $request->get('quote_prefix');
         $quote->quote_number = $request->get('quote_number');
-        $quote->quote_revisonnumber = 1;
+        $quote->quote_status = $status;
         $quote->quote_comment = $request->get('quote_comment');
         $quote->save();
 
@@ -77,6 +89,7 @@ class PerpointController extends Controller
             $QuoteHasItem->fk_quote_id = $quote->pk_quote_id;
             $QuoteHasItem->fk_item_id = $value;
             $QuoteHasItem->item_quantity = $request->get('item_quantity');
+            $QuoteHasItem->item_price =$request->get('item_price');
             $QuoteHasItem->price = $request->get('price');
             $QuoteHasItem->GST_price = $request->get('gst_price');
             $QuoteHasItem->save();
