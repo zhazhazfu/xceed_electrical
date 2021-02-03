@@ -20,7 +20,7 @@ class AddQuoteHasItemTable extends Migration
             $table->integer('item_quantity')->nullable();
             $table->decimal('price', 10, 2);
             $table->decimal('GST_price', 10, 2);
-            $table->double('item_price');
+            $table->double('item_price')->nullable();
             $table->timestamps();
         });
     }
