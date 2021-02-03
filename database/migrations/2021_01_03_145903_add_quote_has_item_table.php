@@ -18,8 +18,8 @@ class AddQuoteHasItemTable extends Migration
             $table->foreignId('fk_quote_id')->references('pk_quote_id')->on('quotes');
             $table->foreignId('fk_item_id')->references('pk_item_id')->on('items');
             $table->integer('item_quantity')->nullable();
-            $table->decimal('price', 10, 2);
-            $table->decimal('GST_price', 10, 2);
+            $table->string('price');
+            $table->string('GST_price');
             $table->double('item_price')->nullable();
             $table->timestamps();
         });

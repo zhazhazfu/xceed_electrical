@@ -97,9 +97,7 @@
                                     <option @if($itemHasMaterials->archived == 1) selected  @endif value="1">Yes</option>
                                 </select>
                             </div>
-                        </div>
-                        
-                        
+                        </div>                        
                     </div>      
                     @endif
                     @endforeach

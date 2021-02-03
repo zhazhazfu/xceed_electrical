@@ -250,7 +250,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                         <input data-id="{{$counter}}" type="text" class="form-control" name="item_description" id="item_description" placeholder="Item Description" readonly>
                                     </div>
                                     <div class="form-group col-md-4" id="description">
-                                        <input data-id="{{$counter}}" type="text" class="form-control" name="item_price" id="item_price" placeholder="$0.00" readonly>
+                                        <input data-id="{{$counter}}" type="text" class="form-control" name="item_price" id="item_price" placeholder="" readonly>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -498,7 +498,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
             // clear previous item description
             calculateTotal();
             document.getElementsByName('item_description')[x].value = "Item Description";
-            document.getElementsByName('item_price')[x].value= "$0.00";
+            document.getElementsByName('item_price')[x].value= "0.00";
         });
     }
 
@@ -576,7 +576,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
             // });
             
             document.getElementsByName('item_description')[x].value = "Item Description";
-            document.getElementsByName('item_price')[x].value= "$0.00";
+            document.getElementsByName('item_price')[x].value= "0.00";
            // calculateTotal();
         });
     }
@@ -639,7 +639,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
             // alert(price);
 
             document.getElementsByName('item_description')[x].value = data.id;
-            document.getElementsByName('item_price')[x].value= "$0.00";
+            document.getElementsByName('item_price')[x].value= "0.00";
             calculatePrice(optionSelected, x);
             calculateTotal();
         });
@@ -656,7 +656,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
             section = document.getElementsByName('item_price');
             
             // alert(data.price);
-            section[counter].value = "$" + data.price;
+            section[counter].value = data.price;
             // return(data);
         });
     };
