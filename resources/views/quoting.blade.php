@@ -188,8 +188,8 @@
 
                                 <br>
                                 <select style="display: inline" class="form-control col-md-11 my-2" id="exc_selector" name="exc_selector" >
-                                    @foreach($inclusions as $quoteinc)
-                                    <option value="{{ $quoteinc->pk_in_id }}">{{ $quoteinc->inclusion_Content }}</option>
+                                    @foreach($exclusions as $quoteexc)
+                                    <option value="{{ $quoteexc->pk_ex_id }}">{{ $quoteexc->exclusion_Content }}</option>
                                     @endforeach
                                 </select>
                                 <button style="display: inline" id="duplicate_exc" class="btn btn-primary float-right my-2">Add</button>
