@@ -274,8 +274,8 @@
             <div class="col-sm-12">
                 <div class="form-row float-right">
                     <button type="button" class="btn btn-secondary m-2">Cancel</button>
-                    <button type="submit" name="save" value="3" class="btn btn-secondary m-2">Save</button>
-                    <button type="submit" name="generate" value="1" class="btn btn-primary m-2">Generate Quote</button>
+                    <button type="submit" name="save" value="1" class="btn btn-secondary m-2">Save</button>
+                    <button type="submit" name="generate" value="2" class="btn btn-primary m-2">Generate Quote</button>
                 </div>
             </div>
         </form>
