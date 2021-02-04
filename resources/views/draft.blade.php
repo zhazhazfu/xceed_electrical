@@ -159,18 +159,13 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                 <div class="form-group col-md-3">
                                     <label for="selectCategory">Category</label>
                                     <select data-id="{{$key+1}}" class="form-control" id="selectCategory" onchange="getSubcategory(this)">
-                                        <option value="" selected disabled>Please select a category</option>
-                                        @foreach($categories as $category)
-                                        @if($category->category_archived == '0')
-                                        <option value="{{ $category->pk_category_id }}">{{ $category->category_name }}</option>
-                                        @endif
-                                        @endforeach
+                                    <option value="" selected disabled>{{$job->items->subcategories->categories->category_name ?? ''}}</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-7">
                                     <label for="selectCategory">Sub-Category</label>
                                     <select data-id="{{$key+1}}" class="form-control" id="subcategorySelect" name="subcategorySelect" onchange="getItem(this)">
-                                        <option value="" selected disabled>Please select a subcategory</option>
+                                    <option value="" selected disabled>{{$job->items->subcategories->subcategory_name ?? ''}}</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-2">
@@ -201,7 +196,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
                                     <input data-id="{{$key+1}}" type="text" class="form-control" name="item_price" id="item_price" value="{{$tmp_gst_price}}" placeholder="$0.00" readonly>
                                 </div>
                             </div>
-                           <!--  <div class="form-row">
+                            <!--  <div class="form-row">
                                 <div class="form-group col-sm">
                                     <button data-id="{{$key+1}}" id="dublicate_job" class="btn btn-primary">Add Job</button>
                                 </div>
@@ -408,6 +403,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
     
     function calculateTotal() {
         var id_values = $("select[name='item_number[]']").map(function(){return $(this).val();}).get();
+        var customer_id = $("select[name='customer_name']").val();
         console.log(id_values);
 
         $.ajaxSetup({
@@ -421,7 +417,7 @@ $total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
             
             url:'{{ URL::to('/quote_pricings') }}',
                         
-            data:{ id_values: id_values},
+            data:{ id_values: id_values, customer_id:customer_id},
                         
             success:function(data){
                 $(".price_input").val(data.final_price);

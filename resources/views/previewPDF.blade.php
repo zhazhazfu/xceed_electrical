@@ -4,6 +4,77 @@
 
  @section('content') 
 <!-- --------------- -->
+
+
+<!-- total company expenses -->
+@php
+$total = 0;
+@endphp
+@foreach($companyCosts as $companyCost)
+@if($companyCost->companycost_archived == '0')
+@php
+$total += $companyCost->companycost_yearly;
+@endphp
+@endif
+@endforeach
+
+
+<!-- total employee costs -->
+@php
+$total_employee = 0;
+$total_cost_less_super=0;
+@endphp
+@foreach($employeeCosts as $employeeCost)
+@if($employeeCost->employee_archived == '0' && $employeeCost->employee_type == 'Employee')
+@php
+$total_employee += $employeeCost->employee_workercomp + $employeeCost->employee_hoursperweek*
+$employeeCost->employee_basehourly * $employeeCost->employee_weeksperyear*0.095 +
+$employeeCost->employee_phone +$employeeCost->employee_otherweeklycost +
+$employeeCost->employee_vehiclecost + $employeeCost->employee_hoursperweek*
+$employeeCost->employee_basehourly * $employeeCost->employee_weeksperyear;
+$total_cost_less_super+=$employeeCost->employee_workercomp +
+$employeeCost->employee_hoursperweek* $employeeCost->employee_basehourly *
+$employeeCost->employee_weeksperyear*0.095 + $employeeCost->employee_phone
++$employeeCost->employee_otherweeklycost + $employeeCost->employee_vehiclecost +
+$employeeCost->employee_hoursperweek* $employeeCost->employee_basehourly *
+$employeeCost->employee_weeksperyear - $employeeCost->employee_hoursperweek*
+$employeeCost->employee_basehourly * $employeeCost->employee_weeksperyear*0.095;
+@endphp
+@endif
+@endforeach
+
+
+<!-- total sub-contractor costs -->
+@php
+$total_subcontractor = 0;
+$total_cost_less_super=0;
+@endphp
+@foreach($employeeCosts as $employeeCost)
+@if($employeeCost->employee_archived == '0' && $employeeCost->employee_type == 'Sub-Contractor')
+@php
+$total_subcontractor += $employeeCost->employee_cash + $employeeCost->employee_workercomp +
+$employeeCost->employee_hoursperweek*
+$employeeCost->employee_basehourly * $employeeCost->employee_weeksperyear*0.095 +
+$employeeCost->employee_phone +$employeeCost->employee_otherweeklycost +
+$employeeCost->employee_vehiclecost + $employeeCost->employee_hoursperweek*
+$employeeCost->employee_basehourly * $employeeCost->employee_weeksperyear;
+$total_cost_less_super+=$employeeCost->employee_workercomp +
+$employeeCost->employee_hoursperweek* $employeeCost->employee_basehourly *
+$employeeCost->employee_weeksperyear*0.095 + $employeeCost->employee_phone
++$employeeCost->employee_otherweeklycost + $employeeCost->employee_vehiclecost +
+$employeeCost->employee_hoursperweek* $employeeCost->employee_basehourly *
+$employeeCost->employee_weeksperyear - $employeeCost->employee_hoursperweek*
+$employeeCost->employee_basehourly * $employeeCost->employee_weeksperyear*0.095;
+@endphp
+@endif
+@endforeach
+
+<!-- total running cost -->
+@php
+$total_business_hourly_cost = $total + $total_employee + $total_subcontractor;
+$grossMargin = App\GrossMargin::get()->last();
+@endphp
+
 <head>
     <title>Preview</title>
 </head>

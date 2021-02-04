@@ -122,7 +122,15 @@ class DraftlistController extends Controller
 	            $QuoteHasItem->save();
         	}
         }
-        return redirect('/history/')->with('success', 'Quote Added');
+        if ($request->has('save')) {
+
+            return redirect('/draftlist')->with('success', 'Quote Added');
+
+        }
+        else
+        {
+             return redirect('/history')->with('success', 'Quote Added');
+        }
 
         // $pageHeading = 'Preview';
         // $businessDetails = BusinessDetail::first();

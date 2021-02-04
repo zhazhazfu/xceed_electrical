@@ -18,6 +18,8 @@ use App\Inclusions;
 use App\Exclusions;
 use App\Items;
 use App\QuoteHasItem;
+use App\CompanyCost;
+use App\EmployeeCost;
 use PDF;
 
 
@@ -36,9 +38,12 @@ class PreviewPDFController extends Controller
             $quoteterms = QuoteTerm::all();
             $prefixes = prefix::all();
             $quotehasitem = QuoteHasItem::all();
+            $grossmargins = GrossMargin::all();
+            $companyCosts = CompanyCost::all();
+            $employeeCosts = EmployeeCost::all();
             $pageid = $id;
     
-            return view('preview', compact('pageHeading', 'quoteid','quotes', 'quotehasitem', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms','prefixes', 'pageid'));
+            return view('preview', compact('pageHeading', 'quoteid','quotes', 'quotehasitem', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms','prefixes', 'pageid','grossmargins','companyCosts','employeeCosts'));
         }
 
     public function show($id="")
@@ -54,9 +59,12 @@ class PreviewPDFController extends Controller
         $quoteterms = QuoteTerm::all();
         $prefixes = prefix::all();
         $quotehasitem = QuoteHasItem::all();
+        $grossmargins = GrossMargin::all();
+        $companyCosts = CompanyCost::all();
+        $employeeCosts = EmployeeCost::all();
         $pageid = $id;
 
-        return view('previewPDF', compact('pageHeading', 'quoteid','quotes', 'quotehasitem', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms','prefixes', 'pageid'));
+        return view('previewPDF', compact('pageHeading', 'quoteid','quotes', 'quotehasitem', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms','prefixes', 'pageid','grossmargins','companyCosts','employeeCosts'));
     } 
 
     public function generatePDF($id="")
@@ -72,9 +80,12 @@ class PreviewPDFController extends Controller
         $quoteterms = QuoteTerm::all();
         $prefixes = prefix::all();
         $quotehasitem = QuoteHasItem::all();
+        $grossmargins = GrossMargin::all();
+        $companyCosts = CompanyCost::all();
+        $employeeCosts = EmployeeCost::all();
         $pageid = $id;
         
-        $pdf = PDF::loadView('previewPDF', compact('pageHeading', 'quoteid','quotes', 'quotehasitem', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms','prefixes', 'pageid'));
+        $pdf = PDF::loadView('previewPDF', compact('pageHeading', 'quoteid','quotes', 'quotehasitem', 'businessDetails', 'customers', 'categories', 'subCategories', 'items', 'quoteterms','prefixes', 'pageid','grossmargins','companyCosts','employeeCosts'));
   
         return $pdf->download('Quote.pdf');
     }

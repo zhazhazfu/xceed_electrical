@@ -106,7 +106,16 @@ class QuoteController extends Controller
             $QuoteHasItem->save();
         }
 
-        return redirect('/history/')->with('success', 'Quote Added');
+        if ($request->has('save')) {
+
+            return redirect('/draftlist')->with('success', 'Quote Added');
+
+        }
+        else
+        {
+             return redirect('/history')->with('success', 'Quote Added');
+        }
+       
     }
 
     public function quotestatus(Request $request)
