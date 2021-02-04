@@ -38,7 +38,7 @@ return [
             'transport' => 'smtp',
             'host' => env('MAIL_HOST', 'smtp.mailtrap.io'),
             'port' => env('MAIL_PORT', 2525),
-            'from' => ['address' => 'dannypresedo@gmail.com', 'name' => 'Daniel'],
+            'from' => ['address' => 'fuzihaoooo@gmail.com', 'name' => 'James'],
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
