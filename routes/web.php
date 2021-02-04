@@ -88,7 +88,7 @@ Route::get('/quoteterms', 'QuoteTermController@edit')->name('quoteterms')->middl
 Route::resource('quoteterms', 'QuoteTermController')->middleware('auth');
 
 Route::get('/preview/{id}', 'PreviewController@show')->name('preview')->middleware('auth');
-Route::get('/preview/{id}/download', 'PreviewController@generatePDF')->name('preview')->middleware('auth');
+Route::get('/preview/{id}/download', 'PreviewController@generatePDF')->name('previewpdf')->middleware('auth');
 
 Route::get('/grossmargin', 'GrossMarginController@index')->name('grossmargin')->middleware('auth');
 Route::get('/grossmargin', 'GrossMarginController@edit')->name('grossmargin')->middleware('auth');

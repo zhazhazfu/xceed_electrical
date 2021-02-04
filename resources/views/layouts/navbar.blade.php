@@ -19,7 +19,7 @@
             <a href="/{{ 'dashboard' }}" class="list-group-item list-group-item-action bg-dark border-0 text-white">Dashboard</a>
         </li>
         <li class="nav-item dropdown p-2">
-            <a class="nav-link dropdown-toggle bg-dark border-0 text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle bg-dark border-0 text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 0.7rem 1rem">
             Quote Dashboard
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -50,7 +50,7 @@
 
         @if (Auth::user() && Auth::user()->role == 'admin')
         <li class="nav-item dropdown p-2">
-        <a class="nav-link dropdown-toggle bg-dark border-0 text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle bg-dark border-0 text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 0.75rem 1rem">
             Admin Options
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
