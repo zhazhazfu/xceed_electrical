@@ -1,11 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="cotainer mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-5 mt-5">
-            <img src="images/Xceed_logo_small_01-copy1.png" class="img-fluid mx-auto mb-5" style="display:block"
-                width="350px" alt="Responsive image">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -46,7 +41,6 @@
                     </form>
                 </div>
             </div>
-        </div>
         </div>
     </div>
 </div>

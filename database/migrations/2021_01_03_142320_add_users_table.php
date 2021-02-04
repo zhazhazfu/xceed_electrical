@@ -33,6 +33,14 @@ class AddUsersTable extends Migration
         $user->user_firstlast = 'Jayson Conceicao';
         $user->role = 'admin';
         $user->save();
+
+        $user = new App\User();
+        $user->password = Hash::make('123');
+        $user->user_name = 'James';
+        $user->email = 'fuzihaoooo@gmail.com';
+        $user->user_firstlast = 'James Fu';
+        $user->role = 'admin';
+        $user->save();
     }
 
     /**
