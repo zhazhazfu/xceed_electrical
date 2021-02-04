@@ -1,19 +1,33 @@
-<h1>Read Me - SCS220-2</h1>
-<p>Hi, If you are reading this you have been selected to continue development of this project for Xceed Electrical.</p>
-<p>This project utilises the Laravel 7 framework for back-end functionality and Bootstrap for front-end CSS. This project has been developed with Laravel Model-View-Controller standard in mind.
-The View (examplefilename.blade.php) files are where you build your pages with HTML.</p>
-<p>The Model files in the app directory (Category.php, Customer.php, Quote.php, etc.) determine what columns of a table in the database are required, the table name, key, and relationships to other tables. These relationships can be varied, but for the purposes of getting the Quote functionality working, will primarily be One-to-Many and Many-to-One. Examples of these two relationships can be seen on the Customer.php and Discount.php Models.
-Controllers are where all the functionality of the framework comes together. Controllers can do many things such as simply generate a page with a unique page heading, or even view, store, edit, update and delete records from a database.</p>
+<h1>Read Me - SCS320-4</h1>
 
-<p>You may notice that there are no delete functions in this project. This is because deleting of records such as products, materials, and customers from the database will break any quotes that may reference these deleted records. Instead we opted for archiving, so that even though a product or material may not be used or viewed anymore, an older quote or other record may still be referenced with all necessary data. For a similar reason, this is why snapshots of other table records are taken and saved into tables such as QuoteItem (migration file: database\migrations\2020_09_07_000015_create_quoteitems_table.php). This will enable a created quote item to maintain a record of the pricing at the time the quote was generated, even if the material price, name, description, etc. is changed in the future.<p>
+<p>Hey, if you're reading this document you're either the next group who's been selected to continue this project, or you're someone from Xceed Electrical who's attempting to upgrade the project.</p>
 
-<p>We highly recommend the Laravel documentation. While daunting at first, it does provide some great information (most of the time..). Links to the documentation can be found below.</p>
+<p>The project you're looking at makes use of the Laravel 7 framework, which was used to build the back-end functions and Bootstrap 4, which was used to build the front-end webpage. We've used the Model-View-Controller standard to develop the project.</p>
 
-<p>In addition, we found the Coder's Tape YouTube (https://www.youtube.com/c/CodersTape) video series on Laravel 6 very helpful when starting the project. While most of the functionality explained early in the videos has been completed, you will get a lot out of watching the tutorials to understand the basics of routing through web.php, along with blade templating, and how controllers work.</p>
+<p>As a quick summary, the Models determine the website's use of the database (e.g. which tables are needed, the attributes used, and the relationships needed.), the Views are used to generate the HTML which builds the front-end of the page, and the Controllers are where much of the functions and logic that make the site work are defined.</p>
 
-<p>Good luck!</p>
+<p>You'll find a much better explaination of what we've said here, and more, in the official Laravel documentation: https://laravel.com/docs/7.x</p>
+<p>We'd also recommend the Laracasts podcast, which will be of much aid with understanding Laravel's functions: https://laracasts.com/series/laravel-6-from-scratch</p>
 
-<p>David & Jason.</p>
+<p>Other than Laravel, you'll need to install the following:</p>
+<p>- XAMPP</p>
+<p>- DomPDF (https://github.com/dompdf/dompdf)</p>
+
+<p>While we'd personally call this project complete, there are a few hitches in our code which we weren't able to resolve before we completed the project:</p>
+<p>- Values go negative when choosing a quantity in the system.</p>
+<p>- Remove button completely removes all the job structure.</p>
+<p>- DOM pdf CSS compatibility.</p>
+<p>- Reset password with email only works using testing server of mailtrap.</p>
+
+<p>As for how we'd go about improving the project:</p>
+<p>- Minor detailing in the formulae and functions.</p>
+<p>- Extra functions can be added to the system according to the client’s requirements.</p>
+<p>- Further improvement with the known bugs.</p>
+
+<p>We're hoping that you'll be able to springboard off of our work and be able to complete your objectives smoothly.</p>
+
+<p>Wishing you the best,</p>
+<p>Johnny, Abhinav, Zihao, Daniel and Ahmer</p>
 
 ## About Laravel
 
