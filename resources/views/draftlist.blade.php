@@ -31,7 +31,7 @@
                             <td>{{$quote->customers->customer_name}}</td>
                             <td>{{$quote->quote_comment}}</td>
                             <td>
-                            <a href="{{url('/draftlist/edit/'.$quote->pk_quote_id )}}" class="btn btn-primary">Edit</a>
+                            <a href="{{url('/draftlist/edit/'.$quote->pk_quote_id )}}" class="float-right btn btn-primary">Edit</a>
                             {{-- <button type="button" class="btn btn-danger badge-pill"style="width:80px;">Delete</button> --}}
                             </td>
                         </tr>

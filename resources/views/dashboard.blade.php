@@ -21,7 +21,7 @@
 
 
     .btn-warning {
-        background: linear-gradient(to right, #f0e07a, #deac57);
+        background-color: #f0e07a;
         transition: all .2s ease-in-out;
     }
 
@@ -31,7 +31,7 @@
     }
 
     .btn-danger {
-        background: linear-gradient(to right, #ad4d40, #70241f);
+        background-color: #ad4d40;
         transition: all .2s ease-in-out;
     }
 
@@ -41,7 +41,7 @@
     }
 
     .btn-success {
-        background: linear-gradient(to right, #72cf7b, #3b9457);
+        background-color: #72cf7b;
         transition: all .2s ease-in-out;
     }
 
