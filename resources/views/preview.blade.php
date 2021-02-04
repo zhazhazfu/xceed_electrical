@@ -124,7 +124,11 @@
         <div class="row">
         
             <div class="col-sm-4 mt-5 pt-5">
-                <img src="{{ public_path().'/storage/Xceed_logo_small_01-copy1.png' }}" class="img-fluid align-middle" width="350px" alt="Responsive image">
+                @if (Route::currentRouteName() == "preview")
+                    <img src="{{'/storage/Xceed_logo_small_01-copy1.png' }}" class="img-fluid align-middle" width="350px" alt="Responsive image">
+                @else
+                    <img src="{{ public_path().'/storage/Xceed_logo_small_01-copy1.png' }}" class="img-fluid align-middle" width="350px" alt="Responsive image">
+                @endif
             </div>
 
             <div class="col-sm-4">
