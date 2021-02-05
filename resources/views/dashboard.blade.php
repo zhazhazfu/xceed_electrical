@@ -106,7 +106,7 @@
 
                         <!-- 1 = sent, 2 = to send -->
                         @foreach($quotes as $quote)
-                            @if($quote->quote_status == '1')
+                            @if($quote->quote_status == '1' && $quote->quote_archived == "0")
                             <a href="/{{ 'preview' }}/{{ $quote->pk_quote_id }}" class="btn btn-block btn-danger rounded border" id="quotes" value="{{ $quote->pk_quote_id }}">
                             <h3> #{{$quote->prefix->prefix_name }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}} </h3>
                             <p> {{$quote->customers->customer_name}} </p>   
@@ -123,7 +123,7 @@
 
                         <!-- 1 = sent, 2 = to send -->
                         @foreach($quotes as $quote)
-                            @if($quote->quote_status == '2')
+                            @if($quote->quote_status == '2' && $quote->quote_archived == "0")
                             <a href="/{{ 'preview' }}/{{ $quote->pk_quote_id }}" class="btn btn-block btn-warning rounded border" id="quotes" value="{{ $quote->pk_quote_id }}">
                             <h3> #{{$quote->prefix->prefix_name }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}} </h3>
                             <p> {{$quote->customers->customer_name}} </p>   
@@ -138,7 +138,7 @@
                     <div class=" p-3 mb-5 bg-white rounded border">
                         <h3 class="text-center"> Sent <h3>
                         @foreach($quotes as $quote)
-                            @if($quote->quote_status == '3')
+                            @if($quote->quote_status == '3' && $quote->quote_archived == "0")
                             
                             <a href="/{{ 'preview' }}/{{ $quote->pk_quote_id }}" class="btn btn-block btn-success rounded border" id="quotes" value="{{ $quote->pk_quote_id }}">
                             <h3> #{{$quote->prefix->prefix_name }}-{{str_pad($quote->quote_number, 4, '0', STR_PAD_LEFT)}} </h3>
