@@ -116,7 +116,28 @@
                     @if($discount->discount_archived == '0')
                     <tr>
                         <td>{{ $discount->discount_name }}</td>
-                        <td>{{ $discount->discount_rate }}%</td>
+                        <td>
+                            {{-- {{ $discount->discount_rate }}% --}}
+                            @switch($discount->discount_rate)
+                                @case(1)
+                                    <span>0%</span>
+                                    @break
+                                @case(0.995)
+                                    <span>5%</span>
+                                    @break
+                                @case(0.99)
+                                    <span>10%</span>
+                                    @break
+                                @case(0.985)
+                                    <span>15%</span>
+                                @break
+                                @case(0.98)
+                                    <span>20%</span>
+                                @break
+                                @default
+                                    <span>Something went wrong, please try again</span>
+                             @endswitch
+                        </td>
                         <td><a href="{{action('DiscountController@edit', $discount['pk_discount_id'])}}">Edit</a></td>
                     </tr>
                     @endif
